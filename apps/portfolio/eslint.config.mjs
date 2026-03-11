@@ -1,12 +1,19 @@
+import { defineConfig } from 'eslint/config';
 import nx from '@nx/eslint-plugin';
+import angular from 'angular-eslint';
+import ngrx from '@ngrx/eslint-plugin/v9';
 import baseConfig from '../../eslint.config.mjs';
 
-export default [
+export default defineConfig([
   ...baseConfig,
   ...nx.configs['flat/angular'],
   ...nx.configs['flat/angular-template'],
   {
     files: ['**/*.ts'],
+    extends: [
+      ...ngrx.configs.signals,
+      ...ngrx.configs.operators,
+    ],
     rules: {
       '@angular-eslint/directive-selector': [
         'error',
@@ -31,4 +38,4 @@ export default [
     // Override or add rules here
     rules: {},
   },
-];
+]);
