@@ -7,7 +7,8 @@
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.mjs"
+      "!{projectRoot}/eslint.config.mjs",
+      "!{projectRoot}/stylelint.config.mjs"
     ],
     "sharedGlobals": []
   },
@@ -19,12 +20,11 @@
     },
     "@nx/eslint:lint": {
       "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore",
-        "{workspaceRoot}/eslint.config.mjs"
-      ]
+      "inputs": ["default", "{workspaceRoot}/eslint.config.mjs"]
+    },
+    "stylelint": {
+      "cache": true,
+      "inputs": ["default", "{workspaceRoot}/stylelint.config.mjs"]
     }
   },
   "plugins": [

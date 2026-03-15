@@ -62,6 +62,13 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
+    "stylelint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"**/*.scss\"",
+        "cwd": "{projectRoot}"
+      }
+    },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
