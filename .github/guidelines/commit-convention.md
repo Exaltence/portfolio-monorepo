@@ -31,6 +31,8 @@ For breaking changes, include a BREAKING CHANGE: footer with a description of th
 
 - The scope should be a noun describing a section of the codebase
 - The description should be in present tense, lowercase, and without a period at the end
+- The commit title (type, scope, and description combined) must not exceed 100 characters
+- Each line in the commit body must not exceed 100 characters
 
 ## Examples
 
