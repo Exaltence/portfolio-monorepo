@@ -48,5 +48,17 @@
       "style": "scss",
       "unitTestRunner": "vitest"
     }
+  },
+  "release": {
+    "projects": ["portfolio"],
+    "version": {
+      "conventionalCommits": true,
+      "fallbackCurrentVersionResolver": "disk"
+    },
+    "changelog": {
+      "workspaceChangelog": {
+        "file": "CHANGELOG.md"
+      }
+    }
   }
 }

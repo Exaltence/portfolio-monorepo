@@ -4,7 +4,7 @@
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
 ## Run tasks
 
@@ -89,13 +89,71 @@ Nx Console is an editor extension that enriches your developer experience. It le
 
 Learn more:
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
+- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 - [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 - [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 - [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
 And join the Nx community:
+
 - [Discord](https://go.nx.dev/community)
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Local developer setup
+
+After cloning, run the following to install dependencies and activate git hooks:
+
+```sh
+npm install
+```
+
+The `prepare` script runs automatically and installs the Lefthook git hooks (pre-commit, commit-msg, pre-push).
+
+### Commit conventions
+
+All commits must follow [Conventional Commits](https://www.conventionalcommits.org/).
+See [.github/guidelines/commit-convention.md](.github/guidelines/commit-convention.md) for full rules and examples.
+
+### Branch naming
+
+Branches must match one of these patterns:
+
+- `main`
+- `develop`
+- `feature/<slug>`
+- `fix/<slug>`
+- `hotfix/<slug>`
+- `release/<slug>`
+- `chore/<slug>`
+- `docs/<slug>`
+
+(Where slug is `[a-z0-9._-]+`.)
+
+### Creating a release
+
+```sh
+# Preview the next release (no changes made)
+npx nx release --dry-run --first-release   # first release only
+npx nx release --dry-run                   # subsequent releases
+
+# Execute the release
+npx nx release --first-release   # first release only
+npx nx release                   # subsequent releases
+```
+
+## GitHub Pages deployment
+
+The portfolio is automatically deployed to GitHub Pages on every push to `main` via the `.github/workflows/deploy-pages.yml` workflow.
+
+Live URL: `https://exaltence.github.io/portfolio-monorepo/`
+
+### One-time repository settings required
+
+Before the workflow can deploy successfully, configure the repository once:
+
+1. Go to **Settings > Pages** in the GitHub repository.
+2. Under **Build and deployment > Source**, select **GitHub Actions**.
+
+This setting is not automated and must be applied manually by a repository admin before the first deployment.

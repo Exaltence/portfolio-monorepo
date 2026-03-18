@@ -42,6 +42,10 @@
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true
+        },
+        "github-pages": {
+          "extends": "production",
+          "baseHref": "/portfolio-monorepo/"
         }
       },
       "defaultConfiguration": "production"
