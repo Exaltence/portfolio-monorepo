@@ -11,6 +11,9 @@ pre-commit:
       run: npx eslint --fix {staged_files}
       stage_fixed: true
       fail_text: 'ESLint found issues that could not be auto-fixed. Fix them before committing.'
+    test:
+      run: npx nx run-many --target=test
+      fail_text: 'Unit tests failed. Fix all failing tests before committing.'
 
 commit-msg:
   commands:
@@ -30,3 +33,6 @@ pre-push:
     build:
       run: npx nx run-many --target=build
       fail_text: 'Push rejected: build failed. Fix all build errors before pushing.'
+    e2e:
+      run: npx nx run-many --target=e2e
+      fail_text: 'Push rejected: E2E tests failed. Fix all failing tests before pushing.'
