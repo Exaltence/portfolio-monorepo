@@ -25,14 +25,18 @@ pre-push:
   parallel: false
   commands:
     branch-name:
+      priority: 1
       run: node tools/git/scripts/check-branch-name.js
       fail_text: 'Push rejected: branch name does not match the allowed naming convention.'
     lint:
+      priority: 2
       run: npx nx run-many --target=lint
       fail_text: 'Push rejected: lint errors found. Fix all lint issues before pushing.'
     build:
+      priority: 3
       run: npx nx run-many --target=build
       fail_text: 'Push rejected: build failed. Fix all build errors before pushing.'
     e2e:
+      priority: 4
       run: npx nx run-many --target=e2e
       fail_text: 'Push rejected: E2E tests failed. Fix all failing tests before pushing.'
