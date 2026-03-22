@@ -7,11 +7,14 @@
     "build": "nx run-many --target=build",
     "build:portfolio": "nx run portfolio:build",
     "serve:portfolio": "nx run portfolio:serve",
+    "test:portfolio": "nx run portfolio:test",
     "lint": "nx run-many --target=lint",
     "stylelint": "nx run-many --target=stylelint",
     "format:check": "nx format:check",
     "format:write": "nx format:write",
-    "e2e": "nx run portfolio-e2e:e2e"
+    "test": "nx run-many --target=test",
+    "e2e": "nx run portfolio-e2e:e2e",
+    "e2e:report": "playwright show-report dist/.playwright/apps/portfolio-e2e/playwright-report"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +55,7 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-playwright": "^1.6.2",
+    "jsdom": "^27.4.0",
     "lefthook": "^2.1.4",
     "nx": "22.5.3",
     "prettier": "~3.6.2",
@@ -59,6 +63,7 @@
     "stylelint-config-standard-scss": "^17.0.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "typescript-eslint": "^8.40.0",
+    "vitest": "^4.1.0"
   }
 }

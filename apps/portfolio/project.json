@@ -75,16 +75,6 @@
       },
       "defaultConfiguration": "development"
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "stylelint": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "stylelint \"**/*.scss\"",
-        "cwd": "{projectRoot}"
-      }
-    },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
@@ -93,6 +83,23 @@
         "port": 4200,
         "staticFilePath": "dist/apps/portfolio/browser",
         "spa": true
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "apps/portfolio/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "stylelint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"**/*.scss\"",
+        "cwd": "{projectRoot}"
       }
     }
   }
