@@ -20,7 +20,6 @@
   "schedule": ["before 6am on monday"],
   "labels": ["dependencies"],
   "assignees": ["Exaltence"],
-  "reviewers": ["Exaltence"],
   "enabledManagers": ["npm", "github-actions"],
   "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/coverage/**"],
   "packageRules": [
