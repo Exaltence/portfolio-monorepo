@@ -29,14 +29,16 @@
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "prPriority": 12
     },
     {
       "description": "TypeScript type definitions — safe to automerge.",
       "matchPackageNames": ["/^@types\\//"],
       "groupName": "TypeScript type definitions",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "prPriority": 8
     },
     {
       "description": "Linting and formatting toolchain — safe to automerge.",
@@ -52,7 +54,8 @@
       ],
       "groupName": "linting and formatting",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "prPriority": 11
     },
     {
       "description": "Testing frameworks — safe to automerge.",
@@ -64,14 +67,16 @@
       ],
       "groupName": "testing frameworks",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "prPriority": 10
     },
     {
       "description": "Build tooling (SWC compiler, tslib) — safe to automerge.",
       "matchPackageNames": ["/^@swc\\//", "/^@swc-node\\//", "tslib"],
       "groupName": "build tooling",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "prPriority": 9
     },
     {
       "description": "Catch-all: all remaining patch and minor npm updates.",
@@ -80,7 +85,8 @@
       "groupName": "non-major dependencies",
       "groupSlug": "all-minor-patch",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "prPriority": 7
     },
     {
       "description": "Catch-all: all remaining major npm updates.",
@@ -88,25 +94,29 @@
       "matchUpdateTypes": ["major"],
       "groupName": "major dependencies",
       "groupSlug": "all-major",
-      "automerge": false
+      "automerge": false,
+      "prPriority": 6
     },
     {
       "description": "RxJS — major updates may require Angular compatibility checks.",
       "matchPackageNames": ["rxjs"],
       "groupName": "RxJS",
-      "automerge": false
+      "automerge": false,
+      "prPriority": 2
     },
     {
       "description": "TypeScript core — major changes require Angular compatibility verification.",
       "matchPackageNames": ["typescript"],
       "groupName": "TypeScript core",
-      "automerge": false
+      "automerge": false,
+      "prPriority": 1
     },
     {
       "description": "NgRx ecosystem — follows Angular versioning.",
       "matchPackageNames": ["/^@ngrx\\//"],
       "groupName": "NgRx ecosystem",
-      "automerge": false
+      "automerge": false,
+      "prPriority": 3
     },
     {
       "description": "Angular framework (ALL updates manual). Includes CLI, devkit, build tooling, schematics and angular-eslint. Prefer coordinated upgrades using `ng update`.",
@@ -117,13 +127,15 @@
         "angular-eslint"
       ],
       "groupName": "Angular framework",
-      "automerge": false
+      "automerge": false,
+      "prPriority": 4
     },
     {
       "description": "Nx monorepo (ALL updates manual). All @nx/* packages must share the same version. For major updates prefer `nx migrate latest` + `nx migrate --run-migrations`.",
       "matchPackageNames": ["nx", "/^@nx\\//", "/^@nrwl\\//"],
       "groupName": "Nx",
-      "automerge": false
+      "automerge": false,
+      "prPriority": 5
     },
     {
       "description": "Disable Node.js engine constraint updates.",
