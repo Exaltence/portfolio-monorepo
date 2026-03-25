@@ -64,5 +64,6 @@
         "file": "CHANGELOG.md"
       }
     }
-  }
+  },
+  "analytics": false
 }
