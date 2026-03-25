@@ -1,0 +1,149 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":dependencyDashboard",
+    ":rebaseStalePrs",
+    ":separateMajorReleases",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":prImmediately",
+    ":automergeDisabled",
+    ":maintainLockFilesWeekly",
+    ":prConcurrentLimit10"
+  ],
+  "platformAutomerge": true,
+  "rangeStrategy": "bump",
+  "semanticCommits": "enabled",
+  "timezone": "Europe/Brussels",
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "assignees": ["Exaltence"],
+  "reviewers": ["Exaltence"],
+  "enabledManagers": ["npm", "github-actions"],
+  "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/coverage/**"],
+  "packageRules": [
+    {
+      "description": "GitHub Actions workflow dependencies — safe to automerge.",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "TypeScript type definitions — safe to automerge.",
+      "matchPackageNames": ["/^@types\\//"],
+      "groupName": "TypeScript type definitions",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Linting and formatting toolchain — safe to automerge.",
+      "matchPackageNames": [
+        "/^eslint/",
+        "/^@eslint\\//",
+        "/^prettier/",
+        "/^lefthook/",
+        "typescript-eslint",
+        "/^@typescript-eslint\\//",
+        "/^stylelint/",
+        "/^@commitlint/"
+      ],
+      "groupName": "linting and formatting",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Testing frameworks — safe to automerge.",
+      "matchPackageNames": [
+        "/^vitest/",
+        "/^@vitest\\//",
+        "/^@playwright\\//",
+        "jsdom"
+      ],
+      "groupName": "testing frameworks",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Build tooling (SWC compiler, tslib) — safe to automerge.",
+      "matchPackageNames": ["/^@swc\\//", "/^@swc-node\\//", "tslib"],
+      "groupName": "build tooling",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Catch-all: all remaining patch and minor npm updates.",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Catch-all: all remaining major npm updates.",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "major dependencies",
+      "groupSlug": "all-major",
+      "automerge": false
+    },
+    {
+      "description": "RxJS — major updates may require Angular compatibility checks.",
+      "matchPackageNames": ["rxjs"],
+      "groupName": "RxJS",
+      "automerge": false
+    },
+    {
+      "description": "TypeScript core — major changes require Angular compatibility verification.",
+      "matchPackageNames": ["typescript"],
+      "groupName": "TypeScript core",
+      "automerge": false
+    },
+    {
+      "description": "NgRx ecosystem — follows Angular versioning.",
+      "matchPackageNames": ["/^@ngrx\\//"],
+      "groupName": "NgRx ecosystem",
+      "automerge": false
+    },
+    {
+      "description": "Angular framework (ALL updates manual). Includes CLI, devkit, build tooling, schematics and angular-eslint. Prefer coordinated upgrades using `ng update`.",
+      "matchPackageNames": [
+        "/^@angular\\//",
+        "/^@angular-devkit\\//",
+        "/^@schematics\\/angular/",
+        "angular-eslint"
+      ],
+      "groupName": "Angular framework",
+      "automerge": false
+    },
+    {
+      "description": "Nx monorepo (ALL updates manual). All @nx/* packages must share the same version. For major updates prefer `nx migrate latest` + `nx migrate --run-migrations`.",
+      "matchPackageNames": ["nx", "/^@nx\\//", "/^@nrwl\\//"],
+      "groupName": "Nx",
+      "automerge": false
+    },
+    {
+      "description": "Disable Node.js engine constraint updates.",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["at any time"]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "prCreation": "immediate",
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
+  "updatePinnedDependencies": false
+}
