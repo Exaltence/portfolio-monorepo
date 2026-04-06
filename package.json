@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepare": "lefthook install",
+    "prepare": "lefthook install && playwright install",
     "build": "nx run-many --target=build",
     "build:portfolio": "nx run portfolio:build",
     "serve:portfolio": "nx run portfolio:serve",
