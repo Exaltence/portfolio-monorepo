@@ -30,8 +30,45 @@ export default defineConfig([
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
+              sourceTag: 'type:app',
+              onlyDependOnLibsWithTags: [
+                'type:feature',
+                'type:ui',
+                'type:domain',
+                'type:util',
+              ],
+            },
+            {
+              sourceTag: 'type:e2e',
+              onlyDependOnLibsWithTags: ['type:test'],
+            },
+            {
+              sourceTag: 'type:feature',
+              onlyDependOnLibsWithTags: ['type:ui', 'type:domain', 'type:util'],
+            },
+            {
+              sourceTag: 'type:ui',
+              onlyDependOnLibsWithTags: ['type:domain', 'type:util'],
+            },
+            {
+              sourceTag: 'type:domain',
+              onlyDependOnLibsWithTags: ['type:util'],
+            },
+            {
+              sourceTag: 'type:util',
+              onlyDependOnLibsWithTags: ['type:util'],
+            },
+            {
+              sourceTag: 'type:test',
+              onlyDependOnLibsWithTags: ['type:test'],
+            },
+            {
+              sourceTag: 'domain:shared',
+              onlyDependOnLibsWithTags: ['domain:shared'],
+            },
+            {
+              sourceTag: 'domain:portfolio',
+              onlyDependOnLibsWithTags: ['domain:portfolio', 'domain:shared'],
             },
           ],
         },
