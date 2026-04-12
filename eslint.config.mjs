@@ -34,7 +34,7 @@ export default defineConfig([
               onlyDependOnLibsWithTags: [
                 'type:feature',
                 'type:ui',
-                'type:domain',
+                'type:data',
                 'type:util',
               ],
             },
@@ -44,14 +44,14 @@ export default defineConfig([
             },
             {
               sourceTag: 'type:feature',
-              onlyDependOnLibsWithTags: ['type:ui', 'type:domain', 'type:util'],
+              onlyDependOnLibsWithTags: ['type:ui', 'type:data', 'type:util'],
             },
             {
               sourceTag: 'type:ui',
-              onlyDependOnLibsWithTags: ['type:domain', 'type:util'],
+              onlyDependOnLibsWithTags: ['type:data', 'type:util'],
             },
             {
-              sourceTag: 'type:domain',
+              sourceTag: 'type:data',
               onlyDependOnLibsWithTags: ['type:util'],
             },
             {
