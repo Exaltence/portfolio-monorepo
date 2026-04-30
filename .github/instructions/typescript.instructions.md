@@ -13,20 +13,12 @@ applyTo: '**/*.ts'
   - Use type inference where safe, but be explicit for public APIs.
 
   ```typescript
-  // Prefer — explicit typing
   interface User {
     id: string;
     name: string;
   }
 
   function getUser(id: string): User {
-    /* ... */
-  }
-  ```
-
-  ```typescript
-  // Avoid — implicit any
-  function getUser(id) {
     /* ... */
   }
   ```
@@ -194,9 +186,6 @@ App-level configs extend the base with additional rule sets:
 
 ## 7. Error Handling
 
-- Always handle errors in async code with try-catch
-- Never swallow errors silently; log or rethrow
-
 ```typescript
 async function fetchData(): Promise<Data> {
   try {
@@ -211,6 +200,8 @@ async function fetchData(): Promise<Data> {
 }
 ```
 
+- Always narrow `unknown` before use; never silently swallow errors — log or rethrow
+
 ## 8. Testing
 
 Scope: TypeScript-level concerns only. Angular TestBed configuration patterns and NgRx store testing belong in their respective instruction files.
@@ -219,8 +210,6 @@ Scope: TypeScript-level concerns only. Angular TestBed configuration patterns an
 - Use `ComponentFixture<T>` for typed component fixtures
 - Use the AAA pattern (Arrange, Act, Assert)
 - Test descriptions must be explicit about the expected behaviour
-
-Angular component test (TestBed + Vitest):
 
 ```typescript
 describe('MyComponent', () => {
@@ -241,20 +230,7 @@ describe('MyComponent', () => {
 });
 ```
 
-Pure function / data test:
-
-```typescript
-describe('getUser', () => {
-  it('returns user by id', () => {
-    // Arrange
-    const users: User[] = [{ id: '1', name: 'Alice' }];
-    // Act
-    const result = getUser('1', users);
-    // Assert
-    expect(result).toEqual({ id: '1', name: 'Alice' });
-  });
-});
-```
+- Pure functions: use AAA pattern (Arrange, Act, Assert) — no TestBed needed
 
 ## 9. No Sensitive Data
 

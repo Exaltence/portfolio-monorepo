@@ -13,41 +13,32 @@ This project follows a Domain-Driven Design (DDD) approach for modularity, maint
 
 ### File Naming
 
-- **Use kebab-case:** Separate words with hyphens in file names
-  - Example: `user-profile.ts`, `task-list.ts`, `dashboard-overview.html`
-
-- **Type suffixes in file names:** Include `.component`, `.service`, `.directive`, `.pipe`, `.util` in file names
-  - Correct: `user-profile.component.ts`, `task.service.ts`, `date.util.ts`
-  - Avoid: `user-profile.ts`, `task-api.ts`, `highlight.ts`
-
-- **Match file names to class names:** The file name should reflect the class it contains
-  - Class `UserProfileComponent` → file `user-profile.component.ts`
-  - Class `TaskService` → file `task.service.ts`
-
-- **Related files share the same base name:**
+- Use kebab-case with type suffixes:
+  - ✅ `user-profile.component.ts`, `task.service.ts`, `date.util.ts`, `task.model.ts`
+  - ❌ `user-profile.ts`, `task-api.ts`, `highlight.ts`
+- Match file names to class names: `UserProfileComponent` → `user-profile.component.ts`
+- Related files share the same base name:
 
   ```
   user-profile/
-    user-profile.component.ts      # Component class
-    user-profile.component.html    # Template
-    user-profile.component.scss    # Styles
-    user-profile.component.spec.ts # Tests
+    user-profile.component.ts
+    user-profile.component.html
+    user-profile.component.scss
+    user-profile.component.spec.ts
   ```
 
-- **Model files:** `.model` suffix for model/interface files
-  - Example: `task.model.ts`, `user.model.ts`
-
-- **Test and page object files:** `.spec` suffix for test specification files, `.page` suffix for Playwright page object models
-  - Example: `home.spec.ts`, `home.page.ts`
+- Test files: `.spec` suffix. Playwright page objects: `.page` suffix.
 
 ### Class Naming
 
-- **Type suffixes:** Use `PascalCase` WITH type suffixes
-  - Correct: `UserProfileComponent`, `TaskListComponent`, `TaskApiService`, `HighlightDirective`, `DateFormatPipe`
-  - Avoid: `UserProfile`, `TaskList`, `TaskApi`, `Highlight`, `DateFormat`
-  - **Exception:** `util` files export plain functions, not classes. No `DateFormatUtil` class — just exported functions in a `.util.ts` file.
+- Use `PascalCase` WITH type suffixes:
+  - ✅ `UserProfileComponent`, `TaskApiService`, `HighlightDirective`, `DateFormatPipe`
+  - ❌ `UserProfile`, `TaskApi`, `Highlight`, `DateFormat`
+- **Exception:** `util` files export plain functions, not classes. No `DateFormatUtil` class — just exported functions in a `.util.ts` file.
 
 ## 2. DDD Structure
+
+Each domain (`libs/<domain>/`) is divided into `feature/`, `ui/`, `data/`, `util/` layers with strict responsibilities.
 
 - **Domains:**
   - Business domains live under `libs/<domain>/` (e.g., `libs/portfolio/`, `libs/shared/`).
