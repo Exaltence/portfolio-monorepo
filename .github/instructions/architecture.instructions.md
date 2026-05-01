@@ -153,7 +153,9 @@ libs/
             infrastructure-api-2.service.ts
             ...
           state/
-            state.store.ts
+            portfolio-state.store.ts
+            feature-1.store.ts
+            ...
     feature/
       feature-1/
         src/
