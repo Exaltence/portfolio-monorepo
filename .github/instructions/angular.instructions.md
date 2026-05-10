@@ -13,26 +13,40 @@ applyTo: '**/*.ts, **/*.html, **/*.scss'
 
 ## 1. Forbidden Patterns
 
-These patterns MUST NOT appear in any generated or modified code:
+These patterns MUST NOT appear in any generated or modified code.
+
+### Decorators & DI
 
 - ❌ `standalone: true` in decorators (default since v19 — setting it is redundant)
-- ❌ `CommonModule`, `RouterModule`, `FormsModule`, `ReactiveFormsModule` imports — import standalone symbols directly (`RouterOutlet`, `RouterLink`, etc.)
 - ❌ `@Input()` / `@Output()` decorators — use `input()` / `output()` functions
 - ❌ `@ViewChild` / `@ViewChildren` / `@ContentChild` / `@ContentChildren` decorators — use signal queries (`viewChild`, `viewChildren`, `contentChild`, `contentChildren`)
 - ❌ `@HostBinding` / `@HostListener` — use `host` object in decorator metadata
 - ❌ Constructor-based injection — use `inject()` function
-- ❌ `any` type — use `unknown` when type is genuinely unknown
+
+### Imports & Modules
+
+- ❌ `CommonModule`, `RouterModule`, `FormsModule`, `ReactiveFormsModule` imports — import standalone symbols directly (`RouterOutlet`, `RouterLink`, etc.)
+- ❌ `NgModules` for new features — always standalone
+
+### State & Reactivity
+
 - ❌ `ngOnChanges` — use `computed()` or `linkedSignal()` for derived/resettable state
-- ❌ `async` pipe — use `toSignal()` to bridge Observables into template-consumed signals
-- ❌ Class-based guards / resolvers / interceptors — use functional equivalents
+- ❌ `async` pipe — use `toSignal()` to convert Observables into template-consumed signals
 - ❌ `subscribe()` in components — use `toSignal()`, `resource()`, or `effect()`
 - ❌ `mutate()` on signals — use `update()` or `set()`
+- ❌ Class-based guards / resolvers / interceptors — use functional equivalents
+
+### Templates & Styling
+
 - ❌ `*ngIf` / `*ngFor` / `*ngSwitch` — use `@if` / `@for` / `@switch`
 - ❌ `ngClass` / `ngStyle` — use `[class.name]` / `[style.prop]` bindings
-- ❌ `NgModules` for new features — always standalone
 - ❌ `::ng-deep` — use component encapsulation or global theme files
 - ❌ Arrow functions in templates (not supported)
 - ❌ Assuming globals like `new Date()` in templates
+
+### Typing
+
+- ❌ `any` type — use `unknown` when type is genuinely unknown
 
 ---
 
@@ -118,12 +132,25 @@ export class UserProfileComponent {
 
 Components and services behave differently depending on which Nx library type they reside in. See `architecture.instructions.md` for the full DDD layout.
 
-| Library Type | Allowed                                                                                                           | Forbidden                                                                             |
-| ------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `feature/`   | Inject stores from `data/`, inject services, use `computed()` over store selectors, pass data to `ui/` via inputs | Direct `HttpClient` usage, raw `httpResource()` (belongs in `data/`)                  |
-| `ui/`        | Local `signal()`, `computed()`, `linkedSignal()`, `input()`, `output()`, `model()`                                | Injecting ANY store or domain service, `effect()` with side effects, `httpResource()` |
-| `data/`      | NgRx Signal Store, `httpResource()`, `rxMethod()`, `HttpClient` for mutations, `effect()`                         | Component references, template logic, importing from `feature/` or `ui/`              |
-| `util/`      | Pure exported functions, types, constants                                                                         | Any DI (`inject()`), signals, state, Angular decorators                               |
+### `feature/` libraries
+
+- **Allowed:** Inject stores from `data/`, inject services, use `computed()` over store selectors, pass data to `ui/` via inputs
+- **Forbidden:** Direct `HttpClient` usage, raw `httpResource()` (belongs in `data/`)
+
+### `ui/` libraries
+
+- **Allowed:** Local `signal()`, `computed()`, `linkedSignal()`, `input()`, `output()`, `model()`
+- **Forbidden:** Injecting ANY store or domain service, `effect()` with side effects, `httpResource()`
+
+### `data/` libraries
+
+- **Allowed:** NgRx Signal Store, `httpResource()`, `rxMethod()`, `HttpClient` for mutations, `effect()`
+- **Forbidden:** Component references, template logic, importing from `feature/` or `ui/`
+
+### `util/` libraries
+
+- **Allowed:** Pure exported functions, types, constants
+- **Forbidden:** Any DI (`inject()`), signals, state, Angular decorators
 
 ---
 
@@ -244,7 +271,7 @@ private readonly route = inject(ActivatedRoute);
 protected readonly id = toSignal(this.route.params.pipe(map((p) => p['id'])));
 ```
 
-- Use `toSignal()` to bridge RxJS → Signals (replaces `async` pipe)
+- Use `toSignal()` to convert RxJS Observables into Angular Signals for template consumption (replaces `async` pipe)
 - Use `toObservable()` only when feeding signal data into RxJS operators
 
 ---

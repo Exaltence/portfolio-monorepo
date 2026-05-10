@@ -7,26 +7,37 @@ applyTo: '**/*.store.ts'
 
 > **Scope:** Signal Store creation, state, computed, methods, entities, lifecycle hooks, custom features, and RxJS/signal-method integration. This file does NOT cover: component architecture or DI (`angular.instructions.md`), DDD layering or naming (`architecture.instructions.md`), testing (`ngrx-signals-testing.instructions.md`), or TypeScript typing/formatting (`typescript.instructions.md`).
 
-> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — see `typescript.instructions.md` §10.
+> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project forbids inline code comments and JSDoc (see `typescript.instructions.md` §10).
 
 ---
 
 ## 1. Forbidden Patterns
 
-These patterns MUST NOT appear in any generated or modified store code:
+These patterns MUST NOT appear in any generated or modified store code.
+
+### State & Mutability
 
 - ❌ `protectedState: false` — state is protected by default; never weaken it
 - ❌ `protectedState: true` — it is the default; setting it is redundant
+- ❌ Mutable array/object operations (`push`, `splice`, `delete`) inside `patchState` — return new references
+- ❌ `effect()` inside stores for state derivation — use `withComputed` or `withLinkedState`
+
+### Methods & Async
+
 - ❌ `subscribe()` inside stores — use `rxMethod`, `signalMethod`, or `withHooks`
 - ❌ `signalMethod` for imperative CRUD — use plain methods for static-value state updates
 - ❌ `async`/`await` with Observable-based services — use `rxMethod` with `tapResponse`
-- ❌ Mutable array/object operations (`push`, `splice`, `delete`) inside `patchState` — return new references
+
+### DI & Lifecycle
+
+- ❌ Calling `inject()` outside `withMethods`/`withProps`/`withHooks` factory context
+- ❌ Wrapper provider functions (`provideXxxStore()`) — stores are already injectable; avoid indirection
+- ❌ `onInit` returning a cleanup function — use `onDestroy` for teardown
+
+### Typing
+
 - ❌ `any` in state interfaces, method signatures, or generics
 - ❌ Explicit generic on `withState` when inferable — `withState<T>({...})` only needed for union types or `inject()`-based factories
-- ❌ `onInit` returning a cleanup function — use `onDestroy` for teardown
-- ❌ Wrapper provider functions (`provideXxxStore()`) — stores are already injectable; avoid indirection
-- ❌ `effect()` inside stores for state derivation — use `withComputed` or `withLinkedState`
-- ❌ Calling `inject()` outside `withMethods`/`withProps`/`withHooks` factory context
 
 ---
 

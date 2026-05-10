@@ -9,13 +9,21 @@ applyTo: '**'
 
 ## Core
 
+### Platform
+
 - **Monorepo:** Nx — workspace management, code generation, caching, and task orchestration
-- **Framework:** Angular — standalone components, signals, modern control flow; no NgModules
+- **Framework:** Angular — standalone components, signals, built-in control flow (`@if`, `@for`, `@switch`); no NgModules
 - **Language:** TypeScript — strict mode
+
+### Data & Reactivity
+
 - **State Management:** NgRx Signal Store — signal-based reactive state
 - **Forms:** Angular Signal Forms (`@angular/forms/signals`) — schema-based validation
-- **HTTP / Async:** Angular resource API for reactive data fetching; `HttpClient` for mutations
+- **HTTP / Async:** `httpResource()` for reactive data fetching; `HttpClient` for mutations (POST/PUT/DELETE)
 - **Reactivity:** Angular Signals as the primary reactivity model; RxJS at integration boundaries only
+
+### Styling
+
 - **Styling:** SCSS — component and global styles
 
 ## Testing

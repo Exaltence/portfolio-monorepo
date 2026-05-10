@@ -1,5 +1,5 @@
 ---
-description: 'TypeScript coding standards including strict typing, formatting rules, naming conventions, error handling, and testing patterns'
+description: 'TypeScript coding standards grouped by topic: typing (§1-2), modules & formatting (§3-4), linting & file size (§5-6), error handling & testing (§7-8), security & comments (§9-10)'
 applyTo: '**/*.ts'
 ---
 
@@ -238,4 +238,4 @@ Never include sensitive data (API keys, secrets, credentials) in client-side cod
 
 ## 10. Code Comments and JSDoc
 
-Do not use inline code comments or JSDoc in TypeScript code. Use clear naming, structure, and these guidelines instead. If documentation is needed, use external markdown files.
+Do not use inline code comments or JSDoc in TypeScript code for this project. Use clear naming, structure, and these guidelines instead. If documentation is needed, use external markdown files.
