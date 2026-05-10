@@ -61,32 +61,37 @@ Each domain (`libs/<domain>/`) is divided into `feature/`, `ui/`, `data/`, `util
 
 - **Cross-domain code:**
   - App-wide infrastructure (layout, themes, app-level services, app-level components, app-level utilities) lives in `libs/shared/`.
-  - Promote shared code into `libs/shared/` only when it is truly used by multiple domains.
+  - Promote shared code into `libs/shared/` only when it is used by two or more domains.
 
 ## 3. Nx Dependency Constraints
 
 Module boundaries enforced via `@nx/enforce-module-boundaries` using two tag dimensions: `type:*` and `domain:*`.
 
-### Type constraints
+### Type constraints (layered, top-down)
 
-| Type           | Can Depend On                                       |
-| -------------- | --------------------------------------------------- |
-| `type:app`     | `type:feature`, `type:ui`, `type:data`, `type:util` |
-| `type:e2e`     | `type:test`                                         |
-| `type:feature` | `type:ui`, `type:data`, `type:util`                 |
-| `type:ui`      | `type:data`, `type:util`                            |
-| `type:data`    | `type:util`                                         |
-| `type:util`    | `type:util`                                         |
-| `type:test`    | `type:test`                                         |
+Dependencies flow **downward only** — a layer may import from any layer below it, never above.
+
+```text
+app  →  feature  →  ui  →  data  →  util
+```
+
+- `type:app` → `type:feature`, `type:ui`, `type:data`, `type:util`
+- `type:feature` → `type:ui`, `type:data`, `type:util`
+- `type:ui` → `type:data`, `type:util`
+- `type:data` → `type:util`
+- `type:util` → `type:util` (peer utilities only)
+
+Isolated types (no cross-layer access):
+
+- `type:e2e` → `type:test`
+- `type:test` → `type:test`
 
 ### Domain constraints
 
-| Domain             | Can Depend On                       |
-| ------------------ | ----------------------------------- |
-| `domain:shared`    | `domain:shared`                     |
-| `domain:portfolio` | `domain:portfolio`, `domain:shared` |
+Each domain may depend on itself and on `domain:shared`. `domain:shared` may only depend on itself.
 
-Domain constraints prevent cross-domain pollution — `domain:portfolio` libs may use `domain:shared` libs, but never vice versa.
+- `domain:portfolio` → `domain:portfolio`, `domain:shared`
+- `domain:shared` → `domain:shared`
 
 ### Tag reference
 

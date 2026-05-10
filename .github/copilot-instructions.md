@@ -19,10 +19,10 @@ Detailed guidance lives in `.github/instructions/` (auto-applied via `applyTo` g
 - `typescript.instructions.md` — Strict TypeScript conventions
 - `techstack.instructions.md` — Full tech stack reference
 
-## General rules
+## General rules (highest to lowest priority)
 
-- Be concise; show code over prose.
-- Match existing patterns in `src/app/` and `src/lib/`. Reuse before creating.
-- Strong typing always. No `any`.
-- No code comments unless explicitly requested.
-- Ask when requirements are ambiguous.
+1. Match existing patterns in `src/app/` and `src/lib/`. Reuse before creating.
+2. Strong typing always. No `any`.
+3. No code comments unless explicitly requested.
+4. Be concise; show code over prose.
+5. Ask when requirements are ambiguous.
