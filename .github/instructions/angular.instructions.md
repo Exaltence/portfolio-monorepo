@@ -9,11 +9,21 @@ applyTo: '**/*.ts, **/*.html, **/*.scss'
 
 > Angular v21: Zoneless change detection is the default (`provideZonelessChangeDetection()`). ZoneJS is not installed. `provideHttpClient()` is no longer required in test providers — only use `provideHttpClientTesting()` for HTTP testing.
 
+> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project forbids inline code comments and JSDoc (see `typescript.instructions.md` §10).
+
 ---
 
 ## 1. Forbidden Patterns
 
 These patterns MUST NOT appear in any generated or modified code.
+
+| Category            | Key prohibitions                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Decorators & DI     | No `@Input`/`@Output`/`@ViewChild`/`@HostBinding`; no constructor injection; no redundant `standalone: true` |
+| Imports & Modules   | No `CommonModule`/`RouterModule`/`FormsModule`; no NgModules                                                 |
+| State & Reactivity  | No `ngOnChanges`/`async` pipe/`subscribe()`/`mutate()`; no class-based guards                                |
+| Templates & Styling | No structural directives (`*ngIf`/`*ngFor`); no `ngClass`/`ngStyle`/`::ng-deep`                              |
+| Typing              | No `any` — use `unknown`                                                                                     |
 
 ### Decorators & DI
 
@@ -71,7 +81,6 @@ Rules:
 - `changeDetection: ChangeDetectionStrategy.OnPush` — mandatory on ALL components (serves as a compatibility safeguard and makes signal-based notifications explicit, even though the app runs zoneless)
 - `selector` — element selector with project prefix (`app` for `apps/portfolio`)
 - External template (`.component.html`) and styles (`.component.scss`) — always; no inline templates
-- Do NOT set `standalone: true` — it is the default
 
 ### Property Organization
 
