@@ -45,17 +45,19 @@ These patterns MUST NOT appear in any generated or modified test code.
 
 ## 2. Test Pattern Decision Table
 
-| Need                                             | Pattern                                                                | Why                                                             |
-| ------------------------------------------------ | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
-| Trigger change detection after state change      | `await fixture.whenStable()`                                           | Zoneless-compatible; waits for all pending async tasks          |
-| Set a signal `input()` on a component under test | `fixture.componentRef.setInput('name', value)`                         | Signal inputs are read-only externally                          |
-| Set a `model()` or local `signal()`              | `component.value.set(v)` or `component.value.update(fn)`               | Writable signals allow direct mutation                          |
-| Mock a service dependency                        | `Mocked<T>` stub + `{ provide: T, useValue: stub }`                    | Type-safe, no `any`                                             |
-| Spy on a method call                             | `vi.spyOn(instance, 'method')`                                         | Non-destructive — preserves original unless overridden          |
-| Mock an entire module                            | `vi.mock('./path')`                                                    | Hoisted to top of file; replaces all exports                    |
-| Test time-dependent logic                        | `vi.useFakeTimers()` / `vi.runAllTimersAsync()` / `vi.useRealTimers()` | Controls `setTimeout`, `Promise` timing without zone.js         |
-| Provide routing context                          | `provideRouter([])` in test providers                                  | Satisfies `ActivatedRoute`, `Router`, `RouterLink` dependencies |
-| Test HTTP services                               | `provideHttpClientTesting()` + `HttpTestingController`                 | No real network calls; verify request/response pairs            |
+| Need                                             | Pattern                                                                | Why                                                              |
+| ------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Trigger change detection after state change      | `await fixture.whenStable()`                                           | Zoneless-compatible; waits for all pending async tasks           |
+| Set a signal `input()` on a component under test | `fixture.componentRef.setInput('name', value)`                         | Signal inputs are read-only externally                           |
+| Set a `model()` or local `signal()`              | `component.value.set(v)` or `component.value.update(fn)`               | Writable signals allow direct mutation                           |
+| Mock a service dependency                        | `Mocked<T>` stub + `{ provide: T, useValue: stub }`                    | Type-safe, no `any`                                              |
+| Spy on a method call                             | `vi.spyOn(instance, 'method')`                                         | Non-destructive — preserves original unless overridden           |
+| Mock an entire module                            | `vi.mock('./path')`                                                    | Hoisted to top of file; replaces all exports                     |
+| Test time-dependent logic                        | `vi.useFakeTimers()` / `vi.runAllTimersAsync()` / `vi.useRealTimers()` | Controls `setTimeout`, `Promise` timing without zone.js          |
+| Provide routing context                          | `provideRouter([])` in test providers                                  | Satisfies `ActivatedRoute`, `Router`, `RouterLink` dependencies  |
+| Test HTTP services                               | `provideHttpClientTesting()` + `HttpTestingController`                 | No real network calls; verify request/response pairs             |
+| Assert a `computed()` signal value               | Set source signals → `await fixture.whenStable()` → read computed      | Computed updates synchronously; `whenStable()` flushes rendering |
+| Test an `effect()` side-effect                   | Set source signals → `await fixture.whenStable()` → assert side-effect | Effects run after signals stabilize in the microtask queue       |
 
 Rules:
 
@@ -206,6 +208,57 @@ it('should emit when save button is clicked', () => {
 });
 ```
 
+### Testing Content Projection (`ng-content`)
+
+Test components that use `ng-content` or `viewChild` / `contentChild` queries via a test host component.
+
+```typescript
+import { Component, viewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CardComponent } from './card.component';
+
+@Component({
+  imports: [CardComponent],
+  template: `
+    <app-card>
+      <span data-testid="projected">Projected Content</span>
+    </app-card>
+  `,
+})
+class TestHostComponent {
+  card = viewChild.required(CardComponent);
+}
+
+describe('CardComponent (content projection)', () => {
+  let fixture: ComponentFixture<TestHostComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TestHostComponent);
+  });
+
+  it('should render projected content', async () => {
+    await fixture.whenStable();
+
+    const el = fixture.nativeElement as HTMLElement;
+    expect(
+      el.querySelector('[data-testid="projected"]')?.textContent,
+    ).toContain('Projected Content');
+  });
+
+  it('should expose contentChild query results', async () => {
+    await fixture.whenStable();
+
+    const card = fixture.componentInstance.card();
+    expect(card).toBeTruthy();
+  });
+});
+```
+
 Rules:
 
 - Use `Mocked<T>` from `vitest` for all service stubs — ensures type safety
@@ -304,6 +357,33 @@ it('should update DOM after signal change', async () => {
 
   const el = fixture.nativeElement as HTMLElement;
   expect(el.querySelector('h1')?.textContent).toContain('Updated');
+});
+```
+
+### Testing Computed Signals
+
+```typescript
+it('should derive full name from first and last name signals', async () => {
+  component.firstName.set('Jane');
+  component.lastName.set('Doe');
+  await fixture.whenStable();
+
+  expect(component.fullName()).toBe('Jane Doe');
+});
+```
+
+### Testing Effects
+
+```typescript
+it('should persist theme preference when theme signal changes', async () => {
+  const storeSpy = vi.spyOn(Storage.prototype, 'setItem');
+
+  component.theme.set('dark');
+  await fixture.whenStable();
+
+  expect(storeSpy).toHaveBeenCalledWith('theme', 'dark');
+
+  storeSpy.mockRestore();
 });
 ```
 
