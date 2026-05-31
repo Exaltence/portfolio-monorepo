@@ -1,10 +1,12 @@
 {
   "recommendations": [
     "angular.ng-template",
+    "GitHub.copilot-chat",
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "vitest.explorer",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "ms-vscode.vscode-chat-customizations-evaluations"
   ]
 }
