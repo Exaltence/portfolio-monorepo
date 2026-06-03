@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-util",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/portfolio/util/src",
+  "prefix": "monorepo",
+  "projectType": "library",
+  "tags": ["domain:portfolio", "type:util"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
