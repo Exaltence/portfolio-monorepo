@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "strict": true,
     "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -22,6 +23,9 @@
     "paths": {
       "@portfolio-monorepo/portfolio/data": [
         "./libs/portfolio/data/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/util": [
+        "./libs/portfolio/util/src/index.ts"
       ]
     }
   },
