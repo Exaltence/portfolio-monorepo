@@ -1,0 +1,13 @@
+{
+  "name": "shared-data",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/data/src",
+  "prefix": "monorepo",
+  "projectType": "library",
+  "tags": ["domain:shared", "type:data"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
