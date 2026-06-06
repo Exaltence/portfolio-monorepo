@@ -26,7 +26,9 @@
       ],
       "@portfolio-monorepo/portfolio/util": [
         "./libs/portfolio/util/src/index.ts"
-      ]
+      ],
+      "@portfolio-monorepo/shared/data": ["./libs/shared/data/src/index.ts"],
+      "@portfolio-monorepo/shared/util": ["./libs/shared/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
