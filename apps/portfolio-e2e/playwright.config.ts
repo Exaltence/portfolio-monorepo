@@ -1,8 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
+import { workspaceRoot } from '@nx/devkit';
 
-// For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
+const baseURL = process.env['BASE_URL'] ?? 'http://localhost:4200';
 
 /**
  * Read environment variables from file.
@@ -23,6 +23,17 @@ export default defineConfig({
     /* Record video for every test. See https://playwright.dev/docs/videos */
     video: 'retain-on-failure',
   },
+  webServer: process.env['BASE_URL']
+    ? undefined
+    : {
+        command: 'npm exec nx run portfolio:serve',
+        url: 'http://localhost:4200',
+        reuseExistingServer: true,
+        timeout: 120_000,
+        stdout: 'pipe',
+        stderr: 'pipe',
+        cwd: workspaceRoot,
+      },
   projects: [
     {
       name: 'chromium',
