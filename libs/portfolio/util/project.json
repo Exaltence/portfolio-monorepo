@@ -2,7 +2,7 @@
   "name": "portfolio-util",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/portfolio/util/src",
-  "prefix": "monorepo",
+  "prefix": "lib",
   "projectType": "library",
   "tags": ["domain:portfolio", "type:util"],
   "targets": {

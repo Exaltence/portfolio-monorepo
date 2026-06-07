@@ -2,7 +2,7 @@
   "name": "portfolio-data",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/portfolio/data/src",
-  "prefix": "monorepo",
+  "prefix": "lib",
   "projectType": "library",
   "tags": ["domain:portfolio", "type:data"],
   "targets": {
