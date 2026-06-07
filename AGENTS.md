@@ -92,7 +92,7 @@ libs/
 | ------------------ | ------------------------------- |
 | `type:app`         | `apps/<name>/` (non-e2e)        |
 | `type:e2e`         | `apps/<name>-e2e/`              |
-| `type:test`        | `libs/tests/`                   |
+| `type:test`        | `libs/test/`                    |
 | `type:feature`     | `libs/<domain>/feature/<name>/` |
 | `type:ui`          | `libs/<domain>/ui/<name>/`      |
 | `type:data`        | `libs/<domain>/data/`           |

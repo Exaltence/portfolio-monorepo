@@ -43,7 +43,7 @@ Each domain (`libs/<domain>/`) is divided into `feature/`, `ui/`, `data/`, `util
 - **Domains:**
   - Business domains live under `libs/<domain>/` (e.g., `libs/portfolio/`, `libs/shared/`).
   - Each domain contains subfolders for different layers: `feature/`, `ui/`, `data/`, `util/`.
-  - `libs/tests/` houses reusable e2e helpers and page objects (no spec files). Libs here carry `type:test` and the **same domain tag as the app they support** (e.g. `domain:portfolio` for `libs/tests/portfolio-e2e/`). Spec files remain in the e2e app (`apps/portfolio-e2e/src/`). This ensures domain constraints isolate each e2e lib to only the project it belongs to.
+  - `libs/test/` houses reusable e2e helpers and page objects (no spec files). Libs here carry `type:test` and the **same domain tag as the app they support** (e.g. `domain:portfolio` for `libs/test/portfolio-e2e/`). Spec files remain in the e2e app (`apps/portfolio-e2e/src/`). This ensures domain constraints isolate each e2e lib to only the project it belongs to.
 
 - **Layered Folders (per domain):**
   - `feature/`: Smart container components (route-level), orchestrating domain logic and UI. They inject stores and pass data to `ui/` components.
@@ -95,17 +95,17 @@ Each domain may depend on itself and on `domain:shared`. `domain:shared` may onl
 
 ### Tag reference
 
-| Tag                | Assigned to                                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------------------------ |
-| `type:app`         | Application projects under `apps/` (excluding e2e apps)                                                |
-| `type:e2e`         | E2e application projects under `apps/` (e.g. `apps/portfolio-e2e/`)                                    |
-| `type:test`        | Shared e2e helper libs under `libs/tests/`                                                             |
-| `type:feature`     | Libs under `libs/<domain>/feature/`                                                                    |
-| `type:ui`          | Libs under `libs/<domain>/ui/`                                                                         |
-| `type:data`        | Libs under `libs/<domain>/data/`                                                                       |
-| `type:util`        | Libs under `libs/<domain>/util/`                                                                       |
-| `domain:portfolio` | `apps/portfolio/`, `apps/portfolio-e2e/`, libs under `libs/portfolio/` and `libs/tests/portfolio-e2e/` |
-| `domain:shared`    | Libs under `libs/shared/`                                                                              |
+| Tag                | Assigned to                                                                                           |
+| ------------------ | ----------------------------------------------------------------------------------------------------- |
+| `type:app`         | Application projects under `apps/` (excluding e2e apps)                                               |
+| `type:e2e`         | E2e application projects under `apps/` (e.g. `apps/portfolio-e2e/`)                                   |
+| `type:test`        | Shared e2e helper libs under `libs/test/`                                                             |
+| `type:feature`     | Libs under `libs/<domain>/feature/`                                                                   |
+| `type:ui`          | Libs under `libs/<domain>/ui/`                                                                        |
+| `type:data`        | Libs under `libs/<domain>/data/`                                                                      |
+| `type:util`        | Libs under `libs/<domain>/util/`                                                                      |
+| `domain:portfolio` | `apps/portfolio/`, `apps/portfolio-e2e/`, libs under `libs/portfolio/` and `libs/test/portfolio-e2e/` |
+| `domain:shared`    | Libs under `libs/shared/`                                                                             |
 
 ## 4. Example Folder Structure
 
@@ -207,7 +207,7 @@ libs/
         ...
     util/
       ...
-  tests/
+  test/
     portfolio-e2e/
       src/
         index.ts
