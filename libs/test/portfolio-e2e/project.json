@@ -1,0 +1,13 @@
+{
+  "name": "test-portfolio-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/test/portfolio-e2e/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["domain:portfolio", "type:test"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
