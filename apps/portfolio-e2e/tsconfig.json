@@ -5,12 +5,7 @@
     "outDir": "../../dist/out-tsc",
     "sourceMap": false,
     "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "moduleResolution": "nodenext"
   },
   "include": [
     "**/*.ts",
