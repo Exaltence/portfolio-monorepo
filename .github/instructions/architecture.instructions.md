@@ -48,7 +48,7 @@ Each domain (`libs/<domain>/`) is divided into `feature/`, `ui/`, `data/`, `util
 - **Layered Folders (per domain):**
   - `feature/`: Smart container components (route-level), orchestrating domain logic and UI. They inject stores and pass data to `ui/` components.
   - `ui/`: Presentational ("dumb") components, directives, and pipes. OnPush, signal inputs/outputs only, no store/service injection.
-  - `data/`: Data access layer — `models/` (interfaces/types), `infrastructure/` (HTTP clients), `state/` (NgRx Signal Stores).
+  - `data/`: Data access layer — `models/` (interfaces/types), `infrastructure/` (`@Service()` HTTP clients + `httpResource()`/`resource()` reads), `state/` (NgRx Signal Stores).
   - `util/`: Pure helper functions specific to the domain.
 
 - **Component, Directive, and Pipe Subfolders:**

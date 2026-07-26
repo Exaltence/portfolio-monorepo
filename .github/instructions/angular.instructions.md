@@ -1,13 +1,13 @@
 ---
-description: 'Angular v21+ constraints: standalone components, signals, OnPush, modern control flow, DI patterns, library-type behavioral rules, and forbidden legacy patterns'
+description: 'Angular v22+ constraints: standalone components, signals, implicit-OnPush, modern control flow, DI patterns (@Service, injectAsync), stable resource APIs, library-type behavioral rules, and forbidden legacy patterns'
 applyTo: '**/*.ts, **/*.html, **/*.scss'
 ---
 
-# Angular Constraints & Patterns (v21+)
+# Angular Constraints & Patterns (v22+)
 
-> **Scope:** Component architecture, DI, signals & reactivity, data fetching, routing, templates, directives, pipes, and styling. This file does NOT cover: NgRx Signal Store patterns (`ngrx-signals.instructions.md`), Signal Forms (`angular-signal-forms.instructions.md`), or test setup (`angular-testing.instructions.md`). Naming conventions live in `architecture.instructions.md` §1. TypeScript typing/formatting live in `typescript.instructions.md`.
+> **Scope:** Component architecture, DI, signals & reactivity, data fetching, routing, templates, directives, pipes, and styling. This file does NOT cover: NgRx Signal Store patterns (`ngrx-signals.instructions.md`), or test setup (`angular-testing.instructions.md`). Naming conventions live in `architecture.instructions.md` §1. TypeScript typing/formatting live in `typescript.instructions.md`.
 
-> Angular v21: Zoneless change detection is the default (`provideZonelessChangeDetection()`). ZoneJS is not installed. `provideHttpClient()` is no longer required in test providers — only use `provideHttpClientTesting()` for HTTP testing.
+> Angular v22: `OnPush` is the implicit default change detection — never set `changeDetection` explicitly (`ChangeDetectionStrategy.Default` "eager" checking is forbidden). Zoneless change detection is the default (`provideZonelessChangeDetection()`); ZoneJS is not installed. Signal Forms (`@angular/forms/signals`) and the `resource()` / `rxResource()` / `httpResource()` APIs are stable. `@Service()` is the preferred decorator for root singletons; `injectAsync()` lazy-loads on-demand services. `provideHttpClient()` is not required in test providers — only use `provideHttpClientTesting()` for HTTP testing.
 
 > **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project forbids inline code comments and JSDoc (see `typescript.instructions.md` §10).
 
@@ -17,21 +17,23 @@ applyTo: '**/*.ts, **/*.html, **/*.scss'
 
 These patterns MUST NOT appear in any generated or modified code.
 
-| Category            | Key prohibitions                                                                                             |
-| ------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Decorators & DI     | No `@Input`/`@Output`/`@ViewChild`/`@HostBinding`; no constructor injection; no redundant `standalone: true` |
-| Imports & Modules   | No `CommonModule`/`RouterModule`/`FormsModule`; no NgModules                                                 |
-| State & Reactivity  | No `ngOnChanges`/`async` pipe/`subscribe()`/`mutate()`; no class-based guards                                |
-| Templates & Styling | No structural directives (`*ngIf`/`*ngFor`); no `ngClass`/`ngStyle`/`::ng-deep`                              |
-| Typing              | No `any` — use `unknown`                                                                                     |
+| Category            | Key prohibitions                                                                                                                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Decorators & DI     | No `@Input`/`@Output`/`@ViewChild`/`@HostBinding`; no constructor injection; no redundant `standalone: true`; no explicit `changeDetection: OnPush`; `@Service()` over `@Injectable({ providedIn: 'root' })` |
+| Imports & Modules   | No `CommonModule`/`RouterModule`/`FormsModule`; no NgModules                                                                                                                                                 |
+| State & Reactivity  | No `ngOnChanges`/`async` pipe/`subscribe()`/`mutate()`; no class-based guards                                                                                                                                |
+| Templates & Styling | No structural directives (`*ngIf`/`*ngFor`); no `ngClass`/`ngStyle`/`::ng-deep`                                                                                                                              |
+| Typing              | No `any` — use `unknown`                                                                                                                                                                                     |
 
 ### Decorators & DI
 
 - ❌ `standalone: true` in decorators (default since v19 — setting it is redundant)
+- ❌ `changeDetection: ChangeDetectionStrategy.OnPush` — `OnPush` is the implicit default since v22; setting it is redundant
 - ❌ `@Input()` / `@Output()` decorators — use `input()` / `output()` functions
 - ❌ `@ViewChild` / `@ViewChildren` / `@ContentChild` / `@ContentChildren` decorators — use signal queries (`viewChild`, `viewChildren`, `contentChild`, `contentChildren`)
 - ❌ `@HostBinding` / `@HostListener` — use `host` object in decorator metadata
 - ❌ Constructor-based injection — use `inject()` function
+- ❌ `@Injectable({ providedIn: 'root' })` for new root singletons — use the `@Service()` decorator
 
 ### Imports & Modules
 
@@ -64,21 +66,20 @@ These patterns MUST NOT appear in any generated or modified code.
 
 ### Decorator Requirements
 
-Every `@Component` decorator MUST include:
+Every `@Component` decorator MUST follow this shape:
 
 ```typescript
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent {}
 ```
 
 Rules:
 
-- `changeDetection: ChangeDetectionStrategy.OnPush` — mandatory on ALL components (serves as a compatibility safeguard and makes signal-based notifications explicit, even though the app runs zoneless)
+- `changeDetection` — NEVER set it; `OnPush` is the implicit default in v22 (`ChangeDetectionStrategy.OnPush` is redundant and `ChangeDetectionStrategy.Default` "eager" checking is forbidden)
 - `selector` — element selector with project prefix (`app` for `apps/portfolio`)
 - External template (`.component.html`) and styles (`.component.scss`) — always; no inline templates
 
@@ -99,7 +100,6 @@ Order members consistently:
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent {
   private readonly userApi = inject(UserApiService);
@@ -165,8 +165,12 @@ Components and services behave differently depending on which Nx library type th
 
 ## 4. Dependency Injection
 
+**Root singletons** — use the `@Service()` decorator (an ergonomic, tree-shakeable shorthand for `@Injectable({ providedIn: 'root' })`):
+
 ```typescript
-@Injectable({ providedIn: 'root' })
+import { Service, inject } from '@angular/core';
+
+@Service()
 export class TaskApiService {
   private readonly http = inject(HttpClient);
 }
@@ -175,9 +179,38 @@ export class TaskApiService {
 Rules:
 
 - ALWAYS use `inject()` function — never constructor parameters
-- Singleton services: `@Injectable({ providedIn: 'root' })`
+- Root singletons: `@Service()` — the preferred form; do NOT use `@Injectable({ providedIn: 'root' })` for new services
+- Non-root / scoped services: `@Injectable()` (no `providedIn`) provided via a route or component `providers` array
 - Feature-scoped stores: provide via route `providers` array
 - Capture all dependencies in class field initializers — never call `inject()` in lifecycle hooks, callbacks, or after `await`
+
+### Lazy-Loaded Services (`injectAsync`)
+
+Load heavy or rarely used services on demand — the bundler splits them into a separate chunk fetched on first use:
+
+```typescript
+import { Service, injectAsync, onIdle } from '@angular/core';
+
+@Service()
+export class ReportService {
+  private readonly exporter = injectAsync(
+    () => import('./report-exporter').then((m) => m.ReportExporter),
+    { prefetch: onIdle },
+  );
+
+  async export(): Promise<void> {
+    const exporter = await this.exporter();
+    exporter.run();
+  }
+}
+```
+
+Rules:
+
+- The lazy-loaded target MUST be auto-provided — decorate it with `@Service()` or `@Injectable({ providedIn: 'root' })`
+- First `await` of the returned function triggers the dynamic import; subsequent calls reuse the same promise (chunk fetched once)
+- Prefetch eagerly with the built-in `onIdle` trigger (optionally `onIdle({ timeout: 1000 })`) or a custom `PrefetchTrigger`
+- Pass the dynamic import directly when the service is a `default` export — Angular unwraps `default`
 
 ---
 
@@ -302,9 +335,11 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
+> **Note:** This app is a client-only hash-routed SPA — `provideClientHydration()` is intentionally absent. If SSR is added later, `provideClientHydration()` turns on incremental hydration + automatic event replay by default (see §13).
+
 ### httpResource (Preferred for Reads)
 
-> **Note:** `httpResource` is experimental in Angular v21. Prefer it for reactive reads but be aware the API may change before stabilization.
+> **Note:** `httpResource()`, `resource()`, and `rxResource()` are stable in Angular v22. Prefer `httpResource()` for reactive HTTP GET reads; use `resource()` for non-HTTP async sources and `rxResource()` when the loader is Observable-based. These replace manual `switchMap` / Observable streams for data fetching.
 
 In a `data/` layer store:
 
@@ -335,10 +370,31 @@ Rules:
 - For response validation, use the `parse` option with a schema library (e.g., Zod)
 - `httpResource` is for reads only — use `HttpClient` for mutations (POST/PUT/DELETE)
 
+### resource / rxResource (Non-HTTP & Observable Loaders)
+
+```typescript
+import { resource, signal } from '@angular/core';
+
+readonly userId = signal<string>('');
+protected readonly user = resource({
+  params: () => ({ id: this.userId() }),
+  loader: ({ params, abortSignal }) =>
+    fetch(`/api/users/${params.id}`, { signal: abortSignal }).then((r) => r.json()),
+});
+```
+
+Rules:
+
+- `resource()` — one-shot async `loader`, or a continuously updating `stream`; exposes `value` / `hasValue` / `error` / `isLoading` / `status` signals
+- `rxResource()` (from `@angular/core/rxjs-interop`) — use when the loader returns an Observable
+- Chain dependent resources with the `chain(...)` param helper; derive synchronous values with `computed()` instead
+- Provide a unique `id` to reuse the server-rendered value via `TransferState` during hydration (avoid on user-specific data)
+- Reads cancel outstanding loads automatically when `params` change (via `abortSignal`)
+
 ### HttpClient (Mutations)
 
 ```typescript
-@Injectable({ providedIn: 'root' })
+@Service()
 export class TaskApiService {
   private readonly http = inject(HttpClient);
 
@@ -535,7 +591,7 @@ Enforced rules:
 
 - Test runner: **Vitest** — never Jest or Karma
 - Co-located test files: `*.component.spec.ts` next to component
-- Angular v21: use `provideHttpClientTesting()` only — `provideHttpClient()` is not needed in tests
+- Angular v22: use `provideHttpClientTesting()` only — `provideHttpClient()` is not needed in tests
 - Use `vi.fn()` for mocks — never Jasmine spies
 - E2E: Playwright only — specs live in `apps/<name>-e2e/src/`
 
@@ -544,11 +600,19 @@ Enforced rules:
 ## 13. Performance
 
 - Zoneless change detection — no ZoneJS overhead; signals and events drive CD
+- `OnPush` is the implicit default — keep state in signals so change detection stays local
 - `@defer` blocks for below-fold / heavy content
 - `@for` must always have `track` — use a unique stable property (e.g., `id`)
 - `computed()` for expensive derivations (memoized automatically)
+- `injectAsync()` (with `onIdle` prefetch) to defer heavy service chunks off the initial load
 - `NgOptimizedImage` for all `<img>` elements (with `priority` on LCP images)
 - CDK Virtual Scrolling for lists > 100 items
+
+### Hydration (reference only — not active on the current hash-routed SPA)
+
+- `provideClientHydration()` enables incremental hydration + automatic event replay by default in v22; opt out with `withNoIncrementalHydration()`
+- `@defer` gains `hydrate` triggers for SSR: `hydrate on idle|viewport|interaction|hover|immediate|timer`, `hydrate when <condition>`, `hydrate never`
+- Not exercised by this project — the app ships as a client-only SPA on GitHub Pages with hash routing
 
 ---
 

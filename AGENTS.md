@@ -46,10 +46,10 @@ Package manager: **npm only**. Never use pnpm/yarn/npx. Always route through `nx
 
 | Layer      | Technology                                                | Version |
 | ---------- | --------------------------------------------------------- | ------- |
-| Monorepo   | Nx                                                        | 22.x    |
-| Framework  | Angular (standalone, signals, `@if`/`@for`/`@switch`)     | 21.x    |
+| Monorepo   | Nx                                                        | 23.x    |
+| Framework  | Angular (standalone, signals, `@if`/`@for`/`@switch`)     | 22.x    |
 | State      | NgRx Signal Store                                         | 21.x    |
-| Language   | TypeScript strict mode                                    | 5.9.x   |
+| Language   | TypeScript strict mode                                    | 6.x     |
 | Unit tests | Vitest + Angular TestBed (via `@nx/angular:unit-test`)    | 4.x     |
 | E2E        | Playwright                                                | 1.60.x  |
 | Styling    | SCSS (component + global)                                 | —       |
@@ -115,17 +115,19 @@ import { TaskStore } from '@portfolio-monorepo/portfolio/data/src/lib/state/task
 ### Components & DI
 
 - Standalone only. No NgModules. No `standalone: true` (redundant since v19).
-- `ChangeDetectionStrategy.OnPush` on ALL components.
+- `OnPush` is the implicit default in v22 — NEVER set `changeDetection` explicitly.
 - External templates (`.component.html`) and styles (`.component.scss`) always.
 - `inject()` function for DI. No constructor injection.
+- Root singletons: `@Service()` decorator (not `@Injectable({ providedIn: 'root' })`). Lazy heavy services: `injectAsync()` with `onIdle` prefetch.
 - Selector prefix: `app` for `apps/portfolio/`.
 
 ### Signals & Reactivity
 
 - Signals are the primary reactivity model: `input()`, `output()`, `model()`, `computed()`, `linkedSignal()`, `signal()`.
-- `httpResource()` for reactive GET data fetching (in `data/` libs only).
+- `httpResource()` / `resource()` / `rxResource()` (stable in v22) for reactive reads (in `data/` libs only).
 - `HttpClient` for mutations (POST/PUT/DELETE) only.
-- RxJS limited to: `rxMethod()` in stores, `toSignal()` at boundaries.
+- Signal Forms (`@angular/forms/signals`, stable in v22) for new forms.
+- RxJS limited to: `rxMethod()` in stores (mutations/orchestration), `toSignal()` at boundaries.
 - Forbidden: `subscribe()` in components, `async` pipe, `ngOnChanges`.
 
 ### TypeScript

@@ -12,15 +12,21 @@ applyTo: '**'
 ### Platform
 
 - **Monorepo:** Nx — workspace management, code generation, caching, and task orchestration
-- **Framework:** Angular — standalone components, signals, built-in control flow (`@if`, `@for`, `@switch`); no NgModules
+- **Framework:** Angular v22 — standalone components, signals, built-in control flow (`@if`, `@for`, `@switch`); `OnPush` is the implicit default change detection; zoneless; no NgModules
 - **Language:** TypeScript — strict mode
+- **Dependency Injection:** `inject()` for DI; `@Service()` decorator for tree-shakeable root singletons; `injectAsync()` for lazy on-demand services
 
 ### Data & Reactivity
 
 - **State Management:** NgRx Signal Store — signal-based reactive state
-- **Forms:** Angular Signal Forms (`@angular/forms/signals`) — schema-based validation
-- **HTTP / Async:** `httpResource()` for reactive data fetching; `HttpClient` for mutations (POST/PUT/DELETE)
+- **Forms:** Angular Signal Forms (`@angular/forms/signals`) — stable in v22; signal-based, type-safe field access, schema-based validation
+- **HTTP / Async:** `httpResource()` / `resource()` / `rxResource()` — stable in v22; native signal-based reactive reads; `HttpClient` for mutations (POST/PUT/DELETE)
 - **Reactivity:** Angular Signals as the primary reactivity model; RxJS at integration boundaries only
+
+### Rendering
+
+- **Client rendering:** Hash-based SPA deployed to GitHub Pages — no SSR active
+- **Hydration (reference only):** `provideClientHydration()` enables incremental hydration + automatic event replay by default in v22; not exercised by the current client-only SPA deployment
 
 ### Styling
 
@@ -47,13 +53,13 @@ applyTo: '**'
 
 | Tool         | Version |
 | ------------ | ------- |
-| Angular      | 21.x    |
-| Nx           | 22.x    |
-| TypeScript   | 5.9.x   |
+| Angular      | 22.x    |
+| Nx           | 23.x    |
+| TypeScript   | 6.x     |
 | NgRx Signals | 21.x    |
 | RxJS         | 7.8.x   |
 | Vitest       | 4.x     |
-| Playwright   | 1.59.x  |
+| Playwright   | 1.60.x  |
 | ESLint       | 9.x     |
 | Prettier     | 3.x     |
 | Stylelint    | 17.x    |

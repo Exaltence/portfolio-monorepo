@@ -34,11 +34,11 @@ You are an Angular testing expert specializing in Vitest with Angular TestBed. Y
 
 ## Test Setup Rules
 
-- **Never add `provideZonelessChangeDetection()`** — zoneless is the default in Angular v21; adding it is redundant
+- **Never add `provideZonelessChangeDetection()`** — zoneless is the default in Angular v22; adding it is redundant
 - **Vitest globals** are pre-configured — never import `describe`, `it`, `expect`, `vi`; type-only imports (`import { type Mocked } from 'vitest'`) are permitted
 - **Signal inputs** must be set via `componentRef.setInput('name', value)` followed by `await fixture.whenStable()`
 - **Mock stores** by providing typed mock objects using `Mocked<T>` from `vitest` with `vi.fn()` for signal accessors
-- **Use `provideHttpClientTesting()`** for any service that uses HttpClient — `provideHttpClient()` is not needed alongside it in Angular v21
+- **Use `provideHttpClientTesting()`** for any service that uses HttpClient — `provideHttpClient()` is not needed alongside it in Angular v22
 - **Test runner**: Vitest via `@angular/build:unit-test` builder (no Karma). Run with `npm exec nx run <project>:test`
 
 ## Component Test Template

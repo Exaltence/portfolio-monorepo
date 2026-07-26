@@ -1,9 +1,9 @@
 ---
-description: 'Testing patterns for Angular v21+ using Vitest with TestBed via @angular/build:unit-test builder for components, services, directives, and pipes'
+description: 'Testing patterns for Angular v22+ using Vitest with TestBed via @angular/build:unit-test builder for components, services, directives, and pipes'
 applyTo: '**/*.spec.ts'
 ---
 
-# Angular Testing Guidelines (Vitest + Angular TestBed, v21+)
+# Angular Testing Guidelines (Vitest + Angular TestBed, v22+)
 
 > **Scope:** Unit testing patterns for components, services, directives, and pipes using Vitest + Angular TestBed. This file does NOT cover: NgRx Signal Store testing (`ngrx-signals-testing.instructions.md`), component architecture or DI (`angular.instructions.md`), DDD layering or naming (`architecture.instructions.md`), or TypeScript typing/formatting (`typescript.instructions.md`).
 >
@@ -27,7 +27,8 @@ These patterns MUST NOT appear in any generated or modified test code.
 ### Zone.js & Change Detection
 
 - ❌ `fakeAsync` / `tick` / `flush` from `@angular/core/testing` — zone.js is not installed; use `vi.useFakeTimers()` and `vi.runAllTimersAsync()`
-- ❌ `provideZonelessChangeDetection()` in test providers — zoneless is the default in Angular v21; adding it is redundant
+- ❌ `provideZonelessChangeDetection()` in test providers — zoneless is the default in Angular v22; adding it is redundant
+- ❌ `changeDetection: ChangeDetectionStrategy.OnPush` on test host components — `OnPush` is the implicit default in v22; always `await fixture.whenStable()` after signal changes before asserting
 - ❌ `fixture.detectChanges()` as the primary change detection trigger — use `await fixture.whenStable()`
 
 ### Typing & Mocking
@@ -111,7 +112,7 @@ describe('TaskApiService', () => {
 
 Rules:
 
-- Use `provideHttpClientTesting()` only — `provideHttpClient()` is not needed in Angular v21 tests
+- Use `provideHttpClientTesting()` only — `provideHttpClient()` is not needed in Angular v22 tests
 - Call `httpMock.verify()` in `afterEach` to catch unexpected requests
 - Non-HTTP services with `providedIn: 'root'` need only `TestBed.inject(MyService)` — no `configureTestingModule` required
 
@@ -315,7 +316,7 @@ Rules:
 
 - Always use a test host component to test directives — never instantiate directives directly
 - The test host should be minimal — only enough template to exercise the directive
-- The test host is standalone by default (Angular v21) — do not set `standalone: true`
+- The test host is standalone by default (Angular v22) — do not set `standalone: true`
 
 ---
 

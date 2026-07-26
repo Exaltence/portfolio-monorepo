@@ -3,7 +3,7 @@ description: 'Testing strategies for NgRx Signals Stores using Vitest, TestBed, 
 applyTo: '**/*.store.spec.ts'
 ---
 
-# NgRx Signal Store Testing (Vitest + Angular TestBed, v21+)
+# NgRx Signal Store Testing (Vitest + Angular TestBed, v22+)
 
 > **Scope:** Unit testing patterns for NgRx Signal Stores — state, computed, methods, rxMethod, signalMethod, custom features, store mocking, and integration testing. This file does NOT cover: general component/service testing (`angular-testing.instructions.md`), store creation patterns (`ngrx-signals.instructions.md`), or TypeScript typing/formatting (`typescript.instructions.md`).
 
@@ -18,7 +18,7 @@ These patterns MUST NOT appear in any generated or modified store test code.
 ### Zone.js & Async
 
 - ❌ `fakeAsync` / `tick` / `flush` from `@angular/core/testing` — zone.js is not installed; use `TestBed.tick()`, `await expect.poll()`, or `vi.useFakeTimers()`
-- ❌ `provideZonelessChangeDetection()` in test providers — zoneless is the default in Angular v21; adding it is redundant
+- ❌ `provideZonelessChangeDetection()` in test providers — zoneless is the default in Angular v22; adding it is redundant
 - ❌ `fixture.detectChanges()` as primary change detection trigger — use `await fixture.whenStable()`
 - ❌ `fixture.autoDetectChanges(true)` — not part of established patterns; use `await fixture.whenStable()`
 
@@ -107,7 +107,7 @@ Rules:
 
 - Global stores (`providedIn: 'root'`) need only `TestBed.inject(Store)` — no `configureTestingModule`
 - Local stores must be registered in `providers` array
-- Never add `provideZonelessChangeDetection()` — it is the default in Angular v21
+- Never add `provideZonelessChangeDetection()` — it is the default in Angular v22
 
 ---
 
@@ -489,7 +489,7 @@ describe('MoviesComponent integration', () => {
 
 Rules:
 
-- Use `provideHttpClientTesting()` only — `provideHttpClient()` is not needed in Angular v21 tests
+- Use `provideHttpClientTesting()` only — `provideHttpClient()` is not needed in Angular v22 tests
 - Call `ctrl.verify()` in `afterEach` or at the end of each test to catch unexpected requests
 - Use `await fixture.whenStable()` after flushing HTTP responses before DOM assertions
 - Integration tests use the real store — only mock external boundaries (HTTP, third-party services)

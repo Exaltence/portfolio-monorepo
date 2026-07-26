@@ -41,13 +41,13 @@ You are a senior developer performing a comprehensive code review of the changes
 Reference the project's instruction files located in `.github/instructions/`:
 
 - [Project Conventions](../../AGENTS.md)
-- [Angular v21+](../instructions/angular.instructions.md)
+- [Angular v22+](../instructions/angular.instructions.md)
 - [TypeScript](../instructions/typescript.instructions.md)
 - [Architecture (DDD)](../instructions/architecture.instructions.md)
 - [NgRx Signals v21+](../instructions/ngrx-signals.instructions.md)
 - [Testing (Vitest)](../instructions/angular-testing.instructions.md)
 
-Pay special attention to v21+ patterns: `linkedSignal`, `httpResource`, `@let` template variables and `withFeature`/`withLinkedState` in stores.
+Pay special attention to v22+ patterns: `linkedSignal`, `httpResource`/`resource`/`rxResource`, `@Service`/`injectAsync`, implicit `OnPush`, `@let` template variables and `withFeature`/`withLinkedState` in stores.
 
 ## Output Format
 

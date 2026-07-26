@@ -1,9 +1,9 @@
 ---
-description: 'State management patterns using NgRx Signals Store v21+ with signalStore, withState, withMethods, withFeature, withLinkedState, entities, and rxMethod integration'
+description: 'State management patterns using NgRx Signals Store v21 (on Angular v22) with signalStore, withState, withMethods, withFeature, withLinkedState, entities, rxMethod, and resource-API integration'
 applyTo: '**/*.store.ts'
 ---
 
-# NgRx Signal Store Patterns (v21+)
+# NgRx Signal Store Patterns (NgRx Signals v21 · Angular v22)
 
 > **Scope:** Signal Store creation, state, computed, methods, entities, lifecycle hooks, custom features, and RxJS/signal-method integration. This file does NOT cover: component architecture or DI (`angular.instructions.md`), DDD layering or naming (`architecture.instructions.md`), testing (`ngrx-signals-testing.instructions.md`), or TypeScript typing/formatting (`typescript.instructions.md`).
 
@@ -27,6 +27,7 @@ These patterns MUST NOT appear in any generated or modified store code.
 - ❌ `subscribe()` inside stores — use `rxMethod`, `signalMethod`, or `withHooks`
 - ❌ `signalMethod` for imperative CRUD — use plain methods for static-value state updates
 - ❌ `async`/`await` with Observable-based services — use `rxMethod` with `tapResponse`
+- ❌ Manual `switchMap` for a simple reactive GET read — prefer `httpResource()` / `resource()` (stable in v22); reserve `rxMethod` for mutations and orchestration
 
 ### DI & Lifecycle
 
@@ -43,18 +44,20 @@ These patterns MUST NOT appear in any generated or modified store code.
 
 ## 2. Method Selection Decision Table
 
-| Need                                            | Use                                          | Why                                                     |
-| ----------------------------------------------- | -------------------------------------------- | ------------------------------------------------------- |
-| Synchronous state update (imperative)           | Plain method + `patchState`                  | Simplest, no overhead                                   |
-| Observable-based async side effect              | `rxMethod` from `@ngrx/signals/rxjs-interop` | Manages subscription lifecycle, supports RxJS operators |
-| Signal-driven reactive side effect (no RxJS)    | `signalMethod` from `@ngrx/signals`          | Re-executes when passed Signal changes; smaller bundle  |
-| Promise-based async (service returns `Promise`) | `async` method + `patchState`                | Valid when API is genuinely Promise-based               |
-| Decoupled inter-store coordination              | Events plugin (`@ngrx/signals/events`)       | Separates "what happened" from "how to react"           |
+| Need                                            | Use                                          | Why                                                                |
+| ----------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------ |
+| Reactive HTTP GET read (declarative)            | `httpResource()` / `resource()` (Angular)    | Signal-native; auto-reloads on param change; no manual `switchMap` |
+| Synchronous state update (imperative)           | Plain method + `patchState`                  | Simplest, no overhead                                              |
+| Observable-based async side effect / mutation   | `rxMethod` from `@ngrx/signals/rxjs-interop` | Manages subscription lifecycle, supports RxJS operators            |
+| Signal-driven reactive side effect (no RxJS)    | `signalMethod` from `@ngrx/signals`          | Re-executes when passed Signal changes; smaller bundle             |
+| Promise-based async (service returns `Promise`) | `async` method + `patchState`                | Valid when API is genuinely Promise-based                          |
+| Decoupled inter-store coordination              | Events plugin (`@ngrx/signals/events`)       | Separates "what happened" from "how to react"                      |
 
 Rules:
 
+- Prefer `httpResource()` / `resource()` / `rxResource()` (stable in v22) for reactive GET reads — reserve `rxMethod` for mutations, orchestration, and race-controlled side effects
 - Default to plain methods — only reach for `rxMethod`/`signalMethod` when their specific capabilities are needed
-- `rxMethod` is superior for race-condition handling (`switchMap`, `exhaustMap`, `concatMap`)
+- `rxMethod` is superior for race-condition handling (`switchMap`, `exhaustMap`, `concatMap`) and imperative/debounced loads
 - `signalMethod` only tracks the input Signal; signals inside the processor are untracked
 - Never convert Observables to Promises just to use `async`/`await`
 
@@ -143,6 +146,8 @@ Rules:
 - `withMethods` factory receives the store instance and allows `inject()` as additional parameters
 - `patchState` accepts partial state objects, updater functions `(state) => partial`, or standalone updaters
 - Keep stores focused on a single domain entity or bounded context
+
+> **v22 note:** The `loadByQuery` `rxMethod` above is valid for imperative, race-controlled loads. For a purely declarative read that reloads when a query signal changes, expose a query `signal` and back it with `httpResource(() => ...)` instead (see `angular.instructions.md` §7).
 
 ---
 
