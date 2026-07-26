@@ -22,6 +22,13 @@
   "assignees": ["Exaltence"],
   "enabledManagers": ["npm", "github-actions"],
   "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/coverage/**"],
+  "ignoreDeps": [
+    "node",
+    "npm",
+    "typescript",
+    "@swc-node/register",
+    "@swc/helpers"
+  ],
   "packageRules": [
     {
       "description": "GitHub Actions workflow dependencies — safe to automerge.",
@@ -30,14 +37,6 @@
       "automerge": true,
       "platformAutomerge": true,
       "prPriority": 12
-    },
-    {
-      "description": "TypeScript type definitions — safe to automerge.",
-      "matchPackageNames": ["/^@types\\//"],
-      "groupName": "TypeScript type definitions",
-      "automerge": true,
-      "platformAutomerge": true,
-      "prPriority": 8
     },
     {
       "description": "Linting and formatting toolchain — safe to automerge.",
@@ -78,6 +77,14 @@
       "prPriority": 9
     },
     {
+      "description": "TypeScript type definitions — safe to automerge.",
+      "matchPackageNames": ["/^@types\\//"],
+      "groupName": "TypeScript type definitions",
+      "automerge": true,
+      "platformAutomerge": true,
+      "prPriority": 8
+    },
+    {
       "description": "Catch-all: all remaining patch and minor npm updates.",
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["patch", "minor"],
@@ -104,13 +111,6 @@
       "prPriority": 2
     },
     {
-      "description": "TypeScript core — major changes require Angular compatibility verification.",
-      "matchPackageNames": ["typescript"],
-      "groupName": "TypeScript core",
-      "automerge": false,
-      "prPriority": 1
-    },
-    {
       "description": "NgRx ecosystem — follows Angular versioning.",
       "matchPackageNames": ["/^@ngrx\\//"],
       "groupName": "NgRx ecosystem",
@@ -118,7 +118,7 @@
       "prPriority": 3
     },
     {
-      "description": "Angular framework (ALL updates manual). Includes CLI, devkit, build tooling, schematics and angular-eslint. Prefer coordinated upgrades using `ng update`.",
+      "description": "Angular framework is governed exclusively by `nx migrate` (ng update runs through Nx). Renovate must never propose updates for these packages, to avoid conflicting with coordinated Nx/Angular migrations.",
       "matchPackageNames": [
         "/^@angular\\//",
         "/^@angular-devkit\\//",
@@ -126,15 +126,13 @@
         "angular-eslint"
       ],
       "groupName": "Angular framework",
-      "automerge": false,
-      "prPriority": 4
+      "enabled": false
     },
     {
-      "description": "Nx monorepo (ALL updates manual). All @nx/* packages must share the same version. For major updates prefer `nx migrate latest` + `nx migrate --run-migrations`.",
+      "description": "Nx monorepo tooling is governed exclusively by `nx migrate` (all @nx/* packages must share the same version). Renovate must never propose updates for these packages, to prevent workspace corruption.",
       "matchPackageNames": ["nx", "/^@nx\\//", "/^@nrwl\\//"],
       "groupName": "Nx",
-      "automerge": false,
-      "prPriority": 5
+      "enabled": false
     },
     {
       "description": "Disable Node.js engine constraint updates.",
