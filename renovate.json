@@ -27,7 +27,8 @@
     "npm",
     "typescript",
     "@swc-node/register",
-    "@swc/helpers"
+    "@swc/helpers",
+    "@swc/core"
   ],
   "packageRules": [
     {
@@ -39,14 +40,11 @@
       "prPriority": 12
     },
     {
-      "description": "Linting and formatting toolchain — safe to automerge.",
+      "description": "Linting and formatting toolchain — safe to automerge. Excludes eslint/typescript-eslint, which are governed by `nx migrate` (see nx-managed dependencies rule below).",
       "matchPackageNames": [
-        "/^eslint/",
         "/^@eslint\\//",
         "/^prettier/",
         "/^lefthook/",
-        "typescript-eslint",
-        "/^@typescript-eslint\\//",
         "/^stylelint/",
         "/^@commitlint/"
       ],
@@ -132,6 +130,18 @@
       "description": "Nx monorepo tooling is governed exclusively by `nx migrate` (all @nx/* packages must share the same version). Renovate must never propose updates for these packages, to prevent workspace corruption.",
       "matchPackageNames": ["nx", "/^@nx\\//", "/^@nrwl\\//"],
       "groupName": "Nx",
+      "enabled": false
+    },
+    {
+      "description": "Package versions bumped automatically by `@nx/eslint` and `@nx/angular` migrations (eslint, typescript-eslint, and the ngrx-package-updates migration). Renovate must never propose updates for these, to avoid conflicting with coordinated Nx migrations.",
+      "matchPackageNames": [
+        "eslint",
+        "eslint-config-prettier",
+        "typescript-eslint",
+        "/^@typescript-eslint\\//",
+        "@ngrx/operators"
+      ],
+      "groupName": "nx-managed dependencies",
       "enabled": false
     },
     {
