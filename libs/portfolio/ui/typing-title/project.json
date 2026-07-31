@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-ui-typing-title",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/portfolio/ui/typing-title/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["domain:portfolio", "type:ui"],
+  "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "libs/portfolio/ui/typing-title/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

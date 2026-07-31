@@ -48,6 +48,9 @@
       ],
       "@portfolio-monorepo/shared/ui/site-menu": [
         "./libs/shared/ui/site-menu/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/typing-title": [
+        "./libs/portfolio/ui/typing-title/src/index.ts"
       ]
     }
   },
