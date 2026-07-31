@@ -1,0 +1,26 @@
+{
+  "greeting": "Hi There! I am",
+  "name": "Shaun Vercauteren",
+  "roles": ["Shaun Vercauteren", "Web Developer", "Front-end Engineer"],
+  "avatarUrl": "img/img-profile.jpg",
+  "available": true,
+  "availabilityUrl": "https://www.linkedin.com/in/shaun-vercauteren-678221152/",
+  "cvUrl": "cv-shaun-vercauteren.pdf",
+  "social": [
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/shaun-vercauteren-678221152/",
+      "icon": "linkedin"
+    },
+    {
+      "label": "Discord",
+      "url": "https://discord.com/users/232203985816256522/",
+      "icon": "discord"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/Exaltence",
+      "icon": "github"
+    }
+  ]
+}
