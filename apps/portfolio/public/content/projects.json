@@ -1,0 +1,55 @@
+[
+  {
+    "id": "mes-mii-outdoor",
+    "title": "MES-MII Outdoor",
+    "category": "Front-end/Full-stack, Web, Angular, Sap MII",
+    "thumbnailUrl": "img/portfolio/coming_soon.png",
+    "images": ["img/portfolio/coming_soon.png"],
+    "descriptions": [
+      "An application used in the manufacturing & production process to track and document the transformation of raw materials to finished goods of a factory.",
+      "The MES provides information on the current conditions of the plant floor. The application works in real time and enables the control of multiple elements of the production process (e.g. inputs, personnel, machines, support services, …)."
+    ]
+  },
+  {
+    "id": "warmste-hackathon",
+    "title": "Warmste Hackathon",
+    "category": "Full-stack, Web, Angular, Java",
+    "thumbnailUrl": "img/portfolio/warmstehackathon-team.jpg",
+    "images": [
+      "img/portfolio/warmstehackathon-team.jpg",
+      "img/portfolio/warmstehackathon-admin-users.jpg"
+    ],
+    "descriptions": [
+      "A competition between different teams with the goal of developing an innovative idea for a socially relevant theme.",
+      "The application keeps track of the score, takes care of the communication within and between teams, ensures a streamlined flow in providing development tools and coaching where necessary."
+    ]
+  },
+  {
+    "id": "matchman",
+    "title": "MatchMan",
+    "category": "Full-stack, Web, Angular, Java",
+    "thumbnailUrl": "img/portfolio/mm-dashboard.png",
+    "images": [
+      "img/portfolio/mm-dashboard.png",
+      "img/portfolio/mm-opportunities.png"
+    ],
+    "descriptions": [
+      "An application that takes care of the supervision of customers, schedules, opportunities and technical skills. It matches consultants with customers.",
+      "The application guarantees an optimal staffing in function of the desired technical skills. An extensive search functionality accelerates the entire staffing and scheduling process"
+    ]
+  },
+  {
+    "id": "erp-demo",
+    "title": "ERP Demo",
+    "category": "Full-stack, Mobile, Angular, Progress OpenEdge",
+    "thumbnailUrl": "img/portfolio/erp-demo-dashboard.jpg",
+    "images": [
+      "img/portfolio/erp-demo-dashboard.jpg",
+      "img/portfolio/erp-demo-order.jpg"
+    ],
+    "descriptions": [
+      "The requirement was made to deliver an ERP demo to monitor the logistics of a warehouse.",
+      "The purpose of the application was to keep an overview of the entire process of orders, orderlines, products, stock and employees. The application had to be able to perform all CRUD operations on these entities."
+    ]
+  }
+]
