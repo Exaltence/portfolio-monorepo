@@ -6,6 +6,13 @@
   "projectType": "library",
   "tags": ["domain:shared", "type:data"],
   "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "libs/shared/data/tsconfig.spec.json"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }
