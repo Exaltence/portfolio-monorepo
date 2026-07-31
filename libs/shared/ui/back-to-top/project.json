@@ -1,0 +1,20 @@
+{
+  "name": "shared-ui-back-to-top",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/ui/back-to-top/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["domain:shared", "type:ui"],
+  "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "libs/shared/ui/back-to-top/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
