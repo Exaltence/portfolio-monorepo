@@ -1,0 +1,20 @@
+html {
+  scrollbar-color: var(--mc) var(--bg);
+  scrollbar-width: thin;
+}
+
+/* stylelint-disable selector-no-vendor-prefix -- native scrollbar theming requires the WebKit pseudo-elements */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mc);
+  border-radius: 2px;
+}
+/* stylelint-enable selector-no-vendor-prefix */
