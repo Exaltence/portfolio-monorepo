@@ -45,6 +45,9 @@
       ],
       "@portfolio-monorepo/shared/ui/scroll-spy": [
         "./libs/shared/ui/scroll-spy/src/index.ts"
+      ],
+      "@portfolio-monorepo/shared/ui/site-menu": [
+        "./libs/shared/ui/site-menu/src/index.ts"
       ]
     }
   },

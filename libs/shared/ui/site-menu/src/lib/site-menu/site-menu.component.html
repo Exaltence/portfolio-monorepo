@@ -1,0 +1,27 @@
+<div class="site-menu" [class.is-open]="open()">
+  <button
+    type="button"
+    class="site-menu__overlay"
+    data-testid="nav-overlay"
+    aria-label="Close menu"
+    (click)="close()"
+  ></button>
+
+  <nav class="site-menu__panel" aria-label="Primary">
+    <ul class="site-menu__list">
+      @for (item of items(); track item.fragment; let i = $index) {
+        <li class="site-menu__item">
+          <a
+            class="site-menu__link"
+            data-testid="nav-item"
+            [href]="'#' + item.fragment"
+            [style.transition-delay.ms]="i * 200"
+            (click)="select(item)"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</div>
