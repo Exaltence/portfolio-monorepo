@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-ui-profile-panel",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/portfolio/ui/profile-panel/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["domain:portfolio", "type:ui"],
+  "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "libs/portfolio/ui/profile-panel/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

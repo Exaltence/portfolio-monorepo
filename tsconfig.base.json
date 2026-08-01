@@ -51,6 +51,9 @@
       ],
       "@portfolio-monorepo/portfolio/ui/typing-title": [
         "./libs/portfolio/ui/typing-title/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/profile-panel": [
+        "./libs/portfolio/ui/profile-panel/src/index.ts"
       ]
     }
   },

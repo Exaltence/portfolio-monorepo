@@ -77,7 +77,7 @@ app  →  feature  →  ui  →  data  →  util
 
 - `type:app` → `type:feature`, `type:ui`, `type:data`, `type:util`
 - `type:feature` → `type:ui`, `type:data`, `type:util`
-- `type:ui` → `type:data`, `type:util`
+- `type:ui` → `type:ui` (peer presentational composition), `type:data`, `type:util`
 - `type:data` → `type:util`
 - `type:util` → `type:util` (peer utilities only)
 
