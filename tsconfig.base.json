@@ -54,6 +54,9 @@
       ],
       "@portfolio-monorepo/portfolio/ui/profile-panel": [
         "./libs/portfolio/ui/profile-panel/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/tabs": [
+        "./libs/portfolio/ui/tabs/src/index.ts"
       ]
     }
   },

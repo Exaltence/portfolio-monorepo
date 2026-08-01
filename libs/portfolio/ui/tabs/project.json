@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-ui-tabs",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/portfolio/ui/tabs/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["domain:portfolio", "type:ui"],
+  "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "libs/portfolio/ui/tabs/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

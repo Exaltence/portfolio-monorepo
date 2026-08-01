@@ -1,0 +1,23 @@
+<div class="tabs">
+  <div class="tabs__header" role="tablist">
+    @for (label of tabs(); track label; let i = $index) {
+      <button
+        type="button"
+        class="tabs__tab"
+        data-testid="tab-header"
+        role="tab"
+        [id]="'tab-' + i"
+        [class.active]="active() === i"
+        [attr.aria-selected]="active() === i"
+        [attr.tabindex]="active() === i ? 0 : -1"
+        (click)="select(i)"
+      >
+        {{ label }}
+      </button>
+    }
+  </div>
+
+  <div class="tabs__panel" data-testid="tab-panel" role="tabpanel">
+    <ng-container [ngTemplateOutlet]="panels()[active()] ?? null" />
+  </div>
+</div>
