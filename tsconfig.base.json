@@ -69,6 +69,9 @@
       ],
       "@portfolio-monorepo/portfolio/ui/project-carousel": [
         "./libs/portfolio/ui/project-carousel/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/project-modal": [
+        "./libs/portfolio/ui/project-modal/src/index.ts"
       ]
     }
   },

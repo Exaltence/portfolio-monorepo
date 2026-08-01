@@ -1,0 +1,69 @@
+<div class="project-modal">
+  <button
+    type="button"
+    class="project-modal__close"
+    data-testid="modal-close"
+    aria-label="Close"
+    (click)="close()"
+  >
+    &times;
+  </button>
+
+  <p class="project-modal__category">{{ project().category }}</p>
+  <h3 class="project-modal__title" data-testid="modal-title">
+    {{ project().title }}
+  </h3>
+
+  <div class="project-modal__stage">
+    <img
+      class="project-modal__image"
+      data-testid="modal-main-image"
+      [src]="project().images[activeImage()]"
+      [alt]="project().title"
+    />
+  </div>
+
+  @if (project().images.length > 1) {
+    <div class="project-modal__thumbs">
+      @for (image of project().images; track image; let i = $index) {
+        <button
+          type="button"
+          class="project-modal__thumb"
+          [attr.data-testid]="'modal-image-' + i"
+          [class.active]="activeImage() === i"
+          [attr.aria-label]="'Show image ' + (i + 1)"
+          (click)="showImage(i)"
+        >
+          <img [src]="image" alt="" />
+        </button>
+      }
+    </div>
+  }
+
+  <div class="project-modal__desc">
+    @for (paragraph of project().descriptions; track paragraph) {
+      <p>{{ paragraph }}</p>
+    }
+  </div>
+
+  <nav class="project-modal__nav" aria-label="Project navigation">
+    <button
+      type="button"
+      class="project-modal__button"
+      data-testid="modal-prev"
+      aria-label="Previous project"
+      (click)="prev()"
+    >
+      &#8249;
+    </button>
+    <button
+      type="button"
+      class="project-modal__button"
+      data-testid="modal-next"
+      aria-label="Next project"
+      (click)="next()"
+    >
+      &#8250;
+    </button>
+  </nav>
+</div>

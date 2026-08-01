@@ -1,0 +1,108 @@
+:host {
+  display: block;
+}
+
+.project-modal {
+  position: relative;
+  width: min(92vw, 60rem);
+  max-height: 90vh;
+  padding: var(--space-10);
+  overflow-y: auto;
+  background-color: var(--bg);
+  border: 1px solid rgb(128 128 128 / 25%);
+  border-radius: 2px;
+}
+
+.project-modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--text-strong);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+
+  &:hover {
+    color: var(--mc);
+  }
+}
+
+.project-modal__category {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+
+.project-modal__title {
+  margin: 0 0 var(--space-6);
+  font-size: var(--fs-lg);
+}
+
+.project-modal__stage {
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.project-modal__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.project-modal__thumbs {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.project-modal__thumb {
+  width: 4.5rem;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+
+  &.active {
+    border-color: var(--mc);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.project-modal__desc {
+  margin-top: var(--space-6);
+}
+
+.project-modal__nav {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+.project-modal__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--text-strong);
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgb(128 128 128 / 40%);
+  border-radius: 50%;
+
+  &:hover {
+    color: var(--mc);
+    border-color: var(--mc);
+  }
+}
