@@ -1,0 +1,13 @@
+<div class="project-card__media">
+  <img
+    class="project-card__thumb"
+    [ngSrc]="project().thumbnailUrl"
+    [alt]="project().title"
+    width="600"
+    height="400"
+  />
+</div>
+<div class="project-card__body">
+  <p class="project-card__category">{{ project().category }}</p>
+  <h3 class="project-card__title">{{ project().title }}</h3>
+</div>

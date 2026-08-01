@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgb(128 128 128 / 25%);
+  border-radius: 2px;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+:host:hover,
+:host:focus-visible {
+  border-color: var(--mc);
+  outline: none;
+  transform: translateY(-4px);
+}
+
+.project-card__media {
+  overflow: hidden;
+}
+
+.project-card__thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.project-card__body {
+  padding: var(--space-5);
+}
+
+.project-card__category {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+
+.project-card__title {
+  margin: 0;
+  font-size: var(--fs-base);
+  color: var(--text-strong);
+}

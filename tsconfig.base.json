@@ -63,6 +63,12 @@
       ],
       "@portfolio-monorepo/portfolio/ui/resume-list": [
         "./libs/portfolio/ui/resume-list/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/project-card": [
+        "./libs/portfolio/ui/project-card/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/project-carousel": [
+        "./libs/portfolio/ui/project-carousel/src/index.ts"
       ]
     }
   },

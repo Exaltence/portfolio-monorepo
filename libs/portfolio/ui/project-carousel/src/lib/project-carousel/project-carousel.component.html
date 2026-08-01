@@ -1,0 +1,47 @@
+<div
+  class="carousel"
+  data-testid="carousel"
+  role="group"
+  aria-roledescription="carousel"
+  aria-label="Featured projects"
+  tabindex="0"
+  (mouseenter)="pause()"
+  (mouseleave)="resume()"
+  (focusin)="pause()"
+  (focusout)="resume()"
+  (keydown)="onKeydown($event)"
+>
+  <div class="carousel__viewport">
+    <div
+      class="carousel__track"
+      [style.transform]="'translateX(' + -index() * 100 + '%)'"
+    >
+      @for (project of projects(); track project.id) {
+        <div class="carousel__slide">
+          <app-project-card [project]="project" (opened)="onSelect($event)" />
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="carousel__nav">
+    <button
+      type="button"
+      class="carousel__button"
+      data-testid="carousel-prev"
+      aria-label="Previous project"
+      (click)="prev()"
+    >
+      &#8249;
+    </button>
+    <button
+      type="button"
+      class="carousel__button"
+      data-testid="carousel-next"
+      aria-label="Next project"
+      (click)="next()"
+    >
+      &#8250;
+    </button>
+  </div>
+</div>
