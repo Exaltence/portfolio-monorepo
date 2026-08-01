@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.profile-panel-feature__error,
+.profile-panel-feature__loading {
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--text);
+}

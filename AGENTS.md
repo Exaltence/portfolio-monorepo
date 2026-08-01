@@ -143,6 +143,7 @@ import { TaskStore } from '@portfolio-monorepo/portfolio/data/src/lib/state/task
 - `kebab-case` with type suffix: `task-card.component.ts`, `task-api.service.ts`, `task.store.ts`, `task.model.ts`, `date.util.ts`
 - Test files: `*.spec.ts` co-located with source.
 - One entity per file.
+- **Feature vs ui disambiguation:** dumb `ui` components use the bare concept name (`ProfilePanelComponent` / `app-profile-panel` / `profile-panel.component.ts`); smart `feature` components add a `Feature` suffix (`ProfilePanelFeatureComponent` / `app-profile-panel-feature` / `profile-panel-feature.component.ts`). Do not prefix names with domain/layer.
 
 ### Testing
 

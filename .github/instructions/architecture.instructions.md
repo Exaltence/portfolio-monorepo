@@ -36,6 +36,14 @@ This project follows a Domain-Driven Design (DDD) approach for modularity, maint
   - ❌ `UserProfile`, `TaskApi`, `Highlight`, `DateFormat`
 - **Exception:** `util` files export plain functions, not classes. No `DateFormatUtil` class — just exported functions in a `.util.ts` file.
 
+### Feature vs UI Disambiguation
+
+A smart `feature` component and the dumb `ui` component it wraps often describe the same concept and would otherwise collide on class name and selector. Disambiguate by **layer suffix on the feature only** — keep the reused `ui` name bare:
+
+- **`ui` (dumb, used as elements):** bare concept name — `ProfilePanelComponent`, selector `app-profile-panel`, folder/files `profile-panel/profile-panel.component.*`.
+- **`feature` (smart, route-level):** `Feature` suffix — `ProfilePanelFeatureComponent`, selector `app-profile-panel-feature`, folder/files `profile-panel-feature/profile-panel-feature.component.*` (inside the `feature/profile-panel/` lib).
+- Do **not** prefix every component with its domain/layer.
+
 ## 2. DDD Structure
 
 Each domain (`libs/<domain>/`) is divided into `feature/`, `ui/`, `data/`, `util/` layers with strict responsibilities.

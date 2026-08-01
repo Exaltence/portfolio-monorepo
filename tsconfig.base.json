@@ -35,7 +35,10 @@
         "./libs/test/portfolio-e2e/src/index.ts"
       ],
       "@portfolio-monorepo/shared/ui": ["./libs/shared/ui/src/index.ts"],
-      "@portfolio-monorepo/portfolio/ui": ["./libs/portfolio/ui/src/index.ts"]
+      "@portfolio-monorepo/portfolio/ui": ["./libs/portfolio/ui/src/index.ts"],
+      "@portfolio-monorepo/portfolio/feature/profile-panel": [
+        "./libs/portfolio/feature/profile-panel/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
