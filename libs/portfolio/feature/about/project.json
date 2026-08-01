@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-feature-about",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/portfolio/feature/about/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["domain:portfolio", "type:feature"],
+  "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "libs/portfolio/feature/about/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

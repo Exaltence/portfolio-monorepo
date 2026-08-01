@@ -1,0 +1,35 @@
+@if (store.about.hasValue()) {
+  @let about = store.about.value();
+  <section class="about-feature">
+    <p class="about-feature__subtitle">{{ about.subtitle }}</p>
+    <h2 class="about-feature__title">{{ about.title }}</h2>
+    <p class="about-feature__intro" data-testid="about-intro">
+      {{ about.intro }}
+    </p>
+
+    <app-tabs [tabs]="tabs">
+      <ng-template>
+        <div class="about-feature__skills" data-testid="about-skills">
+          @for (skill of about.skills; track skill.name) {
+            <app-skill-badge [skill]="skill" />
+          }
+        </div>
+      </ng-template>
+      <ng-template>
+        <app-resume-list [entries]="about.experience" />
+      </ng-template>
+      <ng-template>
+        <app-resume-list [entries]="about.education" />
+      </ng-template>
+      <ng-template>
+        <app-resume-list [entries]="about.certificates" />
+      </ng-template>
+    </app-tabs>
+  </section>
+} @else if (store.about.error()) {
+  <p class="about-feature__error" data-testid="about-error">
+    Unable to load the about section.
+  </p>
+} @else {
+  <p class="about-feature__loading" data-testid="about-loading">Loading…</p>
+}
