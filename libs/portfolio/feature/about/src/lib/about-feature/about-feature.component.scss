@@ -3,26 +3,42 @@
 }
 
 .about-feature__subtitle {
-  margin: 0 0 var(--space-2);
-  font-size: var(--fs-sm);
+  margin: 0 0 var(--space-14);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
   color: var(--mc);
 }
 
 .about-feature__title {
-  margin: 0 0 var(--space-5);
+  position: relative;
+  margin: 0 0 var(--space-9);
+  padding-bottom: var(--space-4);
   font-size: var(--fs-xl);
+  font-weight: 400;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 9.5rem;
+    height: 2px;
+    content: '';
+    background-color: var(--line);
+  }
 }
 
 .about-feature__intro {
-  margin: 0 0 var(--space-8);
+  margin: 0 0 var(--space-13);
+  font-size: var(--fs-lg);
+  line-height: var(--space-11);
 }
 
 .about-feature__skills {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
-  gap: var(--space-6);
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-3);
 }
 
 .about-feature__error,
