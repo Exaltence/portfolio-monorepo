@@ -53,9 +53,9 @@ Each domain (`libs/<domain>/`) is divided into `feature/`, `ui/`, `data/`, `util
 
 - **Component, Directive, and Pipe Subfolders:**
   - All components, directives, pipes, and services must be placed in their own subfolders named after the construct.
-  - Example: A component named `task-list.component.ts` is located at `libs/portfolio/feature/task-list/task-list.component.ts`, not directly in the `feature/` folder.
+  - Example: A component named `task-list.component.ts` is located at `libs/portfolio/feature/task-list/task-list.component.ts`, not directly in the `feature/` folder. Within the single `ui/` lib, a component lives at `libs/portfolio/ui/src/lib/task-card/task-card.component.ts`.
 
-- **Lib granularity:** `feature/` and `ui/` each contain multiple Nx libs — one per component or group. `data/` and `util/` are each a **single Nx lib per domain**, containing all models, infrastructure, state, or helpers for that domain respectively.
+- **Lib granularity:** `feature/` contains multiple Nx libs — one per feature (route-level container). `ui/`, `data/`, and `util/` are each a **single Nx lib per domain**: `ui/` holds all presentational components/directives/pipes as folders under `src/lib/` behind one barrel; `data/` holds all models, infrastructure, and state; `util/` holds all helpers.
 
 - **Application shell:** `apps/` is an intentionally thin shell. It houses only routes, shell components (e.g. `navbar`, `sidebar`, `home`, `not-found`), and app configuration. No local data access or business logic — all domain logic lives in `libs/`.
 
@@ -77,7 +77,7 @@ app  →  feature  →  ui  →  data  →  util
 
 - `type:app` → `type:feature`, `type:ui`, `type:data`, `type:util`
 - `type:feature` → `type:ui`, `type:data`, `type:util`
-- `type:ui` → `type:ui` (peer presentational composition), `type:data`, `type:util`
+- `type:ui` → `type:data`, `type:util` (presentational composition is intra-lib via relative imports)
 - `type:data` → `type:util`
 - `type:util` → `type:util` (peer utilities only)
 
@@ -174,16 +174,15 @@ libs/
       feature-2/
         ...
     ui/
-      ui-1/
-        src/
-          index.ts
-          lib/
-            ui-1/
-              ui-1.component.ts
-              ui-1.component.html
-              ui-1.component.scss
-      ui-2/
-        ...
+      src/
+        index.ts
+        lib/
+          ui-1/
+            ui-1.component.ts
+            ui-1.component.html
+            ui-1.component.scss
+          ui-2/
+            ...
     util/
       src/
         index.ts
@@ -201,10 +200,13 @@ libs/
       feature-2/
         ...
     ui/
-      ui-1/
-        ...
-      ui-2/
-        ...
+      src/
+        index.ts
+        lib/
+          ui-1/
+            ...
+          ui-2/
+            ...
     util/
       ...
   test/

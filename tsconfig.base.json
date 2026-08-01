@@ -34,45 +34,8 @@
       "@portfolio-monorepo/test/portfolio-e2e": [
         "./libs/test/portfolio-e2e/src/index.ts"
       ],
-      "@portfolio-monorepo/shared/ui/theme-toggle": [
-        "./libs/shared/ui/theme-toggle/src/index.ts"
-      ],
-      "@portfolio-monorepo/shared/ui/back-to-top": [
-        "./libs/shared/ui/back-to-top/src/index.ts"
-      ],
-      "@portfolio-monorepo/shared/ui/magic-cursor": [
-        "./libs/shared/ui/magic-cursor/src/index.ts"
-      ],
-      "@portfolio-monorepo/shared/ui/scroll-spy": [
-        "./libs/shared/ui/scroll-spy/src/index.ts"
-      ],
-      "@portfolio-monorepo/shared/ui/site-menu": [
-        "./libs/shared/ui/site-menu/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/typing-title": [
-        "./libs/portfolio/ui/typing-title/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/profile-panel": [
-        "./libs/portfolio/ui/profile-panel/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/tabs": [
-        "./libs/portfolio/ui/tabs/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/skill-badge": [
-        "./libs/portfolio/ui/skill-badge/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/resume-list": [
-        "./libs/portfolio/ui/resume-list/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/project-card": [
-        "./libs/portfolio/ui/project-card/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/project-carousel": [
-        "./libs/portfolio/ui/project-carousel/src/index.ts"
-      ],
-      "@portfolio-monorepo/portfolio/ui/project-modal": [
-        "./libs/portfolio/ui/project-modal/src/index.ts"
-      ]
+      "@portfolio-monorepo/shared/ui": ["./libs/shared/ui/src/index.ts"],
+      "@portfolio-monorepo/portfolio/ui": ["./libs/portfolio/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

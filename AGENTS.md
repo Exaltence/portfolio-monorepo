@@ -70,7 +70,7 @@ apps/
 libs/
   <domain>/           # e.g., portfolio/, shared/
     feature/<name>/   # Smart container components (route-level). Separate Nx lib per feature.
-    ui/<name>/        # Presentational components. Separate Nx lib per component/group.
+    ui/               # Single Nx lib: presentational components/directives/pipes in folders under src/lib/, one barrel
     data/             # Single Nx lib: models/, infrastructure/ (HTTP), state/ (Signal Stores)
     util/             # Single Nx lib: pure helper functions
   tests/
@@ -94,7 +94,7 @@ libs/
 | `type:e2e`         | `apps/<name>-e2e/`              |
 | `type:test`        | `libs/test/`                    |
 | `type:feature`     | `libs/<domain>/feature/<name>/` |
-| `type:ui`          | `libs/<domain>/ui/<name>/`      |
+| `type:ui`          | `libs/<domain>/ui/`             |
 | `type:data`        | `libs/<domain>/data/`           |
 | `type:util`        | `libs/<domain>/util/`           |
 | `domain:portfolio` | All portfolio app + libs        |
