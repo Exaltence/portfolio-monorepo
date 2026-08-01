@@ -1,27 +1,37 @@
 <div class="profile-panel">
-  <div class="profile-panel__media">
-    <img
-      class="profile-panel__avatar"
-      data-testid="profile-avatar"
-      [ngSrc]="profile().avatarUrl"
-      [alt]="profile().name"
-      width="400"
-      height="500"
-      priority
-    />
-  </div>
+  <div class="profile-panel__top">
+    <span
+      class="profile-panel__border profile-panel__border--1"
+      aria-hidden="true"
+    ></span>
+    <span
+      class="profile-panel__border profile-panel__border--2"
+      aria-hidden="true"
+    ></span>
 
-  <div class="profile-panel__intro">
-    <p class="profile-panel__greeting">{{ profile().greeting }}</p>
-    <h1 class="profile-panel__name" data-testid="profile-name">
-      {{ profile().name }}
-    </h1>
-    <h2 class="profile-panel__title">
-      <span
-        class="profile-panel__typed"
-        [appTypingTitle]="profile().roles"
-      ></span>
-    </h2>
+    <div class="profile-panel__media">
+      <img
+        class="profile-panel__avatar"
+        data-testid="profile-avatar"
+        [ngSrc]="profile().avatarUrl"
+        [alt]="profile().name"
+        width="400"
+        height="500"
+        priority
+      />
+    </div>
+
+    <div class="profile-panel__intro">
+      <p class="profile-panel__greeting">{{ profile().greeting }}</p>
+      <h1 class="profile-panel__name" data-testid="profile-name">
+        <span class="profile-panel__sr">{{ profile().name }}</span>
+        <span
+          class="profile-panel__typed"
+          aria-hidden="true"
+          [appTypingTitle]="profile().roles"
+        ></span>
+      </h1>
+    </div>
   </div>
 
   <ul class="profile-panel__social">
@@ -85,6 +95,14 @@
     [href]="profile().cvUrl"
     download
   >
-    Download CV
+    <span class="profile-panel__cv-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M2 12h2v5h16v-5h2v5c0 1.11-.89 2-2 2H4a2 2 0 0 1-2-2zm10 3l5.55-5.46l-1.42-1.41L13 11.25V2h-2v9.25L7.88 8.13L6.46 9.55z"
+        />
+      </svg>
+    </span>
+    <span>Download CV</span>
   </a>
 </div>
