@@ -57,6 +57,12 @@
       ],
       "@portfolio-monorepo/portfolio/ui/tabs": [
         "./libs/portfolio/ui/tabs/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/skill-badge": [
+        "./libs/portfolio/ui/skill-badge/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/ui/resume-list": [
+        "./libs/portfolio/ui/resume-list/src/index.ts"
       ]
     }
   },

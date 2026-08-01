@@ -1,0 +1,16 @@
+<ul class="resume-list">
+  @for (entry of entries(); track $index) {
+    <li class="resume-list__item" data-testid="resume-entry">
+      <div class="resume-list__top">
+        <h5 class="resume-list__org">{{ entry.organization }}</h5>
+        <span class="resume-list__period">{{ entry.period }}</span>
+      </div>
+      <h3 class="resume-list__title">{{ entry.title }}</h3>
+      <p class="resume-list__desc">{{ entry.description }}</p>
+    </li>
+  } @empty {
+    <li class="resume-list__empty" data-testid="resume-empty">
+      No entries yet.
+    </li>
+  }
+</ul>

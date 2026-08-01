@@ -1,0 +1,49 @@
+:host {
+  display: block;
+}
+
+.resume-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.resume-list__item {
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+  border: 1px solid rgb(128 128 128 / 25%);
+  border-radius: 2px;
+}
+
+.resume-list__top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.resume-list__org {
+  margin: 0;
+  font-size: var(--fs-base);
+  color: var(--text-strong);
+}
+
+.resume-list__period {
+  font-size: var(--fs-sm);
+}
+
+.resume-list__title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-base);
+  color: var(--mc);
+}
+
+.resume-list__desc {
+  margin: 0;
+}
+
+.resume-list__empty {
+  color: var(--text);
+}
