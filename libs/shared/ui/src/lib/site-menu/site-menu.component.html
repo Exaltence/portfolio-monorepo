@@ -16,7 +16,7 @@
             data-testid="nav-item"
             [href]="'#' + item.fragment"
             [style.transition-delay.ms]="i * 200"
-            (click)="select(item)"
+            (click)="select(item, $event)"
           >
             {{ item.label }}
           </a>

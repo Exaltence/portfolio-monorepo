@@ -11,7 +11,8 @@ export class SiteMenuComponent {
   readonly items = input<readonly NavItem[]>([]);
   readonly navigate = output<NavItem>();
 
-  protected select(item: NavItem): void {
+  protected select(item: NavItem, event: Event): void {
+    event.preventDefault();
     this.navigate.emit(item);
     this.open.set(false);
   }
