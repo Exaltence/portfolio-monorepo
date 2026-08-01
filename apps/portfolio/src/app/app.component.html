@@ -1,2 +1,12 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<div class="app" appMagicCursor>
+  <span class="app__cursor app__cursor--outer" aria-hidden="true"></span>
+  <span class="app__cursor app__cursor--inner" aria-hidden="true"></span>
+
+  <app-theme-toggle
+    class="app__theme-toggle"
+    [theme]="theme.theme()"
+    (toggled)="theme.toggle()"
+  />
+
+  <router-outlet />
+</div>

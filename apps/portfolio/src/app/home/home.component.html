@@ -1,0 +1,43 @@
+<div class="home" [class.scrolled]="scrolled()">
+  <div
+    class="home__sentinel"
+    appScrollSpy
+    (scrolled)="onScrolled($event)"
+  ></div>
+
+  <button
+    type="button"
+    class="home__menu-trigger"
+    data-testid="menu-trigger"
+    aria-label="Open menu"
+    (click)="menuOpen.set(true)"
+  >
+    Menu
+  </button>
+
+  <app-site-menu
+    [open]="menuOpen()"
+    (openChange)="menuOpen.set($event)"
+    [items]="navItems"
+    (navigate)="navigate($event)"
+  />
+
+  <main class="home__main">
+    <section id="home" class="home__section">
+      <app-about-feature />
+    </section>
+    <section id="portfolio" class="home__section">
+      <app-projects-feature />
+    </section>
+  </main>
+
+  <aside class="home__aside">
+    <app-profile-panel-feature />
+  </aside>
+
+  <app-back-to-top class="home__back-to-top" [visible]="scrolled()" />
+
+  <footer class="home__footer">
+    <p>&copy; {{ year }} Shaun Vercauteren</p>
+  </footer>
+</div>
