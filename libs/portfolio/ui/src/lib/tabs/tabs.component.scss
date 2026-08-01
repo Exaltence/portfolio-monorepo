@@ -5,21 +5,40 @@
 .tabs__header {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-6);
-  margin-bottom: var(--space-6);
+  align-items: center;
+  justify-content: center;
+  row-gap: var(--space-3);
+  margin-bottom: var(--space-10);
 }
 
 .tabs__tab {
-  padding: 0 0 var(--space-2);
-  font-size: var(--fs-base);
+  position: relative;
+  padding: var(--space-1) 0 0;
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  line-height: var(--space-8);
   color: var(--text);
   cursor: pointer;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 1px solid transparent;
   transition:
     color 0.3s ease,
     border-color 0.3s ease;
+
+  &:not(:last-child) {
+    margin-right: calc(var(--space-10) + var(--space-5) * 2);
+  }
+
+  &:not(:last-child)::after {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + var(--space-5));
+    width: var(--space-10);
+    height: 2px;
+    content: '';
+    background-color: var(--line);
+  }
 
   &:hover {
     color: var(--text-strong);
