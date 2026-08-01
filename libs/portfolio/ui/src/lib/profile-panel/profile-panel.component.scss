@@ -65,7 +65,7 @@
   margin-bottom: var(--space-2);
   font-size: var(--fs-sm);
   font-weight: 500;
-  color: #999;
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -161,7 +161,7 @@
   gap: var(--space-3);
   align-items: center;
   margin-bottom: var(--space-5);
-  color: #999;
+  color: var(--text);
 
   span:last-child {
     text-decoration: underline;
@@ -191,7 +191,7 @@
   height: 7.25rem;
   font-size: var(--fs-base);
   font-weight: 500;
-  color: #888;
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 1px;
   border: 2px solid var(--line);
