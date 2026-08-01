@@ -41,6 +41,12 @@
   gap: var(--space-3);
 }
 
+@media (width <= 560px) {
+  .about-feature__skills {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .about-feature__error,
 .about-feature__loading {
   padding: var(--space-8);
