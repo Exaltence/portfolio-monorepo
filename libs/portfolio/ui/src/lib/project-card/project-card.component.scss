@@ -2,19 +2,11 @@
   display: block;
   overflow: hidden;
   cursor: pointer;
-  background: transparent;
-  border: 1px solid rgb(128 128 128 / 25%);
-  border-radius: 2px;
-  transition:
-    border-color 0.3s ease,
-    transform 0.3s ease;
 }
 
-:host:hover,
 :host:focus-visible {
-  border-color: var(--mc);
-  outline: none;
-  transform: translateY(-4px);
+  outline: 2px solid var(--mc);
+  outline-offset: 2px;
 }
 
 .project-card__media {
@@ -25,12 +17,12 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
 }
 
 .project-card__body {
-  padding: var(--space-5);
+  padding: var(--space-7) 0 0;
 }
 
 .project-card__category {
@@ -41,6 +33,12 @@
 
 .project-card__title {
   margin: 0;
-  font-size: var(--fs-base);
+  font-size: var(--fs-lg);
+  font-weight: 400;
   color: var(--text-strong);
+  transition: color 0.3s ease;
+}
+
+:host:hover .project-card__title {
+  color: var(--mc);
 }

@@ -11,19 +11,6 @@
   (focusout)="resume()"
   (keydown)="onKeydown($event)"
 >
-  <div class="carousel__viewport">
-    <div
-      class="carousel__track"
-      [style.transform]="'translateX(' + -index() * 100 + '%)'"
-    >
-      @for (project of projects(); track project.id) {
-        <div class="carousel__slide">
-          <app-project-card [project]="project" (opened)="onSelect($event)" />
-        </div>
-      }
-    </div>
-  </div>
-
   <div class="carousel__nav">
     <button
       type="button"
@@ -43,5 +30,18 @@
     >
       &#8250;
     </button>
+  </div>
+
+  <div #viewport class="carousel__viewport">
+    <div
+      class="carousel__track"
+      [style.transform]="'translateX(' + offset() + 'px)'"
+    >
+      @for (project of projects(); track project.id) {
+        <div class="carousel__slide">
+          <app-project-card [project]="project" (opened)="onSelect($event)" />
+        </div>
+      }
+    </div>
   </div>
 </div>

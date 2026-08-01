@@ -12,24 +12,37 @@
 
 .carousel__viewport {
   overflow: hidden;
+  container-type: inline-size;
 }
 
 .carousel__track {
   display: flex;
+  gap: var(--space-5);
   transition: transform 0.5s ease;
 }
 
 .carousel__slide {
-  flex: 0 0 100%;
-  padding: 0 var(--space-3);
+  flex: 0 0 calc((100% - 2 * var(--space-5)) / 3);
   box-sizing: border-box;
+}
+
+@container (max-width: 699px) {
+  .carousel__slide {
+    flex-basis: calc((100% - var(--space-5)) / 2);
+  }
+}
+
+@container (max-width: 459px) {
+  .carousel__slide {
+    flex-basis: 100%;
+  }
 }
 
 .carousel__nav {
   display: flex;
   gap: var(--space-3);
-  justify-content: center;
-  margin-top: var(--space-6);
+  justify-content: flex-end;
+  margin-bottom: var(--space-8);
 }
 
 .carousel__button {
