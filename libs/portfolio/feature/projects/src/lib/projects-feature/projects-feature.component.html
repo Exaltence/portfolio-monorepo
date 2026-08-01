@@ -1,8 +1,14 @@
 @if (store.projects.hasValue()) {
-  <app-project-carousel
-    [projects]="store.projects.value()"
-    (selected)="open($event)"
-  />
+  <section class="projects-feature">
+    <header class="projects-feature__head">
+      <p class="projects-feature__subtitle">Portfolio</p>
+      <h2 class="projects-feature__title">Featured Projects</h2>
+    </header>
+    <app-project-carousel
+      [projects]="store.projects.value()"
+      (selected)="open($event)"
+    />
+  </section>
 } @else if (store.projects.error()) {
   <p class="projects-feature__error" data-testid="projects-error">
     Unable to load the projects.
