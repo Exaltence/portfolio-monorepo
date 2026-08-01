@@ -41,6 +41,9 @@
       ],
       "@portfolio-monorepo/portfolio/feature/about": [
         "./libs/portfolio/feature/about/src/index.ts"
+      ],
+      "@portfolio-monorepo/portfolio/feature/projects": [
+        "./libs/portfolio/feature/projects/src/index.ts"
       ]
     }
   },

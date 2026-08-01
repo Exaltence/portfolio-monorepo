@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.projects-feature__error,
+.projects-feature__loading {
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--text);
+}
