@@ -12,7 +12,12 @@
     aria-label="Open menu"
     (click)="menuOpen.set(true)"
   >
-    Menu
+    <span class="home__menu-text">Menu</span>
+    <span class="home__hamburger" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
   </button>
 
   <app-site-menu
@@ -38,6 +43,55 @@
   <app-back-to-top class="home__back-to-top" [visible]="scrolled()" />
 
   <footer class="home__footer">
-    <p>&copy; {{ year }} Shaun Vercauteren</p>
+    <p>
+      Coded in
+      <a
+        class="home__footer-link"
+        href="https://code.visualstudio.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Visual Studio Code
+      </a>
+      built with
+      <a
+        class="home__footer-link"
+        href="https://nx.dev/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Nx
+      </a>
+      and modern
+      <a
+        class="home__footer-link"
+        href="https://angular.dev/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Angular
+      </a>
+      deployed on
+      <a
+        class="home__footer-link"
+        href="https://docs.github.com/en/pages"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub Pages
+      </a>
+      using
+      <a
+        class="home__footer-link"
+        href="https://github.com/features/actions"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub Actions
+      </a>
+      for CI/CD.
+      <br />
+      Copyright &copy; {{ year }}. All rights reserved.
+    </p>
   </footer>
 </div>
