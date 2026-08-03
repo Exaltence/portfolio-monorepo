@@ -99,8 +99,8 @@ describe('ProjectCarouselComponent', () => {
     expect(fixture.componentInstance.index()).toBe(1);
 
     (fixture.nativeElement as HTMLElement)
-      .querySelector('[data-testid="carousel"]')!
-      .dispatchEvent(new MouseEvent('mouseenter'));
+      .querySelector('[data-testid="carousel"]')
+      ?.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
 
     await vi.advanceTimersByTimeAsync(7000);

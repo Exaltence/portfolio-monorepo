@@ -6,7 +6,16 @@
     aria-label="Close"
     (click)="close()"
   >
-    &times;
+    <svg
+      class="project-modal__close-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+      />
+    </svg>
   </button>
 
   <p class="project-modal__category">{{ project().category }}</p>
@@ -47,23 +56,47 @@
   </div>
 
   <nav class="project-modal__nav" aria-label="Project navigation">
-    <button
-      type="button"
-      class="project-modal__button"
-      data-testid="modal-prev"
-      aria-label="Previous project"
-      (click)="prev()"
-    >
-      &#8249;
-    </button>
-    <button
-      type="button"
-      class="project-modal__button"
-      data-testid="modal-next"
-      aria-label="Next project"
-      (click)="next()"
-    >
-      &#8250;
-    </button>
+    <div class="project-modal__button-wrapper prev">
+      <button
+        type="button"
+        class="project-modal__button"
+        data-testid="modal-prev"
+        aria-label="Previous project"
+        (click)="prev()"
+      >
+        <svg
+          class="project-modal__button-icon prev"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 13H6.75L12 18.25l-.66.75l-6.5-6.5l6.5-6.5l.66.75L6.75 12H19z"
+          />
+        </svg>
+        prev
+      </button>
+    </div>
+    <div class="project-modal__button-wrapper next">
+      <button
+        type="button"
+        class="project-modal__button"
+        data-testid="modal-next"
+        aria-label="Next project"
+        (click)="next()"
+      >
+        next
+        <svg
+          class="project-modal__button-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4 12h12.25L11 6.75l.66-.75l6.5 6.5l-6.5 6.5l-.66-.75L16.25 13H4z"
+          />
+        </svg>
+      </button>
+    </div>
   </nav>
 </div>

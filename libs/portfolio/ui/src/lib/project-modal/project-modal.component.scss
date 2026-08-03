@@ -17,15 +17,22 @@
   position: absolute;
   top: var(--space-4);
   right: var(--space-4);
-  font-size: var(--fs-lg);
+  width: 3rem;
+  height: 3rem;
   line-height: 1;
   color: var(--text-strong);
   cursor: pointer;
   background: transparent;
-  border: 0;
+  border: 1px solid transparent;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    scale 0.3s ease;
 
   &:hover {
     color: var(--mc);
+    border-color: var(--mc);
+    scale: 0.92;
   }
 }
 
@@ -49,6 +56,7 @@
   display: block;
   width: 100%;
   height: auto;
+  pointer-events: none;
 }
 
 .project-modal__thumbs {
@@ -59,12 +67,19 @@
 
 .project-modal__thumb {
   width: 4.5rem;
-  padding: 0;
+  padding: 0.25rem;
   overflow: hidden;
   cursor: pointer;
   background: transparent;
   border: 1px solid transparent;
   border-radius: 2px;
+  transition: scale 0.3s ease;
+
+  &:not(.active):hover {
+    padding: 0.25rem;
+    border-color: var(--text-strong);
+    scale: 1.08;
+  }
 
   &.active {
     border-color: var(--mc);
@@ -74,6 +89,7 @@
     display: block;
     width: 100%;
     height: auto;
+    pointer-events: none;
   }
 }
 
@@ -83,26 +99,64 @@
 
 .project-modal__nav {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--line);
   gap: var(--space-3);
   margin-top: var(--space-8);
+  margin-left: calc(-1 * var(--space-10));
+  margin-right: calc(-1 * var(--space-10));
+  margin-bottom: calc(-1 * var(--space-10));
 }
 
-.project-modal__button {
+/*
+ * Sliding text with border icon animation on hover
+ */
+.project-modal__button-wrapper {
+  width: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  font-size: var(--fs-lg);
-  line-height: 1;
-  color: var(--text-strong);
   cursor: pointer;
-  background: transparent;
-  border: 1px solid rgb(128 128 128 / 40%);
-  border-radius: 50%;
 
   &:hover {
     color: var(--mc);
-    border-color: var(--mc);
+
+    .project-modal__button-icon {
+      color: var(--mc);
+      border-color: var(--mc);
+      margin: 0 var(--space-4);
+    }
   }
+}
+
+.project-modal__button {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-8) var(--space-10);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.project-modal__button-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--text);
+
+  border: 2px solid transparent;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    margin 0.3s ease;
+}
+
+.prev {
+  justify-content: flex-start;
+}
+
+.next {
+  justify-content: flex-end;
+  border-left: 1px solid var(--line);
 }

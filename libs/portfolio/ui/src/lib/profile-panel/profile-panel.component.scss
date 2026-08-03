@@ -11,9 +11,8 @@
 
 .profile-panel__top {
   position: relative;
-  width: 100%;
+  width: 70%;
   padding: var(--space-8);
-  margin-bottom: var(--space-5);
 }
 
 .profile-panel__border {
@@ -52,18 +51,19 @@
 
 .profile-panel__avatar {
   object-fit: cover;
+  pointer-events: none;
 }
 
 .profile-panel__intro {
   position: relative;
   z-index: 5;
-  padding: var(--space-5) 0 var(--space-4);
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-1);
   text-align: center;
 }
 
 .profile-panel__greeting {
   margin-bottom: var(--space-2);
-  font-size: var(--fs-sm);
   font-weight: 500;
   color: var(--text);
   text-transform: uppercase;
@@ -74,8 +74,86 @@
   min-height: 1.5em;
   margin: 0;
   overflow: hidden;
-  font-size: clamp(1.06rem, 5vw, 1.6rem);
+  font-size: 1.25rem;
   font-weight: 600;
+}
+
+/*
+ * Large desktops
+ */
+@media (width >= 2048px) {
+  .profile-panel__greeting {
+    font-size: var(--fs-sm);
+  }
+
+  .profile-panel__name {
+    font-size: var(--fs-lg);
+  }
+}
+
+/* 
+ * Regular desktops
+ */
+@media (width >= 1347px) and (width <= 2047px) {
+  .profile-panel__greeting {
+    font-size: var(--fs-base);
+  }
+
+  .profile-panel__name {
+    font-size: 1.25rem;
+  }
+}
+
+/*
+ * Small desktops or tablets
+ */
+@media (width >= 1040px) and (width <= 1346px) {
+  .profile-panel__greeting {
+    font-size: 0.625rem;
+  }
+
+  .profile-panel__name {
+    font-size: 0.75rem;
+  }
+}
+
+/*
+ * Small Tablets 
+ */
+@media (width >= 618px) and (width <= 1040px) {
+  .profile-panel__greeting {
+    font-size: var(--fs-base);
+  }
+
+  .profile-panel__name {
+    font-size: var(--fs-lg);
+  }
+}
+
+/*
+ * Regular Phones 
+ */
+@media (width >= 471px) and (width <= 617px) {
+  .profile-panel__greeting {
+    font-size: 0.75rem;
+  }
+
+  .profile-panel__name {
+    font-size: 1.25rem;
+  }
+}
+
+/*
+ * Small phones 
+ */
+@media (width <= 470px) {
+  .profile-panel__greeting {
+    font-size: 0.625rem;
+  }
+
+  .profile-panel__name {
+    font-size: 0.75rem;
+  }
 }
 
 .profile-panel__sr {
@@ -138,34 +216,64 @@
   gap: var(--space-4);
   justify-content: center;
   padding: 0;
-  margin: var(--space-6) 0;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-1);
   list-style: none;
 }
 
 .profile-panel__social-link {
+  all: unset;
   display: inline-flex;
-  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 
-  svg {
-    width: 1.75rem;
-    height: 1.75rem;
+  .profile-panel__social-link-icon {
+    width: 4rem;
+    height: 4rem;
+    transition: scale 0.3s ease;
   }
 
-  &:hover {
-    color: var(--mc);
+  &:hover .profile-panel__social-link-icon {
+    scale: 1.08;
+    color: var(--text-strong);
   }
 }
 
 .profile-panel__availability {
+  all: unset;
   display: inline-flex;
   gap: var(--space-3);
   align-items: center;
   margin-bottom: var(--space-5);
   color: var(--text);
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
 
   span:last-child {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    position: relative;
+  }
+
+  /* 
+   * Center expanding underline animation on hover 
+   */
+  span:last-child::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: currentcolor;
+    transform: translateX(-50%) scaleX(1);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover span:last-child::after {
+    transform: translateX(-50%) scaleX(1.08);
   }
 
   &:hover {
@@ -181,6 +289,7 @@
 }
 
 .profile-panel__cv {
+  all: unset;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -195,14 +304,30 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   border: 2px solid var(--line);
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
 
   &:hover {
     color: var(--mc);
     border-color: var(--mc);
   }
+
+  &:hover .profile-panel__cv-icon,
+  &:hover .profile-panel__cv-text {
+    scale: 1.08;
+  }
 }
 
-.profile-panel__cv-icon svg {
+.profile-panel__cv-icon {
   width: 1.5rem;
   height: 1.5rem;
+  pointer-events: none;
+  transition: scale 0.3s ease;
+}
+
+.profile-panel__cv-text {
+  pointer-events: none;
+  transition: scale 0.3s ease;
 }

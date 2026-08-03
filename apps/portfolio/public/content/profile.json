@@ -4,12 +4,12 @@
   "roles": ["Shaun Vercauteren", "Web Developer", "Front-end Engineer"],
   "avatarUrl": "img/img-profile.jpg",
   "available": true,
-  "availabilityUrl": "https://www.linkedin.com/in/shaun-vercauteren-678221152/",
+  "availabilityUrl": "https://www.linkedin.com/in/shaun-vercauteren-678221152",
   "cvUrl": "cv-shaun-vercauteren.pdf",
   "social": [
     {
       "label": "LinkedIn",
-      "url": "https://www.linkedin.com/in/shaun-vercauteren-678221152/",
+      "url": "https://www.linkedin.com/in/shaun-vercauteren-678221152",
       "icon": "linkedin"
     },
     {

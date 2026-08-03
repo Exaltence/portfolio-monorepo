@@ -1,8 +1,10 @@
 @if (store.about.hasValue()) {
   @let about = store.about.value();
   <section class="about-feature">
-    <p class="about-feature__subtitle">{{ about.subtitle }}</p>
-    <h2 class="about-feature__title">{{ about.title }}</h2>
+    <header>
+      <p class="about-feature__subtitle">{{ about.subtitle }}</p>
+      <h2 class="about-feature__title">{{ about.title }}</h2>
+    </header>
     <p class="about-feature__intro" data-testid="about-intro">
       {{ about.intro }}
     </p>

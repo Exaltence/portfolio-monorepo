@@ -7,7 +7,12 @@ test('exposes a resolvable CV download link', async ({ page }) => {
   await home.goto();
 
   await expect(home.cvLink).toBeVisible();
-  await expect(home.cvLink).toHaveAttribute('href', 'cv-shaun-vercauteren.pdf');
+
+  const downloadPromise = page.waitForEvent('download');
+  await home.cvLink.click();
+  const download = await downloadPromise;
+
+  expect(download.suggestedFilename()).toBe('cv-shaun-vercauteren.pdf');
 
   const resolved = new URL('cv-shaun-vercauteren.pdf', page.url()).toString();
   const response = await page.request.get(resolved);

@@ -41,4 +41,8 @@ export class HomeComponent {
       scrollToElement(target);
     }
   }
+
+  protected openLink(url: string): void {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
 }

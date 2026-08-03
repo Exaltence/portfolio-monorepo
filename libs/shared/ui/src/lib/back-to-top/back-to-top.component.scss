@@ -3,37 +3,27 @@
 }
 
 .back-to-top {
+  all: unset;
+  width: 3rem;
+  height: 3rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0;
-  color: var(--text-strong);
-  visibility: hidden;
+  border: 1px solid transparent;
   cursor: pointer;
-  background: transparent;
-  border: 1px solid rgb(128 128 128 / 40%);
-  border-radius: 50%;
-  opacity: 0;
   transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease,
     color 0.3s ease,
-    border-color 0.3s ease;
+    border-color 0.3s ease,
+    scale 0.3s ease;
 
   &:hover {
     color: var(--mc);
     border-color: var(--mc);
+    scale: 1.08;
   }
 
   &.is-visible {
     visibility: visible;
     opacity: 1;
   }
-}
-
-.back-to-top__icon {
-  width: 1.5rem;
-  height: 1.5rem;
 }

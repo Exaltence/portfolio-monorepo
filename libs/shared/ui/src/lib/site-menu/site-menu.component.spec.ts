@@ -30,15 +30,11 @@ describe('SiteMenuComponent', () => {
     ) as HTMLElement;
   }
 
-  it('should render items with a staggered transition delay when open', async () => {
-    fixture.componentRef.setInput('open', true);
-    await fixture.whenStable();
-
-    const rendered = links();
-    expect(rendered).toHaveLength(2);
-    expect(rendered[0].style.transitionDelay).toBe('0ms');
-    expect(rendered[1].style.transitionDelay).toBe('200ms');
-  });
+  function closeButton(): HTMLElement {
+    return (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="nav-close"]',
+    ) as HTMLElement;
+  }
 
   it('should emit navigate and close when an item is clicked', async () => {
     fixture.componentRef.setInput('open', true);
@@ -58,6 +54,16 @@ describe('SiteMenuComponent', () => {
     await fixture.whenStable();
 
     overlay().click();
+    await fixture.whenStable();
+
+    expect(fixture.componentInstance.open()).toBe(false);
+  });
+
+  it('should close when on close button is clicked', async () => {
+    fixture.componentRef.setInput('open', true);
+    await fixture.whenStable();
+
+    closeButton().click();
     await fixture.whenStable();
 
     expect(fixture.componentInstance.open()).toBe(false);

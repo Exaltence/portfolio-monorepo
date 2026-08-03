@@ -13,11 +13,14 @@
     (click)="menuOpen.set(true)"
   >
     <span class="home__menu-text">Menu</span>
-    <span class="home__hamburger" aria-hidden="true">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
+    <svg
+      class="home__menu-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+    </svg>
   </button>
 
   <app-site-menu
@@ -34,61 +37,55 @@
     <section id="portfolio" class="home__section">
       <app-projects-feature />
     </section>
+    <app-back-to-top class="home__back-to-top" [visible]="scrolled()" />
   </main>
 
   <aside class="home__aside">
     <app-profile-panel-feature />
   </aside>
 
-  <app-back-to-top class="home__back-to-top" [visible]="scrolled()" />
-
   <footer class="home__footer">
     <p>
       Coded in
-      <a
+      <button
         class="home__footer-link"
-        href="https://code.visualstudio.com/"
-        target="_blank"
-        rel="noopener noreferrer"
+        (click)="openLink('https://code.visualstudio.com/')"
+        aria-label="Visual Studio Code"
       >
         Visual Studio Code
-      </a>
+      </button>
       built with
-      <a
+      <button
         class="home__footer-link"
-        href="https://nx.dev/"
-        target="_blank"
-        rel="noopener noreferrer"
+        (click)="openLink('https://nx.dev/')"
+        aria-label="Nx"
       >
         Nx
-      </a>
+      </button>
       and modern
-      <a
+      <button
         class="home__footer-link"
-        href="https://angular.dev/"
-        target="_blank"
-        rel="noopener noreferrer"
+        (click)="openLink('https://angular.dev/')"
+        aria-label="Angular"
       >
         Angular
-      </a>
+      </button>
       deployed on
-      <a
+      <button
         class="home__footer-link"
-        href="https://docs.github.com/en/pages"
-        target="_blank"
-        rel="noopener noreferrer"
+        (click)="openLink('https://docs.github.com/en/pages')"
+        aria-label="GitHub Pages"
       >
         GitHub Pages
-      </a>
+      </button>
       using
-      <a
+      <button
         class="home__footer-link"
-        href="https://github.com/features/actions"
-        target="_blank"
-        rel="noopener noreferrer"
+        (click)="openLink('https://github.com/features/actions')"
+        aria-label="GitHub Actions"
       >
         GitHub Actions
-      </a>
+      </button>
       for CI/CD.
       <br />
       Copyright &copy; {{ year }}. All rights reserved.

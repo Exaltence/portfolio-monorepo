@@ -56,12 +56,39 @@ describe('ProfilePanelComponent', () => {
     ).toHaveLength(FAKE_PROFILE.social.length);
   });
 
-  it('should link the CV download to the cv url', async () => {
+  it('should trigger the CV download', async () => {
+    const createElementSpy = vi.spyOn(document, 'createElement');
+    const clickSpy = vi
+      .spyOn(HTMLAnchorElement.prototype, 'click')
+      .mockImplementation(() => undefined);
     await fixture.whenStable();
 
-    expect(
-      element().querySelector('[data-testid="cv-link"]')?.getAttribute('href'),
-    ).toBe('cv-shaun-vercauteren.pdf');
+    const button = element().querySelector(
+      '[data-testid="cv-link"]',
+    ) as HTMLButtonElement;
+    button.click();
+
+    const anchor = createElementSpy.mock.results.at(-1)
+      ?.value as HTMLAnchorElement;
+    expect(anchor.href).toContain('cv-shaun-vercauteren.pdf');
+    expect(anchor.download).toBe('');
+    expect(clickSpy).toHaveBeenCalledOnce();
+  });
+
+  it('should open the availability url in a new tab', async () => {
+    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
+    await fixture.whenStable();
+
+    const button = element().querySelector(
+      '[data-testid="availability"]',
+    ) as HTMLButtonElement;
+    button.click();
+
+    expect(openSpy).toHaveBeenCalledWith(
+      'https://example.com/li',
+      '_blank',
+      'noopener,noreferrer',
+    );
   });
 
   it('should render the typing title host element', async () => {

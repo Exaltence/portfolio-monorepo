@@ -8,18 +8,36 @@
   ></button>
 
   <nav class="site-menu__panel" aria-label="Primary">
+    <button
+      type="button"
+      class="site-menu__close"
+      data-testid="nav-close"
+      aria-label="Close"
+      (click)="close()"
+    >
+      <svg
+        class="site-menu__close-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+        />
+      </svg>
+    </button>
     <ul class="site-menu__list">
       @for (item of items(); track item.fragment; let i = $index) {
         <li class="site-menu__item">
-          <a
+          <button
+            type="button"
             class="site-menu__link"
             data-testid="nav-item"
-            [href]="'#' + item.fragment"
-            [style.transition-delay.ms]="i * 200"
-            (click)="select(item, $event)"
+            (click)="select(item)"
+            [attr.aria-label]="'Navigate to ' + item.label"
           >
-            {{ item.label }}
-          </a>
+            <span class="site-menu__text">{{ item.label }}</span>
+          </button>
         </li>
       }
     </ul>

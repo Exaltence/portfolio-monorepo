@@ -17,6 +17,7 @@
 
 .project-card__thumb {
   object-fit: cover;
+  pointer-events: none;
 }
 
 .project-card__body {
@@ -30,6 +31,7 @@
 }
 
 .project-card__title {
+  position: relative;
   margin: 0;
   font-size: var(--fs-lg);
   font-weight: 400;
@@ -39,4 +41,39 @@
 
 :host:hover .project-card__title {
   color: var(--mc);
+}
+
+/*
+ * Corner accent animation on hover
+ */
+.project-card__title::before,
+.project-card__title::after {
+  content: '';
+  position: absolute;
+  background: var(--mc);
+  transition:
+    width 0.3s ease,
+    height 0.3s ease;
+}
+
+.project-card__title::before {
+  top: 0;
+  right: 0;
+  height: 2px;
+  width: 0;
+}
+
+.project-card__title::after {
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 0;
+}
+
+:host:hover .project-card__title::before {
+  width: 1rem;
+}
+
+:host:hover .project-card__title::after {
+  height: 1rem;
 }

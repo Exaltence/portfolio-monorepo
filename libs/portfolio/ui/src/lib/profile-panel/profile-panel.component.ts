@@ -11,4 +11,15 @@ import { TypingTitleDirective } from '../typing-title/typing-title.directive';
 })
 export class ProfilePanelComponent {
   readonly profile = input.required<Profile>();
+
+  protected openLink(url: string): void {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  protected downloadCv(): void {
+    const link = document.createElement('a');
+    link.href = this.profile().cvUrl;
+    link.download = '';
+    link.click();
+  }
 }

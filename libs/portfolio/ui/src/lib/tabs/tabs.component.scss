@@ -11,6 +11,12 @@
   margin-bottom: var(--space-10);
 }
 
+@media (width <= 433px) {
+  .tabs__header {
+    flex-direction: column;
+  }
+}
+
 .tabs__tab {
   position: relative;
   padding: var(--space-1) 0 0;
@@ -21,23 +27,28 @@
   cursor: pointer;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
   transition:
     color 0.3s ease,
     border-color 0.3s ease;
 
-  &:not(:last-child) {
-    margin-right: calc(var(--space-10) + var(--space-5) * 2);
-  }
+  /* 
+   * Separator line between tabs on larger screens
+   */
+  @media (width >= 434px) {
+    &:not(:last-child)::after {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + var(--space-5));
+      width: var(--space-10);
+      height: 2px;
+      content: '';
+      background-color: var(--line);
+    }
 
-  &:not(:last-child)::after {
-    position: absolute;
-    top: 50%;
-    left: calc(100% + var(--space-5));
-    width: var(--space-10);
-    height: 2px;
-    content: '';
-    background-color: var(--line);
+    &:not(:last-child) {
+      margin-right: calc(var(--space-10) + var(--space-5) * 2);
+    }
   }
 
   &:hover {
@@ -47,5 +58,27 @@
   &.active {
     color: var(--mc);
     border-bottom-color: var(--mc);
+  }
+
+  &.active::before {
+    display: none;
+  }
+
+  /*
+   * Sliding underline animation on hover
+   */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--text-strong);
+    transition: width 0.3s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
   }
 }
