@@ -34,7 +34,7 @@
 
   @if (project().images.length > 1) {
     <div class="project-modal__thumbs">
-      @for (image of project().images; track image; let i = $index) {
+      @for (image of project().images; track $index; let i = $index) {
         <button
           type="button"
           class="project-modal__thumb"
@@ -50,7 +50,7 @@
   }
 
   <div class="project-modal__desc">
-    @for (paragraph of project().descriptions; track paragraph) {
+    @for (paragraph of project().descriptions; track $index) {
       <p>{{ paragraph }}</p>
     }
   </div>
@@ -59,13 +59,13 @@
     <div class="project-modal__button-wrapper prev">
       <button
         type="button"
-        class="project-modal__button"
+        class="project-modal__button prev"
         data-testid="modal-prev"
         aria-label="Previous project"
         (click)="prev()"
       >
         <svg
-          class="project-modal__button-icon prev"
+          class="project-modal__button-icon"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -74,18 +74,18 @@
             d="M19 13H6.75L12 18.25l-.66.75l-6.5-6.5l6.5-6.5l.66.75L6.75 12H19z"
           />
         </svg>
-        prev
+        <span class="project-modal__button-text">prev</span>
       </button>
     </div>
     <div class="project-modal__button-wrapper next">
       <button
         type="button"
-        class="project-modal__button"
+        class="project-modal__button next"
         data-testid="modal-next"
         aria-label="Next project"
         (click)="next()"
       >
-        next
+        <span class="project-modal__button-text">next</span>
         <svg
           class="project-modal__button-icon"
           xmlns="http://www.w3.org/2000/svg"
