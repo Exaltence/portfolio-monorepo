@@ -31,6 +31,24 @@ class MockIntersectionObserver {
   readonly thresholds: readonly number[] = [];
 }
 
+function firePointerEvent(
+  target: EventTarget,
+  type: string,
+  init: { pointerType?: string; clientX?: number; pointerId?: number } = {},
+): void {
+  const event = new Event(type, {
+    bubbles: true,
+    cancelable: true,
+  }) as PointerEvent;
+  Object.defineProperty(event, 'pointerType', {
+    value: init.pointerType ?? 'mouse',
+  });
+  Object.defineProperty(event, 'clientX', { value: init.clientX ?? 0 });
+  Object.defineProperty(event, 'pointerId', { value: init.pointerId ?? 1 });
+  Object.defineProperty(event, 'button', { value: 0 });
+  target.dispatchEvent(event);
+}
+
 describe('ProjectCarouselComponent', () => {
   const originalObserver = window.IntersectionObserver;
   let fixture: ComponentFixture<ProjectCarouselComponent>;
@@ -75,36 +93,172 @@ describe('ProjectCarouselComponent', () => {
     expect(fixture.componentInstance.index()).toBe(0);
   });
 
+  it('should react immediately to every click at the carousel boundaries', () => {
+    setReducedMotion(true);
+    create();
+    const carousel = fixture.componentInstance;
+
+    for (let i = 0; i < PROJECTS.length * 2; i++) {
+      const before = carousel.index();
+      carousel.next();
+      expect(carousel.index()).toBe((before + 1) % PROJECTS.length);
+    }
+  });
+
   it('should re-emit a card open as select', async () => {
     setReducedMotion(true);
     create();
     const spy = vi.fn();
     fixture.componentInstance.selected.subscribe(spy);
 
-    (
-      (fixture.nativeElement as HTMLElement).querySelector(
-        '[data-testid="project-card"]',
-      ) as HTMLElement
-    ).click();
+    const cards = (fixture.nativeElement as HTMLElement).querySelectorAll(
+      '[data-testid="project-card"]',
+    );
+
+    (cards[PROJECTS.length] as HTMLElement).click();
 
     expect(spy).toHaveBeenCalledWith(PROJECTS[0]);
   });
 
-  it('should autoplay and pause on hover', async () => {
+  it('should suppress the select event after a drag gesture', () => {
+    setReducedMotion(true);
+    create();
+    const spy = vi.fn();
+    fixture.componentInstance.selected.subscribe(spy);
+
+    const viewport = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="carousel-viewport"]',
+    ) as HTMLElement;
+
+    firePointerEvent(viewport, 'pointerdown', {
+      pointerType: 'touch',
+      clientX: 200,
+    });
+    firePointerEvent(viewport, 'pointermove', {
+      pointerType: 'touch',
+      clientX: 100,
+    });
+    firePointerEvent(viewport, 'pointerup', { pointerType: 'touch' });
+
+    const cards = (fixture.nativeElement as HTMLElement).querySelectorAll(
+      '[data-testid="project-card"]',
+    );
+    (cards[PROJECTS.length] as HTMLElement).click();
+
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should navigate to the next slide on a leftward drag past the threshold', () => {
+    setReducedMotion(true);
+    create();
+    const carousel = fixture.componentInstance;
+    const viewport = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="carousel-viewport"]',
+    ) as HTMLElement;
+
+    firePointerEvent(viewport, 'pointerdown', {
+      pointerType: 'touch',
+      clientX: 200,
+    });
+    firePointerEvent(viewport, 'pointermove', {
+      pointerType: 'touch',
+      clientX: 100,
+    });
+    firePointerEvent(viewport, 'pointerup', { pointerType: 'touch' });
+
+    expect(carousel.index()).toBe(1);
+  });
+
+  it('should navigate to the previous slide on a rightward drag past the threshold', () => {
+    setReducedMotion(true);
+    create();
+    const carousel = fixture.componentInstance;
+    const viewport = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="carousel-viewport"]',
+    ) as HTMLElement;
+
+    firePointerEvent(viewport, 'pointerdown', {
+      pointerType: 'touch',
+      clientX: 100,
+    });
+    firePointerEvent(viewport, 'pointermove', {
+      pointerType: 'touch',
+      clientX: 200,
+    });
+    firePointerEvent(viewport, 'pointerup', { pointerType: 'touch' });
+
+    expect(carousel.index()).toBe(3);
+  });
+
+  it('should not navigate when a drag does not pass the threshold', () => {
+    setReducedMotion(true);
+    create();
+    const carousel = fixture.componentInstance;
+    const viewport = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="carousel-viewport"]',
+    ) as HTMLElement;
+
+    firePointerEvent(viewport, 'pointerdown', {
+      pointerType: 'touch',
+      clientX: 100,
+    });
+    firePointerEvent(viewport, 'pointermove', {
+      pointerType: 'touch',
+      clientX: 102,
+    });
+    firePointerEvent(viewport, 'pointerup', { pointerType: 'touch' });
+
+    expect(carousel.index()).toBe(0);
+  });
+
+  it('should autoplay and pause while a mouse hovers the carousel', async () => {
     vi.useFakeTimers();
     setReducedMotion(false);
     create();
 
-    await vi.advanceTimersByTimeAsync(7000);
+    await vi.advanceTimersByTimeAsync(3000);
     expect(fixture.componentInstance.index()).toBe(1);
 
-    (fixture.nativeElement as HTMLElement)
-      .querySelector('[data-testid="carousel"]')
-      ?.dispatchEvent(new MouseEvent('mouseenter'));
+    const carouselEl = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="carousel"]',
+    ) as HTMLElement;
+    firePointerEvent(carouselEl, 'pointerenter', { pointerType: 'mouse' });
     fixture.detectChanges();
 
-    await vi.advanceTimersByTimeAsync(7000);
+    await vi.advanceTimersByTimeAsync(3000);
     expect(fixture.componentInstance.index()).toBe(1);
+  });
+
+  it('should not pause when a touch pointer enters the carousel', async () => {
+    vi.useFakeTimers();
+    setReducedMotion(false);
+    create();
+
+    const carouselEl = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="carousel"]',
+    ) as HTMLElement;
+    firePointerEvent(carouselEl, 'pointerenter', { pointerType: 'touch' });
+    fixture.detectChanges();
+
+    await vi.advanceTimersByTimeAsync(3000);
+    expect(fixture.componentInstance.index()).toBe(1);
+  });
+
+  it('should reset the autoplay timer to a full interval after manual navigation', async () => {
+    vi.useFakeTimers();
+    setReducedMotion(false);
+    create();
+
+    await vi.advanceTimersByTimeAsync(2000);
+    fixture.componentInstance.next();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.index()).toBe(1);
+
+    await vi.advanceTimersByTimeAsync(2000);
+    expect(fixture.componentInstance.index()).toBe(1);
+
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(fixture.componentInstance.index()).toBe(2);
   });
 
   it('should not autoplay when reduced motion is preferred', async () => {

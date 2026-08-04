@@ -2,7 +2,11 @@ import { test, expect } from '@playwright/test';
 
 import { ProjectsPage } from '@portfolio-monorepo/test/portfolio-e2e';
 
-test.use({ reducedMotion: 'reduce' });
+test.use({
+  contextOptions: {
+    reducedMotion: 'reduce',
+  },
+});
 
 test('navigates the carousel and project modal', async ({ page }) => {
   const projects = new ProjectsPage(page);

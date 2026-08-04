@@ -3,8 +3,14 @@ import { Locator, Page } from '@playwright/test';
 export class ProjectsPage {
   constructor(private readonly page: Page) {}
 
+  get carousel(): Locator {
+    return this.page.getByTestId('carousel');
+  }
+
   get cards(): Locator {
-    return this.page.getByTestId('project-card');
+    return this.page.locator(
+      '.carousel__slide:not([inert]) [data-testid="project-card"]',
+    );
   }
 
   get next(): Locator {
@@ -13,6 +19,34 @@ export class ProjectsPage {
 
   get prev(): Locator {
     return this.page.getByTestId('carousel-prev');
+  }
+
+  get viewport(): Locator {
+    return this.page.getByTestId('carousel-viewport');
+  }
+
+  get track(): Locator {
+    return this.page.locator('.carousel__track');
+  }
+
+  async trackTransform(): Promise<string> {
+    return this.track.evaluate((el) => getComputedStyle(el).transform);
+  }
+
+  async activeIndex(): Promise<number> {
+    const raw = await this.carousel.getAttribute('data-active-index');
+    const index = Number(raw);
+    return Number.isNaN(index) ? 0 : index;
+  }
+
+  async slideStep(): Promise<number> {
+    return this.track.evaluate((el) => {
+      const slides = el.querySelectorAll<HTMLElement>('.carousel__slide');
+      return (
+        slides[1].getBoundingClientRect().left -
+        slides[0].getBoundingClientRect().left
+      );
+    });
   }
 
   get modalTitle(): Locator {
@@ -41,5 +75,20 @@ export class ProjectsPage {
 
   async openModal(index = 0): Promise<void> {
     await this.cards.nth(index).click();
+  }
+
+  async hasCardWithinFrame(): Promise<boolean> {
+    return this.viewport.evaluate((viewportEl) => {
+      const frame = viewportEl.getBoundingClientRect();
+      const cards = Array.from(
+        viewportEl.querySelectorAll<HTMLElement>(
+          '.carousel__slide [data-testid="project-card"]',
+        ),
+      );
+      return cards.some((card) => {
+        const rect = card.getBoundingClientRect();
+        return rect.right > frame.left && rect.left < frame.right;
+      });
+    });
   }
 }
