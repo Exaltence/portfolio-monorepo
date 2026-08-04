@@ -13,17 +13,29 @@
 .carousel__viewport {
   overflow: hidden;
   container-type: inline-size;
+  touch-action: pan-y;
+  cursor: grab;
+
+  &--dragging {
+    cursor: grabbing;
+  }
 }
 
 .carousel__track {
   display: flex;
   gap: var(--space-5);
   transition: transform 0.3s ease;
+  will-change: transform;
+
+  &--instant {
+    transition: none;
+  }
 }
 
 .carousel__slide {
   flex: 0 0 calc((100% - 2 * var(--space-5)) / 3);
   box-sizing: border-box;
+  user-select: none;
 }
 
 @container (max-width: 699px) {
@@ -60,8 +72,10 @@
     scale 0.3s ease;
 
   &:hover {
-    color: var(--mc);
-    border-color: var(--mc);
-    scale: 1.08;
+    @media (hover: hover) and (pointer: fine) {
+      color: var(--mc);
+      border-color: var(--mc);
+      scale: 1.08;
+    }
   }
 }
