@@ -19,7 +19,6 @@ import { ProjectCardComponent } from '../project-card/project-card.component';
 
 const AUTOPLAY_MS = 3000;
 const GAP_PX = 20;
-const DRAG_THRESHOLD_PX = 5;
 
 interface CarouselSlide {
   readonly key: string;
@@ -32,6 +31,9 @@ interface CarouselSlide {
   imports: [ProjectCardComponent],
   templateUrl: './project-carousel.component.html',
   styleUrl: './project-carousel.component.scss',
+  host: {
+    '(document:visibilitychange)': 'onVisibilityChange()',
+  },
 })
 export class ProjectCarouselComponent {
   readonly projects = input<readonly Project[]>([]);
@@ -66,8 +68,8 @@ export class ProjectCarouselComponent {
     });
   });
 
-  protected readonly dragging = signal(false);
   private readonly paused = signal(false);
+  private readonly hidden = signal(document.hidden);
   private readonly reducedMotion = matchMedia(
     '(prefers-reduced-motion: reduce)',
   ).matches;
@@ -76,7 +78,7 @@ export class ProjectCarouselComponent {
     () =>
       !this.reducedMotion &&
       !this.paused() &&
-      !this.dragging() &&
+      !this.hidden() &&
       this.count() > 1,
   );
 
@@ -101,16 +103,8 @@ export class ProjectCarouselComponent {
     return (width - (columns - 1) * GAP_PX) / columns + GAP_PX;
   });
 
-  private readonly dragStartX = signal<number | null>(null);
-  private readonly dragDelta = signal(0);
-  private suppressNextSelect = false;
-
-  protected readonly offset = computed(
-    () => -(this.render() * this.step()) + this.dragDelta(),
-  );
-  protected readonly animate = computed(
-    () => !this.instant() && !this.dragging(),
-  );
+  protected readonly offset = computed(() => -(this.render() * this.step()));
+  protected readonly animate = computed(() => !this.instant());
 
   private readonly cards = viewChildren(ProjectCardComponent);
   private readonly destroyRef = inject(DestroyRef);
@@ -159,10 +153,6 @@ export class ProjectCarouselComponent {
   }
 
   protected onSelect(project: Project): void {
-    if (this.suppressNextSelect) {
-      this.suppressNextSelect = false;
-      return;
-    }
     this.selected.emit(project);
   }
 
@@ -180,6 +170,10 @@ export class ProjectCarouselComponent {
 
   protected onFocusIn(): void {
     this.resetAutoplay();
+  }
+
+  protected onVisibilityChange(): void {
+    this.hidden.set(document.hidden);
   }
 
   protected onTransitionEnd(event: TransitionEvent): void {
@@ -202,49 +196,6 @@ export class ProjectCarouselComponent {
     }
     this.busy.set(false);
     this.pump();
-  }
-
-  protected onDragStart(event: PointerEvent): void {
-    if (event.pointerType === 'mouse' && event.button !== 0) {
-      return;
-    }
-    this.suppressNextSelect = false;
-    this.dragStartX.set(event.clientX);
-  }
-
-  protected onDragMove(event: PointerEvent): void {
-    const start = this.dragStartX();
-    if (start === null) {
-      return;
-    }
-    const delta = event.clientX - start;
-    this.dragDelta.set(delta);
-    if (!this.dragging() && Math.abs(delta) > DRAG_THRESHOLD_PX) {
-      this.dragging.set(true);
-      (event.currentTarget as HTMLElement).setPointerCapture?.(event.pointerId);
-    }
-  }
-
-  protected onDragEnd(): void {
-    const start = this.dragStartX();
-    if (start === null) {
-      return;
-    }
-    const delta = this.dragDelta();
-    const threshold = Math.max(this.step() / 4, DRAG_THRESHOLD_PX * 4);
-    if (Math.abs(delta) > DRAG_THRESHOLD_PX) {
-      this.suppressNextSelect = true;
-    }
-    if (delta <= -threshold) {
-      this.next();
-    } else if (delta >= threshold) {
-      this.prev();
-    } else {
-      this.resetAutoplay();
-    }
-    this.dragStartX.set(null);
-    this.dragDelta.set(0);
-    this.dragging.set(false);
   }
 
   protected onKeydown(event: KeyboardEvent): void {

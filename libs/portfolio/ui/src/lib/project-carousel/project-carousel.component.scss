@@ -13,12 +13,6 @@
 .carousel__viewport {
   overflow: hidden;
   container-type: inline-size;
-  touch-action: pan-y;
-  cursor: grab;
-
-  &--dragging {
-    cursor: grabbing;
-  }
 }
 
 .carousel__track {

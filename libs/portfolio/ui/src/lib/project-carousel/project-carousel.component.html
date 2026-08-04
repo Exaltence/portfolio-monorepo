@@ -50,16 +50,7 @@
     </button>
   </div>
 
-  <div
-    #viewport
-    class="carousel__viewport"
-    [class.carousel__viewport--dragging]="dragging()"
-    data-testid="carousel-viewport"
-    (pointerdown)="onDragStart($event)"
-    (pointermove)="onDragMove($event)"
-    (pointerup)="onDragEnd()"
-    (pointercancel)="onDragEnd()"
-  >
+  <div #viewport class="carousel__viewport" data-testid="carousel-viewport">
     <div
       class="carousel__track"
       [class.carousel__track--instant]="!animate()"
@@ -69,7 +60,7 @@
       @for (slide of slides(); track slide.key) {
         <div
           class="carousel__slide"
-          [attr.inert]="slide.clone ? '' : null"
+          [class.carousel__slide--clone]="slide.clone"
           [attr.aria-hidden]="slide.clone ? 'true' : null"
         >
           <app-project-card

@@ -5,7 +5,6 @@ import {
   recordIsTeleportedStep,
   recordIsInstantSnap,
   recordTrackMotion,
-  requireBoundingBox,
   waitForSettledValue,
 } from '@portfolio-monorepo/test/portfolio-e2e';
 
@@ -17,21 +16,6 @@ test.use({
 
 const settle = (projects: ProjectsPage): Promise<string> =>
   waitForSettledValue(() => projects.trackTransform());
-
-const swipe = async (
-  page: Page,
-  projects: ProjectsPage,
-  dx: number,
-): Promise<{ x: number; y: number }> => {
-  await projects.viewport.scrollIntoViewIfNeeded();
-  const box = await requireBoundingBox(projects.viewport);
-  const center = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
-  await page.mouse.move(center.x, center.y);
-  await page.mouse.down();
-  await page.mouse.move(center.x + dx, center.y, { steps: 10 });
-  await page.mouse.up();
-  return center;
-};
 
 const openCarouselPage = async (
   page: Page,
@@ -108,35 +92,6 @@ test('slides fluidly through rapid navigation across repeated loop boundaries', 
   expect(recordIsInstantSnap(samples, step, period)).toBe(false);
   expect(await projects.activeIndex()).toBe(initialIndex);
   expect(await projects.hasCardWithinFrame()).toBe(true);
-});
-
-test('supports drag/swipe navigation', async ({ page }) => {
-  const projects = new ProjectsPage(page);
-  const before = await settle(projects);
-
-  await swipe(page, projects, -150);
-
-  await expect(async () => {
-    expect(await projects.trackTransform()).not.toBe(before);
-  }).toPass();
-});
-
-test('opens the modal on a single click immediately after a drag gesture', async ({
-  page,
-}) => {
-  const projects = new ProjectsPage(page);
-  const before = await settle(projects);
-
-  const center = await swipe(page, projects, -150);
-  await expect(async () => {
-    expect(await projects.trackTransform()).not.toBe(before);
-  }).toPass();
-
-  await page.mouse.move(center.x, center.y);
-  await page.mouse.down();
-  await page.mouse.up();
-
-  await expect(projects.modalTitle).toBeVisible();
 });
 
 test('keeps items visible when the navigation buttons are clicked rapidly', async ({

@@ -3,6 +3,8 @@
     class="project-card__thumb"
     [ngSrc]="project().thumbnailUrl"
     [alt]="project().title"
+    draggable="false"
+    (dragstart)="$event.preventDefault()"
     fill
   />
 </div>

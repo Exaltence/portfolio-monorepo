@@ -9,7 +9,7 @@ export class ProjectsPage {
 
   get cards(): Locator {
     return this.page.locator(
-      '.carousel__slide:not([inert]) [data-testid="project-card"]',
+      '.carousel__slide:not([aria-hidden]) [data-testid="project-card"]',
     );
   }
 
