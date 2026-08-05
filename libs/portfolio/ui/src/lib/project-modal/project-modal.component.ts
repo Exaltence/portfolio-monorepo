@@ -70,13 +70,25 @@ export class ProjectModalComponent {
 
   // deferred so the fade/scale-down leave animation can play before CDK tears down the dialog
   protected onLeave(event: AnimationCallbackEvent): void {
-    const element = event.target;
-    const handleAnimationEnd = (): void => {
+    const element = event.target as HTMLElement;
+    const handleAnimationEnd = (e: AnimationEvent) => {
+      if (e.target !== element) {
+        return;
+      }
+
       element.removeEventListener('animationend', handleAnimationEnd);
       event.animationComplete();
-      this.dialogRef.close();
+
+      // CDK-dialog api limitation workaround Angular v22, no existing overlay lifecycle hook to wait for the backdrop fade-out animation to complete before closing the dialog.
+      document
+        .querySelector('.project-modal-backdrop')
+        ?.classList.add('closing');
+      // Sync close with animation duration.
+      setTimeout(() => {
+        this.dialogRef.close();
+      }, 300);
     };
+
     element.addEventListener('animationend', handleAnimationEnd);
-    element.classList.add('project-modal-leave');
   }
 }

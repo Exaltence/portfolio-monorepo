@@ -1,4 +1,9 @@
 .cdk-overlay-backdrop.project-modal-backdrop {
   background-color: rgb(0 0 0 / 60%);
+  cursor: pointer;
   transition: opacity var(--motion-duration) var(--motion-ease-standard);
+}
+
+.cdk-overlay-backdrop.project-modal-backdrop.closing {
+  opacity: 0;
 }

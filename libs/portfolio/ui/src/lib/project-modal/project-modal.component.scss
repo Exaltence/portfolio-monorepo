@@ -196,16 +196,15 @@
 .project-modal__thumbs {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-3);
   margin-top: var(--space-4);
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
 }
 
 .project-modal__thumb {
   width: 4.5rem;
   padding: 0.25rem;
-  overflow: hidden;
+
   cursor: pointer;
   background: transparent;
   border: 1px solid transparent;
@@ -285,7 +284,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: var(--space-8) var(--space-10);
+  padding: var(--space-8) var(--space-10);
   line-height: 1;
   text-transform: uppercase;
   transition: color 0.3s ease;

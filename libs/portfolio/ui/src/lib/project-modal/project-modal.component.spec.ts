@@ -102,6 +102,7 @@ describe('ProjectModalComponent', () => {
   });
 
   it('should close the dialog only once the leave animation reports completion', () => {
+    vi.useFakeTimers();
     const target = document.createElement('div');
     const animationComplete = vi.fn();
 
@@ -115,6 +116,9 @@ describe('ProjectModalComponent', () => {
     target.dispatchEvent(new Event('animationend'));
 
     expect(animationComplete).toHaveBeenCalledTimes(1);
+    vi.advanceTimersByTime(300);
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
   });
 });
