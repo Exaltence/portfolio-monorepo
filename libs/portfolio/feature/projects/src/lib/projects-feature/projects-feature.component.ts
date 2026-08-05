@@ -26,6 +26,7 @@ export class ProjectsFeatureComponent {
     this.dialog.open<unknown, ProjectModalData>(ProjectModalComponent, {
       data: { projects, index },
       autoFocus: true,
+      backdropClass: 'project-modal-backdrop',
     });
   }
 }

@@ -7,3 +7,15 @@
   --line: rgb(0 0 0 / 20%);
   --line-strong: rgb(0 0 0 / 30%);
 }
+
+.theme-transition body {
+  transition:
+    background-color var(--motion-duration) var(--motion-ease-standard),
+    color var(--motion-duration) var(--motion-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-transition body {
+    transition: none;
+  }
+}

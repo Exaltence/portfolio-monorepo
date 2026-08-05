@@ -1,5 +1,7 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AnimationCallbackEvent } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { Project } from '@portfolio-monorepo/portfolio/data';
 import { ProjectModalComponent } from './project-modal.component';
@@ -26,10 +28,20 @@ const PROJECTS: readonly Project[] = [
 
 describe('ProjectModalComponent', () => {
   let fixture: ComponentFixture<ProjectModalComponent>;
-  let dialogRef: { close: ReturnType<typeof vi.fn> };
+  let dialogRef: {
+    close: ReturnType<typeof vi.fn>;
+    disableClose: boolean;
+    backdropClick: Subject<MouseEvent>;
+    keydownEvents: Subject<KeyboardEvent>;
+  };
 
   beforeEach(() => {
-    dialogRef = { close: vi.fn() };
+    dialogRef = {
+      close: vi.fn(),
+      disableClose: false,
+      backdropClick: new Subject<MouseEvent>(),
+      keydownEvents: new Subject<KeyboardEvent>(),
+    };
     const data: ProjectModalData = { projects: PROJECTS, index: 0 };
     TestBed.configureTestingModule({
       providers: [
@@ -80,11 +92,29 @@ describe('ProjectModalComponent', () => {
     );
   });
 
-  it('should close the dialog on close click', async () => {
+  it('should hide the modal when close is clicked', async () => {
     await fixture.whenStable();
 
     byTestId('modal-close').click();
+    await fixture.whenStable();
 
+    expect(el().querySelector('.project-modal')).toBeFalsy();
+  });
+
+  it('should close the dialog only once the leave animation reports completion', () => {
+    const target = document.createElement('div');
+    const animationComplete = vi.fn();
+
+    fixture.componentInstance['onLeave']({
+      target,
+      animationComplete,
+    } as AnimationCallbackEvent);
+
+    expect(dialogRef.close).not.toHaveBeenCalled();
+
+    target.dispatchEvent(new Event('animationend'));
+
+    expect(animationComplete).toHaveBeenCalledTimes(1);
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
   });
 });

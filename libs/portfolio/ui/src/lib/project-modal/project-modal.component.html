@@ -1,102 +1,127 @@
-<div class="project-modal">
-  <button
-    type="button"
-    class="project-modal__close"
-    data-testid="modal-close"
-    aria-label="Close"
-    (click)="close()"
+@if (!closing()) {
+  <div
+    class="project-modal"
+    animate.enter="project-modal-enter"
+    (animate.leave)="onLeave($event)"
   >
-    <svg
-      class="project-modal__close-icon"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+    <button
+      type="button"
+      class="project-modal__close"
+      data-testid="modal-close"
+      aria-label="Close"
+      (click)="close()"
     >
-      <path
-        fill="currentColor"
-        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
-      />
-    </svg>
-  </button>
+      <svg
+        class="project-modal__close-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+        />
+      </svg>
+    </button>
 
-  <p class="project-modal__category">{{ project().category }}</p>
-  <h3 class="project-modal__title" data-testid="modal-title">
-    {{ project().title }}
-  </h3>
+    <div class="project-modal__viewport">
+      @for (p of projects; track p.id; let i = $index) {
+        @if (current() === i) {
+          <div
+            class="project-modal__content"
+            [style.--slide-dir]="direction()"
+            animate.enter="project-modal-content-enter"
+            animate.leave="project-modal-content-leave"
+          >
+            <p class="project-modal__category">{{ p.category }}</p>
+            <h3 class="project-modal__title" data-testid="modal-title">
+              {{ p.title }}
+            </h3>
 
-  <div class="project-modal__stage">
-    <img
-      class="project-modal__image"
-      data-testid="modal-main-image"
-      [src]="project().images[activeImage()]"
-      [alt]="project().title"
-    />
-  </div>
+            <div class="project-modal__stage">
+              @for (image of p.images; track $index; let k = $index) {
+                @if (activeImage() === k) {
+                  <img
+                    class="project-modal__image"
+                    data-testid="modal-main-image"
+                    [src]="image"
+                    [alt]="p.title"
+                    animate.enter="project-modal-image-enter"
+                    animate.leave="project-modal-image-leave"
+                  />
+                }
+              }
+            </div>
 
-  @if (project().images.length > 1) {
-    <div class="project-modal__thumbs">
-      @for (image of project().images; track $index; let i = $index) {
-        <button
-          type="button"
-          class="project-modal__thumb"
-          [attr.data-testid]="'modal-image-' + i"
-          [class.active]="activeImage() === i"
-          [attr.aria-label]="'Show image ' + (i + 1)"
-          (click)="showImage(i)"
-        >
-          <img [src]="image" alt="" />
-        </button>
+            @if (p.images.length > 1) {
+              <div class="project-modal__thumbs">
+                @for (image of p.images; track $index; let j = $index) {
+                  <button
+                    type="button"
+                    class="project-modal__thumb"
+                    [attr.data-testid]="'modal-image-' + j"
+                    [class.active]="activeImage() === j"
+                    [attr.aria-label]="'Show image ' + (j + 1)"
+                    (click)="showImage(j)"
+                  >
+                    <img [src]="image" alt="" />
+                  </button>
+                }
+              </div>
+            }
+
+            <div class="project-modal__desc">
+              @for (paragraph of p.descriptions; track $index) {
+                <p>{{ paragraph }}</p>
+              }
+            </div>
+          </div>
+        }
       }
     </div>
-  }
 
-  <div class="project-modal__desc">
-    @for (paragraph of project().descriptions; track $index) {
-      <p>{{ paragraph }}</p>
-    }
+    <nav class="project-modal__nav" aria-label="Project navigation">
+      <div class="project-modal__button-wrapper prev">
+        <button
+          type="button"
+          class="project-modal__button prev"
+          data-testid="modal-prev"
+          aria-label="Previous project"
+          (click)="prev()"
+        >
+          <svg
+            class="project-modal__button-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M19 13H6.75L12 18.25l-.66.75l-6.5-6.5l6.5-6.5l.66.75L6.75 12H19z"
+            />
+          </svg>
+          <span class="project-modal__button-text">prev</span>
+        </button>
+      </div>
+      <div class="project-modal__button-wrapper next">
+        <button
+          type="button"
+          class="project-modal__button next"
+          data-testid="modal-next"
+          aria-label="Next project"
+          (click)="next()"
+        >
+          <span class="project-modal__button-text">next</span>
+          <svg
+            class="project-modal__button-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4 12h12.25L11 6.75l.66-.75l6.5 6.5l-6.5 6.5l-.66-.75L16.25 13H4z"
+            />
+          </svg>
+        </button>
+      </div>
+    </nav>
   </div>
-
-  <nav class="project-modal__nav" aria-label="Project navigation">
-    <div class="project-modal__button-wrapper prev">
-      <button
-        type="button"
-        class="project-modal__button prev"
-        data-testid="modal-prev"
-        aria-label="Previous project"
-        (click)="prev()"
-      >
-        <svg
-          class="project-modal__button-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M19 13H6.75L12 18.25l-.66.75l-6.5-6.5l6.5-6.5l.66.75L6.75 12H19z"
-          />
-        </svg>
-        <span class="project-modal__button-text">prev</span>
-      </button>
-    </div>
-    <div class="project-modal__button-wrapper next">
-      <button
-        type="button"
-        class="project-modal__button next"
-        data-testid="modal-next"
-        aria-label="Next project"
-        (click)="next()"
-      >
-        <span class="project-modal__button-text">next</span>
-        <svg
-          class="project-modal__button-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M4 12h12.25L11 6.75l.66-.75l6.5 6.5l-6.5 6.5l-.66-.75L16.25 13H4z"
-          />
-        </svg>
-      </button>
-    </div>
-  </nav>
-</div>
+}

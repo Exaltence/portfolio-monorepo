@@ -19,6 +19,16 @@
   </div>
 
   <div class="tabs__panel" data-testid="tab-panel" role="tabpanel">
-    <ng-container [ngTemplateOutlet]="panels()[active()]" />
+    @for (panel of panels(); track $index) {
+      @if (active() === $index) {
+        <div
+          class="tabs__panel-content"
+          animate.enter="tabs-panel-enter"
+          animate.leave="tabs-panel-leave"
+        >
+          <ng-container [ngTemplateOutlet]="panel" />
+        </div>
+      }
+    }
   </div>
 </div>

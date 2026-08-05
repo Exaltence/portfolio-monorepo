@@ -1,0 +1,43 @@
+@keyframes u-fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.u-enter-fade-slide {
+  animation: u-fade-slide-in var(--motion-duration) var(--motion-ease-standard)
+    both;
+}
+
+.u-enter-delay-1 {
+  animation-delay: 80ms;
+}
+
+.u-enter-delay-2 {
+  animation-delay: 160ms;
+}
+
+.u-enter-delay-3 {
+  animation-delay: 240ms;
+}
+
+.u-enter-delay-4 {
+  animation-delay: 320ms;
+}
+
+.u-enter-delay-5 {
+  animation-delay: 400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u-enter-fade-slide {
+    animation-duration: 0.01ms;
+    animation-delay: 0s;
+  }
+}

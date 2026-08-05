@@ -11,6 +11,8 @@ import {
 import { Theme } from '@portfolio-monorepo/shared/util';
 
 const STORAGE_KEY = 'theme';
+const TRANSITION_CLASS = 'theme-transition';
+const TRANSITION_DURATION_MS = 300;
 
 export const ThemeStore = signalStore(
   { providedIn: 'root' },
@@ -19,8 +21,16 @@ export const ThemeStore = signalStore(
     isLight: computed(() => theme() === 'light'),
   })),
   withMethods((store, doc = inject(DOCUMENT)) => {
+    let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
+
     const apply = (theme: Theme): void => {
-      doc.documentElement.classList.toggle('light', theme === 'light');
+      const root = doc.documentElement;
+      clearTimeout(transitionTimeout);
+      root.classList.add(TRANSITION_CLASS);
+      root.classList.toggle('light', theme === 'light');
+      transitionTimeout = setTimeout(() => {
+        root.classList.remove(TRANSITION_CLASS);
+      }, TRANSITION_DURATION_MS);
     };
     const setTheme = (theme: Theme): void => {
       patchState(store, { theme });

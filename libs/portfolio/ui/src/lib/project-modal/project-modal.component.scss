@@ -13,6 +13,47 @@
   border-radius: 2px;
 }
 
+@keyframes project-modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes project-modal-leave {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(15px);
+  }
+}
+
+.project-modal-enter {
+  animation: project-modal-enter var(--motion-duration)
+    var(--motion-ease-standard) both;
+}
+
+.project-modal-leave {
+  animation: project-modal-leave var(--motion-duration)
+    var(--motion-ease-standard) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-modal-enter,
+  .project-modal-leave {
+    animation-duration: 0.01ms;
+  }
+}
+
 .project-modal__close {
   position: absolute;
   top: var(--space-4);
@@ -48,15 +89,108 @@
 }
 
 .project-modal__stage {
+  position: relative;
+  display: grid;
   overflow: hidden;
   border-radius: 2px;
 }
 
 .project-modal__image {
+  grid-area: 1 / 1;
   display: block;
   width: 100%;
   height: auto;
   pointer-events: none;
+}
+
+@keyframes project-modal-image-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes project-modal-image-leave {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.project-modal-image-enter {
+  animation: project-modal-image-enter var(--motion-duration)
+    var(--motion-ease-linear) both;
+}
+
+.project-modal-image-leave {
+  animation: project-modal-image-leave var(--motion-duration)
+    var(--motion-ease-linear) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-modal-image-enter,
+  .project-modal-image-leave {
+    animation-duration: 0.01ms;
+  }
+}
+
+.project-modal__viewport {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+}
+
+.project-modal__content {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+@keyframes project-modal-content-enter {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--slide-dir, 1) * 24px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes project-modal-content-leave {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--slide-dir, 1) * -24px));
+  }
+}
+
+.project-modal-content-enter {
+  animation: project-modal-content-enter var(--motion-duration)
+    var(--motion-ease-standard) both;
+}
+
+.project-modal-content-leave {
+  pointer-events: none;
+  animation: project-modal-content-leave var(--motion-duration)
+    var(--motion-ease-standard) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-modal-content-enter,
+  .project-modal-content-leave {
+    animation-duration: 0.01ms;
+  }
 }
 
 .project-modal__thumbs {
@@ -64,6 +198,8 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-4);
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .project-modal__thumb {

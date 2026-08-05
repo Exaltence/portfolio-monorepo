@@ -86,6 +86,7 @@ describe('ProjectsFeatureComponent', () => {
     expect(dialog.open).toHaveBeenCalledWith(ProjectModalComponent, {
       data: { projects: PROJECTS, index: 1 },
       autoFocus: true,
+      backdropClass: 'project-modal-backdrop',
     });
   });
 

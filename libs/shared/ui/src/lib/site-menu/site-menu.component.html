@@ -1,45 +1,56 @@
-<div class="site-menu" [class.is-open]="open()">
-  <button
-    type="button"
-    class="site-menu__overlay"
-    data-testid="nav-overlay"
-    aria-label="Close menu"
-    (click)="close()"
-  ></button>
-
-  <nav class="site-menu__panel" aria-label="Primary">
+@if (open()) {
+  <div class="site-menu">
     <button
       type="button"
-      class="site-menu__close"
-      data-testid="nav-close"
-      aria-label="Close"
+      class="site-menu__overlay"
+      data-testid="nav-overlay"
+      aria-label="Close menu"
+      animate.enter="site-menu-overlay-enter"
+      animate.leave="site-menu-overlay-leave"
       (click)="close()"
+    ></button>
+
+    <nav
+      class="site-menu__panel"
+      aria-label="Primary"
+      animate.enter="site-menu-panel-enter"
+      animate.leave="site-menu-panel-leave"
     >
-      <svg
-        class="site-menu__close-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
+      <button
+        type="button"
+        class="site-menu__close"
+        data-testid="nav-close"
+        aria-label="Close"
+        (click)="close()"
       >
-        <path
-          fill="currentColor"
-          d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
-        />
-      </svg>
-    </button>
-    <ul class="site-menu__list">
-      @for (item of items(); track item.fragment; let i = $index) {
-        <li class="site-menu__item">
-          <button
-            type="button"
-            class="site-menu__link"
-            data-testid="nav-item"
-            (click)="select(item)"
-            [attr.aria-label]="'Navigate to ' + item.label"
-          >
-            <span class="site-menu__text">{{ item.label }}</span>
-          </button>
-        </li>
-      }
-    </ul>
-  </nav>
-</div>
+        <svg
+          class="site-menu__close-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+          />
+        </svg>
+      </button>
+      <ul class="site-menu__list">
+        @for (item of items(); track item.fragment; let i = $index) {
+          <li class="site-menu__item">
+            <button
+              type="button"
+              class="site-menu__link"
+              data-testid="nav-item"
+              animate.enter="site-menu-link-enter"
+              [style.animation-delay.ms]="i * 60"
+              (click)="select(item)"
+              [attr.aria-label]="'Navigate to ' + item.label"
+            >
+              <span class="site-menu__text">{{ item.label }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+}

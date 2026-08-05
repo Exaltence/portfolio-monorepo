@@ -10,6 +10,7 @@
     class="home__menu-trigger"
     data-testid="menu-trigger"
     aria-label="Open menu"
+    animate.enter="u-enter-fade-slide u-enter-delay-1"
     (click)="menuOpen.set(true)"
   >
     <span class="home__menu-text">Menu</span>
@@ -32,19 +33,30 @@
 
   <main class="home__main">
     <section id="home" class="home__section">
-      <app-about-feature />
+      <app-about-feature animate.enter="u-enter-fade-slide u-enter-delay-2" />
     </section>
     <section id="portfolio" class="home__section">
-      <app-projects-feature />
+      <app-projects-feature
+        animate.enter="u-enter-fade-slide u-enter-delay-3"
+      />
     </section>
-    <app-back-to-top class="home__back-to-top" [visible]="scrolled()" />
+    <app-back-to-top
+      class="home__back-to-top"
+      animate.enter="u-enter-fade-slide u-enter-delay-4"
+      [visible]="scrolled()"
+    />
   </main>
 
   <aside class="home__aside">
-    <app-profile-panel-feature />
+    <app-profile-panel-feature
+      animate.enter="u-enter-fade-slide u-enter-delay-4"
+    />
   </aside>
 
-  <footer class="home__footer">
+  <footer
+    class="home__footer"
+    animate.enter="u-enter-fade-slide u-enter-delay-5"
+  >
     <p>
       Coded in
       <button

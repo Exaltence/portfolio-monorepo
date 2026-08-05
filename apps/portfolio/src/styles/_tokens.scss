@@ -25,4 +25,7 @@
   --space-13: 3.25rem;
   --space-14: 3.5rem;
   --space-section: 6.25rem;
+  --motion-duration: 300ms;
+  --motion-ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --motion-ease-linear: linear;
 }

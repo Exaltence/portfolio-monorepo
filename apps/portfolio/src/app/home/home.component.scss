@@ -40,10 +40,24 @@
     border-color 0.3s ease,
     scale 0.3s ease;
 
+  /* re-declared after `all: unset` above, which also resets animation-* */
+  &.u-enter-fade-slide {
+    animation: u-fade-slide-in var(--motion-duration)
+      var(--motion-ease-standard) both;
+    animation-delay: 80ms;
+  }
+
   &:hover {
     color: var(--mc);
     border-color: var(--mc);
     scale: 1.08;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home__menu-trigger.u-enter-fade-slide {
+    animation-duration: 0.01ms;
+    animation-delay: 0s;
   }
 }
 

@@ -6,6 +6,7 @@
 
   <app-theme-toggle
     class="app__theme-toggle"
+    animate.enter="u-enter-fade-slide"
     [theme]="theme.theme()"
     (toggled)="theme.toggle()"
   />

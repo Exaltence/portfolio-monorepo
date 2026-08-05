@@ -50,7 +50,7 @@ export class ProjectsPage {
   }
 
   get modalTitle(): Locator {
-    return this.page.getByTestId('modal-title');
+    return this.page.getByTestId('modal-title').last();
   }
 
   get modalClose(): Locator {
@@ -66,7 +66,7 @@ export class ProjectsPage {
   }
 
   get modalMainImage(): Locator {
-    return this.page.getByTestId('modal-main-image');
+    return this.page.getByTestId('modal-main-image').last();
   }
 
   modalImage(index: number): Locator {

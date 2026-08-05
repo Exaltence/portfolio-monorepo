@@ -82,3 +82,50 @@
     width: 100%;
   }
 }
+
+.tabs__panel {
+  display: grid;
+}
+
+.tabs__panel-content {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+@keyframes tabs-panel-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tabs-panel-leave {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.tabs-panel-enter {
+  animation: tabs-panel-enter var(--motion-duration) var(--motion-ease-linear)
+    both;
+}
+
+.tabs-panel-leave {
+  pointer-events: none;
+  animation: tabs-panel-leave var(--motion-duration) var(--motion-ease-linear)
+    both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs-panel-enter,
+  .tabs-panel-leave {
+    animation-duration: 0.01ms;
+  }
+}
