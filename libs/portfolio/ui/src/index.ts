@@ -5,5 +5,4 @@ export * from './lib/skill-badge/skill-badge.component';
 export * from './lib/resume-list/resume-list.component';
 export * from './lib/project-card/project-card.component';
 export * from './lib/project-carousel/project-carousel.component';
-export * from './lib/project-modal/project-modal-data.model';
 export * from './lib/project-modal/project-modal.component';

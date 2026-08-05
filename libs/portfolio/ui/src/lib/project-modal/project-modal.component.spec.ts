@@ -3,9 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AnimationCallbackEvent } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { Project } from '@portfolio-monorepo/portfolio/data';
+import { Project, ProjectModalData } from '@portfolio-monorepo/portfolio/data';
 import { ProjectModalComponent } from './project-modal.component';
-import { ProjectModalData } from './project-modal-data.model';
 
 const PROJECTS: readonly Project[] = [
   {

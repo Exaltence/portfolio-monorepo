@@ -1,10 +1,13 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
-import { Project, ProjectsStore } from '@portfolio-monorepo/portfolio/data';
+import {
+  Project,
+  ProjectModalData,
+  ProjectsStore,
+} from '@portfolio-monorepo/portfolio/data';
 import {
   ProjectCarouselComponent,
   ProjectModalComponent,
-  ProjectModalData,
 } from '@portfolio-monorepo/portfolio/ui';
 
 @Component({

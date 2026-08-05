@@ -8,8 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { filter } from 'rxjs';
-
-import { ProjectModalData } from './project-modal-data.model';
+import { ProjectModalData } from '@portfolio-monorepo/portfolio/data';
 
 @Component({
   selector: 'app-project-modal',

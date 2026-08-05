@@ -1,4 +1,4 @@
-import { Project } from '@portfolio-monorepo/portfolio/data';
+import { Project } from './project.model';
 
 export interface ProjectModalData {
   readonly projects: readonly Project[];
