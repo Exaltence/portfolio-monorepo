@@ -9,7 +9,7 @@
       {{ about.intro }}
     </p>
 
-    <app-tabs [tabs]="tabs">
+    <app-tab-group [tabGroup]="tabGroup">
       <ng-template>
         <div class="about-feature__skills" data-testid="about-skills">
           @for (skill of about.skills; track skill.name) {
@@ -26,7 +26,7 @@
       <ng-template>
         <app-resume-list [entries]="about.certificates" />
       </ng-template>
-    </app-tabs>
+    </app-tab-group>
   </section>
 } @else if (store.about.error()) {
   <p class="about-feature__error" data-testid="about-error">

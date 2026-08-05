@@ -3,18 +3,18 @@ import { AboutStore } from '@portfolio-monorepo/portfolio/data';
 import {
   ResumeListComponent,
   SkillBadgeComponent,
-  TabsComponent,
+  TabGroupComponent,
 } from '@portfolio-monorepo/portfolio/ui';
 
 @Component({
   selector: 'app-about-feature',
-  imports: [TabsComponent, SkillBadgeComponent, ResumeListComponent],
+  imports: [TabGroupComponent, SkillBadgeComponent, ResumeListComponent],
   templateUrl: './about-feature.component.html',
   styleUrl: './about-feature.component.scss',
 })
 export class AboutFeatureComponent {
   protected readonly store = inject(AboutStore);
-  protected readonly tabs = [
+  protected readonly tabGroup = [
     'Skills',
     'Experience',
     'Education',

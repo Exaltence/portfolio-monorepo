@@ -1,9 +1,9 @@
-<div class="tabs">
-  <div class="tabs__header" role="tablist">
-    @for (label of tabs(); track label; let i = $index) {
+<div class="tab-group">
+  <div class="tab-group__header" role="tablist">
+    @for (label of tabGroup(); track label; let i = $index) {
       <button
         type="button"
-        class="tabs__tab"
+        class="tab-group__tab"
         data-testid="tab-header"
         role="tab"
         [id]="'tab-' + i"
@@ -18,13 +18,13 @@
     }
   </div>
 
-  <div class="tabs__panel" data-testid="tab-panel" role="tabpanel">
+  <div class="tab-group__panel" data-testid="tab-panel" role="tabpanel">
     @for (panel of panels(); track $index) {
       @if (active() === $index) {
         <div
-          class="tabs__panel-content"
-          animate.enter="tabs-panel-enter"
-          animate.leave="tabs-panel-leave"
+          class="tab-group__panel-content"
+          animate.enter="tab-group-panel-enter"
+          animate.leave="tab-group-panel-leave"
         >
           <ng-container [ngTemplateOutlet]="panel" />
         </div>

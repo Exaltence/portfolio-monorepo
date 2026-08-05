@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabsComponent } from './tabs.component';
+import { TabGroupComponent } from './tab-group.component';
 
 @Component({
-  imports: [TabsComponent],
+  imports: [TabGroupComponent],
   template: `
-    <app-tabs
-      [tabs]="['Skills', 'Experience']"
+    <app-tab-group
+      [tabGroup]="['Skills', 'Experience']"
       (activeChange)="onChange($event)"
     >
       <ng-template>Skills panel</ng-template>
       <ng-template>Experience panel</ng-template>
-    </app-tabs>
+    </app-tab-group>
   `,
 })
 class HostComponent {
@@ -23,7 +23,7 @@ class HostComponent {
   }
 }
 
-describe('TabsComponent', () => {
+describe('TabGroupComponent', () => {
   let fixture: ComponentFixture<HostComponent>;
 
   beforeEach(() => {

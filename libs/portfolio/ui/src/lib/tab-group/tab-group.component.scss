@@ -2,7 +2,7 @@
   display: block;
 }
 
-.tabs__header {
+.tab-group__header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -12,12 +12,12 @@
 }
 
 @media (width <= 433px) {
-  .tabs__header {
+  .tab-group__header {
     flex-direction: column;
   }
 }
 
-.tabs__tab {
+.tab-group__tab {
   position: relative;
   padding: var(--space-1) 0 0;
   font-size: var(--fs-lg);
@@ -83,16 +83,16 @@
   }
 }
 
-.tabs__panel {
+.tab-group__panel {
   display: grid;
 }
 
-.tabs__panel-content {
+.tab-group__panel-content {
   grid-area: 1 / 1;
   min-width: 0;
 }
 
-@keyframes tabs-panel-enter {
+@keyframes tab-group-panel-enter {
   from {
     opacity: 0;
   }
@@ -102,7 +102,7 @@
   }
 }
 
-@keyframes tabs-panel-leave {
+@keyframes tab-group-panel-leave {
   from {
     opacity: 1;
   }
@@ -112,20 +112,20 @@
   }
 }
 
-.tabs-panel-enter {
-  animation: tabs-panel-enter var(--motion-duration) var(--motion-ease-linear)
-    both;
+.tab-group-panel-enter {
+  animation: tab-group-panel-enter var(--motion-duration)
+    var(--motion-ease-linear) both;
 }
 
-.tabs-panel-leave {
+.tab-group-panel-leave {
   pointer-events: none;
-  animation: tabs-panel-leave var(--motion-duration) var(--motion-ease-linear)
-    both;
+  animation: tab-group-panel-leave var(--motion-duration)
+    var(--motion-ease-linear) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tabs-panel-enter,
-  .tabs-panel-leave {
+  .tab-group-panel-enter,
+  .tab-group-panel-leave {
     animation-duration: 0.01ms;
   }
 }

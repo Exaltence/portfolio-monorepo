@@ -9,13 +9,13 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-tabs',
+  selector: 'app-tab-group',
   imports: [NgTemplateOutlet],
-  templateUrl: './tabs.component.html',
-  styleUrl: './tabs.component.scss',
+  templateUrl: './tab-group.component.html',
+  styleUrl: './tab-group.component.scss',
 })
-export class TabsComponent {
-  readonly tabs = input<readonly string[]>([]);
+export class TabGroupComponent {
+  readonly tabGroup = input<readonly string[]>([]);
   readonly activeChange = output<number>();
 
   protected readonly active = signal(0);
