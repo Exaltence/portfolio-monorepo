@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavItem } from '@portfolio-monorepo/shared/util';
+import { NavItem } from '@portfolio-monorepo/shared/data';
 import { SiteMenuComponent } from './site-menu.component';
 
 const ITEMS: readonly NavItem[] = [

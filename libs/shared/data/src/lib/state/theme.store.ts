@@ -8,7 +8,7 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { Theme } from '@portfolio-monorepo/shared/util';
+import { Theme } from '../models/theme/theme.model';
 
 const STORAGE_KEY = 'theme';
 const TRANSITION_CLASS = 'theme-transition';

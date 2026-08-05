@@ -1,5 +1,5 @@
 import { Component, input, model, output } from '@angular/core';
-import { NavItem } from '@portfolio-monorepo/shared/util';
+import { NavItem } from '@portfolio-monorepo/shared/data';
 
 @Component({
   selector: 'app-site-menu',

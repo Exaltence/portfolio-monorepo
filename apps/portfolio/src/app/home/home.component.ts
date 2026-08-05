@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { AboutFeatureComponent } from '@portfolio-monorepo/portfolio/feature/about';
 import { ProfilePanelFeatureComponent } from '@portfolio-monorepo/portfolio/feature/profile-panel';
 import { ProjectsFeatureComponent } from '@portfolio-monorepo/portfolio/feature/projects';
+import { NavItem } from '@portfolio-monorepo/shared/data';
 import {
   BackToTopComponent,
   ScrollSpyDirective,
   SiteMenuComponent,
 } from '@portfolio-monorepo/shared/ui';
-import { NavItem, scrollToElement } from '@portfolio-monorepo/shared/util';
+import { scrollToElement } from '@portfolio-monorepo/shared/util';
 
 @Component({
   selector: 'app-home',

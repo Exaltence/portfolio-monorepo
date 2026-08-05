@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Theme } from '@portfolio-monorepo/shared/util';
+import { Theme } from '@portfolio-monorepo/shared/data';
 
 @Component({
   selector: 'app-theme-toggle',
