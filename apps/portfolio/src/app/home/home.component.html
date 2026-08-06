@@ -40,11 +40,6 @@
         animate.enter="u-enter-fade-slide u-enter-delay-3"
       />
     </section>
-    <app-back-to-top
-      class="home__back-to-top"
-      animate.enter="u-enter-fade-slide u-enter-delay-4"
-      [visible]="scrolled()"
-    />
   </main>
 
   <aside class="home__aside">
@@ -57,6 +52,11 @@
     class="home__footer"
     animate.enter="u-enter-fade-slide u-enter-delay-5"
   >
+    <app-back-to-top
+      class="home__back-to-top"
+      animate.enter="u-enter-fade-slide u-enter-delay-4"
+      [visible]="scrolled()"
+    />
     <p>
       Coded in
       <button
