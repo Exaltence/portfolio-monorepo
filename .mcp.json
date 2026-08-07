@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp/oauth"
+    },
+    "angular-cli": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["exec", "--", "@angular/cli", "mcp"]
+    },
+    "playwright-test": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["exec", "--", "playwright", "run-test-mcp-server"]
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["exec", "--yes", "--", "@playwright/mcp@latest"]
+    },
+    "eslint": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["exec", "--yes", "--", "@eslint/mcp@latest"]
+    },
+    "nx-mcp": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["exec", "--yes", "--", "nx-mcp"]
+    }
+  }
+}

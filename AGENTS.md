@@ -156,7 +156,7 @@ import { TaskStore } from '@portfolio-monorepo/portfolio/data/src/lib/state/task
 ### Git & Quality
 
 - Lefthook pre-commit: Prettier + ESLint auto-fix + unit tests. Do not bypass (`--no-verify`).
-- Commit format: Conventional Commits (enforced by Commitlint).
+- Commit format: Conventional Commits (enforced by Commitlint). Full convention: `.github/guidelines/commit-convention.md`.
 - No inline code comments or JSDoc unless explicitly requested.
 
 ## Detailed Guidance

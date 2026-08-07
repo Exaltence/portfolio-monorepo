@@ -10,7 +10,10 @@
       "!{projectRoot}/eslint.config.mjs",
       "!{projectRoot}/stylelint.config.mjs"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": [
+      "{workspaceRoot}/package-lock.json",
+      { "env": "NX_WORKSPACE_ROOT_PATH" }
+    ]
   },
   "targetDefaults": {
     "@angular/build:application": {

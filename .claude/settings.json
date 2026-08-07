@@ -1,0 +1,10 @@
+{
+  "enabledMcpjsonServers": [
+    "angular-cli",
+    "playwright-test",
+    "playwright",
+    "eslint",
+    "nx-mcp"
+  ],
+  "enableAllProjectMcpServers": true
+}
