@@ -61,6 +61,8 @@ Every new export must be added to the lib's `src/index.ts` barrel — deep impor
 
 **Theming is a DOM class, not a CSS variable swap.** [theme.store.ts](../libs/shared/data/src/lib/state/theme.store.ts) toggles `.light` on `documentElement` and persists to `localStorage` under the `theme` key; dark is the default.
 
+**`NX_WORKSPACE_ROOT_PATH` must stay empty.** Nx Console injects it with a lower-cased drive letter (`d:\...`), which makes Vitest resolve a second copy of the `vitest` package and fail with "Vitest failed to find the runner". It is neutralized in two places, because they cover different processes: [.vscode/settings.json](../.vscode/settings.json) (`terminal.integrated.env.windows`) for VS Code's integrated terminal, and `env` in [.claude/settings.json](settings.json) for Claude Code's tool subprocesses. Don't remove either, and don't "fix" the empty string into a real path.
+
 **Library `test` targets borrow the app's build.** Each lib's `project.json` sets `buildTarget: portfolio:build:development`, so a broken app build breaks lib tests too.
 
 ## MCP servers

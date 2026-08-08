@@ -1,11 +1,4 @@
 {
-  // Terminal
-  // Vitest fix Claude's "Vitest failed to find the runner" error on Windows
-  // Nx Console injects NX_WORKSPACE_ROOT_PATH with a lower-cased Windows drive
-  // letter, which makes Vitest resolve a second copy of the `vitest` package.
-  "terminal.integrated.env.windows": {
-    "NX_WORKSPACE_ROOT_PATH": null
-  },
   // Editor
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",

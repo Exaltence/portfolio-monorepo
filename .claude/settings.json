@@ -1,4 +1,7 @@
 {
+  "env": {
+    "NX_WORKSPACE_ROOT_PATH": ""
+  },
   "enabledMcpjsonServers": [
     "angular-cli",
     "playwright-test",
