@@ -29,6 +29,7 @@
     height: 2px;
     content: '';
     background-color: var(--line);
+    transition: var(--theme-surface-transition);
   }
 }
 
@@ -36,18 +37,6 @@
   margin: 0 0 var(--space-13);
   font-size: var(--fs-lg);
   line-height: var(--space-11);
-}
-
-.about-feature__skills {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--space-3);
-}
-
-@media (width <= 560px) {
-  .about-feature__skills {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .about-feature__error,

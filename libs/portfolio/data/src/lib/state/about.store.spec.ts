@@ -28,8 +28,8 @@ describe('AboutStore', () => {
       title: 'About Me',
       intro: 'Hello there.',
       skills: [
-        { name: 'Angular', icon: '<svg></svg>' },
-        { name: 'TypeScript', icon: '<svg></svg>' },
+        { name: 'Angular', icon: 'mdi--angular' },
+        { name: 'TypeScript', icon: 'mdi--language-typescript' },
       ],
       experience: [
         {

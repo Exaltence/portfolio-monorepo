@@ -10,17 +10,17 @@
     {
       "label": "LinkedIn",
       "url": "https://www.linkedin.com/in/shaun-vercauteren-678221152",
-      "icon": "linkedin"
+      "icon": "mdi--linkedin"
     },
     {
       "label": "Discord",
       "url": "https://discord.com/users/232203985816256522/",
-      "icon": "discord"
+      "icon": "simple-icons--discord"
     },
     {
       "label": "GitHub",
       "url": "https://github.com/Exaltence",
-      "icon": "github"
+      "icon": "mdi--github"
     }
   ]
 }

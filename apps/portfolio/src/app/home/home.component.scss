@@ -38,7 +38,7 @@
   transition:
     color 0.3s ease,
     border-color 0.3s ease,
-    scale 0.3s ease;
+    transform 0.3s ease;
 
   /* re-declared after `all: unset` above, which also resets animation-* */
   &.u-enter-fade-slide {
@@ -50,7 +50,7 @@
   &:hover {
     color: var(--mc);
     border-color: var(--mc);
-    scale: 1.08;
+    transform: translateX(-0.125rem);
   }
 }
 
@@ -65,7 +65,6 @@
   width: 1.5rem;
   height: 1.5rem;
   margin-left: var(--space-1);
-  cursor: pointer;
 }
 
 .home__main {
@@ -87,6 +86,7 @@
   order: -1;
   padding: var(--space-section) 8%;
   border-left: 1px solid var(--line);
+  transition: var(--theme-surface-transition);
 }
 
 @media (width >= 1041px) {
@@ -102,7 +102,7 @@
 
 .home__back-to-top {
   position: absolute;
-  right: 8%;
+  right: var(--btt-inset);
   top: 0;
   transform: translateY(-50%);
   cursor: pointer;
@@ -110,27 +110,43 @@
   display: flex;
 }
 
-/*
- * Visual border interruption 
- */
-.home__back-to-top::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -1.5rem;
-  right: -1.5rem;
-  height: 1.5rem;
-  background: var(--bg);
-  transform: translateY(-50%);
-  z-index: -100;
-}
-
 .home__footer {
+  /*
+   * Geometry back-to-top button, shared with the top rule below 
+   */
+  --btt-inset: 8%;
+  --btt-size: calc(3rem + 2px);
+  --btt-gap: 1.5rem;
+  --btt-gap-start: calc(var(--btt-inset) - var(--btt-gap));
+  --btt-gap-end: calc(var(--btt-inset) + var(--btt-size) + var(--btt-gap));
+
   position: relative;
   padding: var(--space-8) 8%;
   line-height: var(--space-8);
   color: var(--text);
-  border-top: 1px solid var(--line);
+}
+
+/*
+ * Top rule drawn as two segments so it breaks around the back-to-top button.
+ */
+.home__footer::before,
+.home__footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 1px;
+  background-color: var(--line);
+  transition: var(--theme-surface-transition);
+}
+
+.home__footer::before {
+  left: 0;
+  right: var(--btt-gap-end);
+}
+
+.home__footer::after {
+  right: 0;
+  width: var(--btt-gap-start);
 }
 
 .home__footer-link {

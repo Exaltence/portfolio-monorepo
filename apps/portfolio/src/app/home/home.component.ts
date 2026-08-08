@@ -5,6 +5,7 @@ import { ProjectsFeatureComponent } from '@portfolio-monorepo/portfolio/feature/
 import { NavItem } from '@portfolio-monorepo/shared/data';
 import {
   BackToTopComponent,
+  IconComponent,
   ScrollSpyDirective,
   SiteMenuComponent,
 } from '@portfolio-monorepo/shared/ui';
@@ -19,6 +20,7 @@ import { scrollToElement } from '@portfolio-monorepo/shared/util';
     ProfilePanelFeatureComponent,
     AboutFeatureComponent,
     ProjectsFeatureComponent,
+    IconComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

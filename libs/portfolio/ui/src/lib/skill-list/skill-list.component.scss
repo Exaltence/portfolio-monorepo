@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.skill-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-3);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+@media (width <= 560px) {
+  .skill-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.skill-list__item {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.skill-list__empty {
+  color: var(--text);
+}

@@ -29,6 +29,7 @@
     height: 2px;
     content: '';
     background-color: var(--line);
+    transition: var(--theme-surface-transition);
   }
 }
 

@@ -1,7 +1,13 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Profile, ProfileStore } from '@portfolio-monorepo/portfolio/data';
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { ProfilePanelFeatureComponent } from './profile-panel-feature.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 const FAKE_PROFILE: Profile = {
   greeting: 'Hi There! I am',
@@ -42,7 +48,10 @@ describe('ProfilePanelFeatureComponent', () => {
 
   function createFixture(): ComponentFixture<ProfilePanelFeatureComponent> {
     TestBed.configureTestingModule({
-      providers: [{ provide: ProfileStore, useValue: { profile } }],
+      providers: [
+        { provide: ProfileStore, useValue: { profile } },
+        { provide: IconRegistryService, useValue: iconRegistryStub },
+      ],
     });
     return TestBed.createComponent(ProfilePanelFeatureComponent);
   }

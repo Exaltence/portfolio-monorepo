@@ -44,6 +44,7 @@
       height: 2px;
       content: '';
       background-color: var(--line);
+      transition: var(--theme-surface-transition);
     }
 
     &:not(:last-child) {
@@ -75,7 +76,9 @@
     width: 0%;
     height: 2px;
     background: var(--text-strong);
-    transition: width 0.3s ease;
+    transition:
+      width 0.3s ease,
+      var(--theme-surface-transition);
   }
 
   &:hover::before {

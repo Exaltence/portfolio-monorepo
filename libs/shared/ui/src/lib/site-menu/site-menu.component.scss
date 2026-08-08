@@ -25,6 +25,7 @@
   width: min(100%, 35%);
   padding: var(--space-section) var(--space-8);
   background-color: var(--bg);
+  transition: var(--theme-surface-transition);
 }
 
 @media (width <= 560px) {

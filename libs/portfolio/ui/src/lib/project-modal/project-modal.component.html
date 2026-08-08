@@ -12,16 +12,7 @@
       aria-label="Close"
       (click)="close()"
     >
-      <svg
-        class="project-modal__close-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="currentColor"
-          d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
-        />
-      </svg>
+      <app-icon class="project-modal__close-icon" name="mdi--close" />
     </button>
 
     <div class="project-modal__viewport">
@@ -89,16 +80,10 @@
           aria-label="Previous project"
           (click)="prev()"
         >
-          <svg
+          <app-icon
             class="project-modal__button-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M19 13H6.75L12 18.25l-.66.75l-6.5-6.5l6.5-6.5l.66.75L6.75 12H19z"
-            />
-          </svg>
+            name="mdi-light--arrow-left"
+          />
           <span class="project-modal__button-text">prev</span>
         </button>
       </div>
@@ -111,16 +96,10 @@
           (click)="next()"
         >
           <span class="project-modal__button-text">next</span>
-          <svg
-            class="project-modal__button-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M4 12h12.25L11 6.75l.66-.75l6.5 6.5l-6.5 6.5l-.66-.75L16.25 13H4z"
-            />
-          </svg>
+          <app-icon
+            class="project-modal__button-icon project-modal__button-icon--next"
+            name="mdi-light--arrow-left"
+          />
         </button>
       </div>
     </nav>

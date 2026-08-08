@@ -1,7 +1,13 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Profile } from '@portfolio-monorepo/portfolio/data';
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { ProfilePanelComponent } from './profile-panel.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 const FAKE_PROFILE: Profile = {
   greeting: 'Hi There! I am',
@@ -12,9 +18,13 @@ const FAKE_PROFILE: Profile = {
   availabilityUrl: 'https://example.com/li',
   cvUrl: 'cv-shaun-vercauteren.pdf',
   social: [
-    { label: 'LinkedIn', url: 'https://example.com/li', icon: 'linkedin' },
-    { label: 'Discord', url: 'https://example.com/dc', icon: 'discord' },
-    { label: 'GitHub', url: 'https://example.com/gh', icon: 'github' },
+    { label: 'LinkedIn', url: 'https://example.com/li', icon: 'mdi--linkedin' },
+    {
+      label: 'Discord',
+      url: 'https://example.com/dc',
+      icon: 'simple-icons--discord',
+    },
+    { label: 'GitHub', url: 'https://example.com/gh', icon: 'mdi--github' },
   ],
 };
 
@@ -22,6 +32,10 @@ describe('ProfilePanelComponent', () => {
   let fixture: ComponentFixture<ProfilePanelComponent>;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: IconRegistryService, useValue: iconRegistryStub }],
+    });
+
     window.matchMedia = vi
       .fn()
       .mockReturnValue({ matches: true } as unknown as MediaQueryList);

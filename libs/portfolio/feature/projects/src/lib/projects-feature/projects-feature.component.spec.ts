@@ -1,9 +1,15 @@
 import { Dialog } from '@angular/cdk/dialog';
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Project, ProjectsStore } from '@portfolio-monorepo/portfolio/data';
 import { ProjectModalComponent } from '@portfolio-monorepo/portfolio/ui';
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { ProjectsFeatureComponent } from './projects-feature.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 function makeProject(id: string): Project {
   return {
@@ -64,6 +70,7 @@ describe('ProjectsFeatureComponent', () => {
       providers: [
         { provide: ProjectsStore, useValue: { projects } },
         { provide: Dialog, useValue: dialog },
+        { provide: IconRegistryService, useValue: iconRegistryStub },
       ],
     });
     fixture = TestBed.createComponent(ProjectsFeatureComponent);

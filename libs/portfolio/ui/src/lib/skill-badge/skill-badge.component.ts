@@ -1,18 +1,13 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Component, input } from '@angular/core';
 import { Skill } from '@portfolio-monorepo/portfolio/data';
+import { IconComponent } from '@portfolio-monorepo/shared/ui';
 
 @Component({
   selector: 'app-skill-badge',
+  imports: [IconComponent],
   templateUrl: './skill-badge.component.html',
   styleUrl: './skill-badge.component.scss',
 })
 export class SkillBadgeComponent {
-  private readonly sanitizer = inject(DomSanitizer);
-
   readonly skill = input.required<Skill>();
-
-  protected readonly safeIcon = computed<SafeHtml>(() =>
-    this.sanitizer.bypassSecurityTrustHtml(this.skill().icon),
-  );
 }

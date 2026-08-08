@@ -1,11 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { signal } from '@angular/core';
+
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { ThemeToggleComponent } from './theme-toggle.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 describe('ThemeToggleComponent', () => {
   let fixture: ComponentFixture<ThemeToggleComponent>;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: IconRegistryService, useValue: iconRegistryStub }],
+    });
     fixture = TestBed.createComponent(ThemeToggleComponent);
   });
 

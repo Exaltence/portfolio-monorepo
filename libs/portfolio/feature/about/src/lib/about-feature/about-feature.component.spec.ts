@@ -1,16 +1,22 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { About, AboutStore } from '@portfolio-monorepo/portfolio/data';
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { AboutFeatureComponent } from './about-feature.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 const FAKE_ABOUT: About = {
   subtitle: 'Introduction',
   title: 'About Me',
   intro: 'I build things.',
   skills: [
-    { name: 'Angular', icon: '<svg></svg>' },
-    { name: 'TypeScript', icon: '<svg></svg>' },
-    { name: 'Nx', icon: '<svg></svg>' },
+    { name: 'Angular', icon: 'mdi--angular' },
+    { name: 'TypeScript', icon: 'mdi--language-typescript' },
+    { name: 'Nx', icon: 'simple-icons--nx' },
   ],
   experience: [
     {
@@ -63,7 +69,10 @@ describe('AboutFeatureComponent', () => {
       isLoading: vi.fn(() => false),
     };
     TestBed.configureTestingModule({
-      providers: [{ provide: AboutStore, useValue: { about } }],
+      providers: [
+        { provide: AboutStore, useValue: { about } },
+        { provide: IconRegistryService, useValue: iconRegistryStub },
+      ],
     });
     fixture = TestBed.createComponent(AboutFeatureComponent);
   });

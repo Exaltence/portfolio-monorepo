@@ -1,0 +1,9 @@
+<ul class="skill-list" data-testid="skill-list">
+  @for (skill of skills(); track skill.name) {
+    <li class="skill-list__item">
+      <app-skill-badge [skill]="skill" />
+    </li>
+  } @empty {
+    <li class="skill-list__empty" data-testid="skill-empty">No skills yet.</li>
+  }
+</ul>

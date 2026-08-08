@@ -1,11 +1,21 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { BackToTopComponent } from './back-to-top.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 describe('BackToTopComponent', () => {
   let fixture: ComponentFixture<BackToTopComponent>;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: IconRegistryService, useValue: iconRegistryStub }],
+    });
+
     fixture = TestBed.createComponent(BackToTopComponent);
   });
 

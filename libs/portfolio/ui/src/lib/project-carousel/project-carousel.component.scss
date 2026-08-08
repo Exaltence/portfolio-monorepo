@@ -66,10 +66,17 @@
     scale 0.3s ease;
 
   &:hover {
-    @media (hover: hover) and (pointer: fine) {
-      color: var(--mc);
-      border-color: var(--mc);
-      scale: 1.08;
-    }
+    color: var(--mc);
+    border-color: var(--mc);
+    scale: 1.08;
   }
+}
+
+.carousel__button-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.carousel__button-icon--next {
+  transform: rotate(180deg);
 }

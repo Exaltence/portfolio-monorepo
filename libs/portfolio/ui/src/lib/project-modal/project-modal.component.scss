@@ -11,6 +11,7 @@
   background-color: var(--bg);
   border: 1px solid rgb(128 128 128 / 25%);
   border-radius: 2px;
+  transition: var(--theme-surface-transition);
 }
 
 @keyframes project-modal-enter {
@@ -243,6 +244,7 @@
   margin-left: calc(-1 * var(--space-10));
   margin-right: calc(-1 * var(--space-10));
   margin-bottom: calc(-1 * var(--space-10));
+  transition: var(--theme-surface-transition);
 }
 
 /*
@@ -257,6 +259,7 @@
   transform: translateX(-0.5px);
   border-left: 1px solid var(--line);
   pointer-events: none;
+  transition: var(--theme-surface-transition);
 }
 
 .project-modal__button-wrapper {
@@ -308,4 +311,8 @@
 
 .next {
   justify-content: flex-end;
+}
+
+.project-modal__button-icon--next {
+  transform: rotate(180deg);
 }

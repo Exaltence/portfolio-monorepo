@@ -11,11 +11,7 @@
 
     <app-tab-group [tabGroup]="tabGroup">
       <ng-template>
-        <div class="about-feature__skills" data-testid="about-skills">
-          @for (skill of about.skills; track skill.name) {
-            <app-skill-badge [skill]="skill" />
-          }
-        </div>
+        <app-skill-list [skills]="about.skills" />
       </ng-template>
       <ng-template>
         <app-resume-list [entries]="about.experience" />

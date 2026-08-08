@@ -1,8 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { Theme } from '@portfolio-monorepo/shared/data';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-theme-toggle',
+  imports: [IconComponent],
   templateUrl: './theme-toggle.component.html',
   styleUrl: './theme-toggle.component.scss',
 })

@@ -85,8 +85,8 @@ app  →  feature  →  ui  →  data  →  util
 
 - `type:app` → `type:feature`, `type:ui`, `type:data`, `type:util`
 - `type:feature` → `type:ui`, `type:data`, `type:util`
-- `type:ui` → `type:data`, `type:util` (presentational composition is intra-lib via relative imports)
-- `type:data` → `type:util`
+- `type:ui` → `type:ui`, `type:data`, `type:util` (peer ui libs only — cross-domain reuse is limited to `domain:shared` by the domain constraints below)
+- `type:data` → `type:data`, `type:util` (peer data libs only — cross-domain reuse is limited to `domain:shared` by the domain constraints below)
 - `type:util` → `type:util` (peer utilities only)
 
 Isolated types (no cross-layer access):

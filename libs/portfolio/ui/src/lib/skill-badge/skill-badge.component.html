@@ -1,8 +1,4 @@
 <div class="skill-badge" data-testid="skill-badge">
-  <span
-    class="skill-badge__icon"
-    aria-hidden="true"
-    [innerHTML]="safeIcon()"
-  ></span>
+  <app-icon class="skill-badge__icon" [name]="skill().icon" />
   <span class="skill-badge__name">{{ skill().name }}</span>
 </div>

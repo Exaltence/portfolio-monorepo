@@ -48,11 +48,11 @@ export default defineConfig([
             },
             {
               sourceTag: 'type:ui',
-              onlyDependOnLibsWithTags: ['type:data', 'type:util'],
+              onlyDependOnLibsWithTags: ['type:ui', 'type:data', 'type:util'],
             },
             {
               sourceTag: 'type:data',
-              onlyDependOnLibsWithTags: ['type:util'],
+              onlyDependOnLibsWithTags: ['type:data', 'type:util'],
             },
             {
               sourceTag: 'type:util',

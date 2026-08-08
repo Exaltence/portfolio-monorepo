@@ -15,6 +15,7 @@ import {
   viewChildren,
 } from '@angular/core';
 import { Project } from '@portfolio-monorepo/portfolio/data';
+import { IconComponent } from '@portfolio-monorepo/shared/ui';
 import { ProjectCardComponent } from '../project-card/project-card.component';
 
 const AUTOPLAY_MS = 3000;
@@ -28,7 +29,7 @@ interface CarouselSlide {
 
 @Component({
   selector: 'app-project-carousel',
-  imports: [ProjectCardComponent],
+  imports: [ProjectCardComponent, IconComponent],
   templateUrl: './project-carousel.component.html',
   styleUrl: './project-carousel.component.scss',
   host: {

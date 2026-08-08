@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import {
@@ -5,7 +6,12 @@ import {
   ProfileStore,
   ProjectsStore,
 } from '@portfolio-monorepo/portfolio/data';
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { HomeComponent } from './home.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 class MockIntersectionObserver {
   readonly observe = vi.fn();
@@ -38,6 +44,7 @@ describe('HomeComponent', () => {
         { provide: ProfileStore, useValue: { profile: loadingResource() } },
         { provide: AboutStore, useValue: { about: loadingResource() } },
         { provide: ProjectsStore, useValue: { projects: loadingResource() } },
+        { provide: IconRegistryService, useValue: iconRegistryStub },
       ],
     });
     fixture = TestBed.createComponent(HomeComponent);

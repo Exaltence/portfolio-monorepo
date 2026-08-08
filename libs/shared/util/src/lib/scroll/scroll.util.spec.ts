@@ -19,9 +19,9 @@ describe('scroll utilities', () => {
 
   describe('scrollToElement', () => {
     it('should smoothly scroll a given element into view', () => {
-      Element.prototype.scrollIntoView = vi.fn();
-      const scrollIntoViewSpy = vi.spyOn(Element.prototype, 'scrollIntoView');
       const element = document.createElement('div');
+      const scrollIntoViewSpy = vi.fn();
+      element.scrollIntoView = scrollIntoViewSpy;
 
       scrollToElement(element);
 

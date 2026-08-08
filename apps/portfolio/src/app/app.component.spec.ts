@@ -1,8 +1,16 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { ThemeStore } from '@portfolio-monorepo/shared/data';
+import {
+  IconRegistryService,
+  ThemeStore,
+} from '@portfolio-monorepo/shared/data';
 import { AppComponent } from './app.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -11,7 +19,10 @@ describe('AppComponent', () => {
       .mockReturnValue({ matches: false } as unknown as MediaQueryList);
     TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        { provide: IconRegistryService, useValue: iconRegistryStub },
+      ],
     });
   });
 

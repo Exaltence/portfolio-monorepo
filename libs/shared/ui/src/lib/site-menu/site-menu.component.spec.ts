@@ -1,6 +1,7 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavItem } from '@portfolio-monorepo/shared/data';
+import { IconRegistryService, NavItem } from '@portfolio-monorepo/shared/data';
 import { SiteMenuComponent } from './site-menu.component';
 
 const ITEMS: readonly NavItem[] = [
@@ -8,10 +9,18 @@ const ITEMS: readonly NavItem[] = [
   { label: 'Portfolio', fragment: 'portfolio' },
 ];
 
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
+
 describe('SiteMenuComponent', () => {
   let fixture: ComponentFixture<SiteMenuComponent>;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: IconRegistryService, useValue: iconRegistryStub }],
+    });
+
     fixture = TestBed.createComponent(SiteMenuComponent);
     fixture.componentRef.setInput('items', ITEMS);
   });

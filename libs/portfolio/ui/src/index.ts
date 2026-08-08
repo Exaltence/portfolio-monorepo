@@ -2,6 +2,7 @@ export * from './lib/typing-title/typing-title.directive';
 export * from './lib/profile-panel/profile-panel.component';
 export * from './lib/tab-group/tab-group.component';
 export * from './lib/skill-badge/skill-badge.component';
+export * from './lib/skill-list/skill-list.component';
 export * from './lib/resume-list/resume-list.component';
 export * from './lib/project-card/project-card.component';
 export * from './lib/project-carousel/project-carousel.component';

@@ -1,8 +1,10 @@
 import { Component, input, model, output } from '@angular/core';
 import { NavItem } from '@portfolio-monorepo/shared/data';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-site-menu',
+  imports: [IconComponent],
   templateUrl: './site-menu.component.html',
   styleUrl: './site-menu.component.scss',
 })

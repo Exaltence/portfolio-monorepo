@@ -9,9 +9,11 @@ import {
 } from '@angular/core';
 import { filter } from 'rxjs';
 import { ProjectModalData } from '@portfolio-monorepo/portfolio/data';
+import { IconComponent } from '@portfolio-monorepo/shared/ui';
 
 @Component({
   selector: 'app-project-modal',
+  imports: [IconComponent],
   templateUrl: './project-modal.component.html',
   styleUrl: './project-modal.component.scss',
 })

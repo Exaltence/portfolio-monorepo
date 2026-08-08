@@ -1,10 +1,15 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AnimationCallbackEvent } from '@angular/core';
+import { AnimationCallbackEvent, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Project, ProjectModalData } from '@portfolio-monorepo/portfolio/data';
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { ProjectModalComponent } from './project-modal.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 const PROJECTS: readonly Project[] = [
   {
@@ -46,6 +51,7 @@ describe('ProjectModalComponent', () => {
       providers: [
         { provide: DIALOG_DATA, useValue: data },
         { provide: DialogRef, useValue: dialogRef },
+        { provide: IconRegistryService, useValue: iconRegistryStub },
       ],
     });
     fixture = TestBed.createComponent(ProjectModalComponent);

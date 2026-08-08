@@ -1,7 +1,13 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Project } from '@portfolio-monorepo/portfolio/data';
+import { IconRegistryService } from '@portfolio-monorepo/shared/data';
 import { ProjectCarouselComponent } from './project-carousel.component';
+
+const iconRegistryStub: Pick<IconRegistryService, 'get'> = {
+  get: () => signal(null),
+};
 
 function makeProject(id: string): Project {
   return {
@@ -56,6 +62,10 @@ describe('ProjectCarouselComponent', () => {
   beforeEach(() => {
     window.IntersectionObserver =
       MockIntersectionObserver as unknown as typeof IntersectionObserver;
+
+    TestBed.configureTestingModule({
+      providers: [{ provide: IconRegistryService, useValue: iconRegistryStub }],
+    });
   });
 
   afterEach(() => {
