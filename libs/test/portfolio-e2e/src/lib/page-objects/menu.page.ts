@@ -1,7 +1,12 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
+import { gotoReady } from '../helper/navigation.util';
 
 export class MenuPage {
   constructor(private readonly page: Page) {}
+
+  async goto(): Promise<void> {
+    await gotoReady(this.page, '/', this.trigger);
+  }
 
   get trigger(): Locator {
     return this.page.getByTestId('menu-trigger');
@@ -21,6 +26,7 @@ export class MenuPage {
 
   async open(): Promise<void> {
     await this.trigger.click();
+    await expect(this.items.first()).toBeVisible();
   }
 
   async closeViaOverlay(): Promise<void> {

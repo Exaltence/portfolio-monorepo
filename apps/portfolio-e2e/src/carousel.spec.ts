@@ -1,7 +1,8 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 import {
   ProjectsPage,
+  gotoReady,
   recordIsTeleportedStep,
   recordIsInstantSnap,
   recordTrackMotion,
@@ -17,19 +18,9 @@ test.use({
 const settle = (projects: ProjectsPage): Promise<string> =>
   waitForSettledValue(() => projects.trackTransform());
 
-const openCarouselPage = async (
-  page: Page,
-  projects: ProjectsPage,
-): Promise<void> => {
-  await expect(async () => {
-    await page.goto('/');
-    await expect(projects.cards.first()).toBeVisible();
-  }).toPass();
-};
-
 test.beforeEach(async ({ page }) => {
   const projects = new ProjectsPage(page);
-  await openCarouselPage(page, projects);
+  await gotoReady(page, '/', projects.cards.first());
   /*
    * The carousel samples prefers-reduced-motion once, at construction, purely to
    * gate autoplay. Clearing it after load keeps autoplay off while restoring the

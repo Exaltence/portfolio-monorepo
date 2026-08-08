@@ -4,3 +4,4 @@ export * from './lib/page-objects/projects.page';
 export * from './lib/page-objects/theme.page';
 export * from './lib/helper/wait-for-settled-transform.util';
 export * from './lib/helper/interaction.util';
+export * from './lib/helper/navigation.util';

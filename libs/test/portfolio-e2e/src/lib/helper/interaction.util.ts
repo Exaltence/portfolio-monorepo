@@ -57,8 +57,10 @@ export const releaseWithoutClick = async (page: Page): Promise<void> => {
 export const tabTo = async (
   page: Page,
   locator: Locator,
-  maxTabs = 40,
+  maxTabs = 60,
 ): Promise<void> => {
+  await expect(locator).toBeVisible();
+
   for (let i = 0; i < maxTabs; i++) {
     await page.keyboard.press('Tab');
     const focused = await locator.evaluate(
@@ -66,7 +68,9 @@ export const tabTo = async (
     );
     if (focused) return;
   }
-  throw new Error('element was not reachable by keyboard');
+  throw new Error(
+    `element was not reachable within ${maxTabs} tab stops: ${locator}`,
+  );
 };
 
 export const expectFocusRing = async (locator: Locator): Promise<void> => {

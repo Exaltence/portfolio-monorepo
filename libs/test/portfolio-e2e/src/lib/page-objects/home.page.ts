@@ -1,10 +1,11 @@
 import { Locator, Page } from '@playwright/test';
+import { gotoReady } from '../helper/navigation.util';
 
 export class HomePage {
   constructor(private readonly page: Page) {}
 
   async goto(): Promise<void> {
-    await this.page.goto('/');
+    await gotoReady(this.page, '/', this.profileName);
   }
 
   get homeSection(): Locator {

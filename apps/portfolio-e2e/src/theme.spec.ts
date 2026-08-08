@@ -4,7 +4,7 @@ import { ThemePage } from '@portfolio-monorepo/test/portfolio-e2e';
 
 test('persists the theme across a reload', async ({ page }) => {
   const theme = new ThemePage(page);
-  await page.goto('/');
+  await theme.goto();
 
   const initiallyLight = await theme.isLight();
   await theme.toggleTheme();

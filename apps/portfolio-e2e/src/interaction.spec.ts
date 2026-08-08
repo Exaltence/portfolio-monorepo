@@ -78,11 +78,11 @@ test('draws a focus ring on keyboard focus', async ({ page }) => {
   await tabTo(page, menu.trigger);
   await expectFocusRing(menu.trigger);
 
-  await page.goto('/');
+  await home.goto();
   await tabTo(page, projects.carousel);
   await expectFocusRing(projects.carousel);
 
-  await page.goto('/');
+  await home.goto();
   await menu.open();
   await tabTo(page, menu.items.first());
   await expectFocusRing(menu.items.first());

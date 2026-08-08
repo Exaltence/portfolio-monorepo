@@ -28,7 +28,7 @@ export default defineConfig({
     : {
         command: 'npm exec nx run portfolio:serve',
         url: 'http://localhost:4200',
-        reuseExistingServer: true,
+        reuseExistingServer: !process.env['CI'],
         timeout: 120_000,
         stdout: 'pipe',
         stderr: 'pipe',

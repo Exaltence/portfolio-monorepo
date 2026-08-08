@@ -4,7 +4,7 @@ import { MenuPage } from '@portfolio-monorepo/test/portfolio-e2e';
 
 test('opens and closes the menu via the overlay', async ({ page }) => {
   const menu = new MenuPage(page);
-  await page.goto('/');
+  await menu.goto();
 
   await menu.open();
   await expect(menu.items.first()).toBeVisible();
@@ -15,7 +15,7 @@ test('opens and closes the menu via the overlay', async ({ page }) => {
 
 test('navigates to the portfolio section from the menu', async ({ page }) => {
   const menu = new MenuPage(page);
-  await page.goto('/');
+  await menu.goto();
 
   await menu.open();
   await menu.navigate('Portfolio');

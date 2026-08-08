@@ -63,6 +63,13 @@ Every new export must be added to the lib's `src/index.ts` barrel — deep impor
 
 **`NX_WORKSPACE_ROOT_PATH` must stay empty.** Nx Console injects it with a lower-cased drive letter (`d:\...`), which makes Vitest resolve a second copy of the `vitest` package and fail with "Vitest failed to find the runner". It is neutralized in two places, because they cover different processes: [.vscode/settings.json](../.vscode/settings.json) (`terminal.integrated.env.windows`) for VS Code's integrated terminal, and `env` in [.claude/settings.json](settings.json) for Claude Code's tool subprocesses. Don't remove either, and don't "fix" the empty string into a real path.
 
+**The dev server must bind dual-stack — `"host": "::"` on the `serve` target.** Left at the default it
+listens on `::1` only. `localhost` resolves to both `::1` and `127.0.0.1`; Chromium falls back between
+them, Firefox generally does not, so it draws an instant RST and e2e fails with
+`NS_ERROR_CONNECTION_REFUSED` on roughly half of local runs. The failures look load-related because more
+page loads mean more chances to pick IPv4, but load is not the cause. Don't remove the `host` entry, and
+don't switch it to `0.0.0.0` — that is IPv4-only and just inverts the problem.
+
 **Library `test` targets borrow the app's build.** Each lib's `project.json` sets `buildTarget: portfolio:build:development`, so a broken app build breaks lib tests too.
 
 ## MCP servers

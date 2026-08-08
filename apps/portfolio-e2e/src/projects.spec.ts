@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-import { ProjectsPage } from '@portfolio-monorepo/test/portfolio-e2e';
+import {
+  ProjectsPage,
+  gotoReady,
+} from '@portfolio-monorepo/test/portfolio-e2e';
 
 test.use({
   contextOptions: {
@@ -10,7 +13,7 @@ test.use({
 
 test('navigates the carousel and project modal', async ({ page }) => {
   const projects = new ProjectsPage(page);
-  await page.goto('/');
+  await gotoReady(page, '/', projects.cards.first());
 
   await expect(projects.cards.first()).toBeVisible();
   await projects.next.click();
