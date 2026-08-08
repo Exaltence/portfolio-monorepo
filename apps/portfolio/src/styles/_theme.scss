@@ -9,25 +9,21 @@
 }
 
 html {
-  /*
-   * List-safe no-op: `none` is invalid when composed into a longer list 
-   */
   --theme-surface-transition-off:
     background-color 0s, border-color 0s, color 0s;
   --theme-surface-transition: var(--theme-surface-transition-off);
 }
 
 .theme-transition {
+  /*
+   * Interaction feedback is normally faster than surface choreography. 
+   * During a theme cross-fade they must land together
+   */
+  --motion-duration-state: var(--motion-duration-scene);
   --theme-surface-transition:
-    background-color var(--motion-duration) var(--motion-ease-standard),
-    border-color var(--motion-duration) var(--motion-ease-standard),
-    color var(--motion-duration) var(--motion-ease-standard);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .theme-transition {
-    --theme-surface-transition: var(--theme-surface-transition-off);
-  }
+    background-color var(--motion-duration-scene) var(--motion-ease-standard),
+    border-color var(--motion-duration-scene) var(--motion-ease-standard),
+    color var(--motion-duration-scene) var(--motion-ease-standard);
 }
 
 body {

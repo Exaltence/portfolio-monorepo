@@ -1,4 +1,4 @@
-<div class="home" [class.scrolled]="scrolled()">
+<div class="home">
   <div
     class="home__sentinel"
     appScrollSpy
@@ -45,15 +45,12 @@
     class="home__footer"
     animate.enter="u-enter-fade-slide u-enter-delay-5"
   >
-    <app-back-to-top
-      class="home__back-to-top"
-      animate.enter="u-enter-fade-slide u-enter-delay-4"
-      [visible]="scrolled()"
-    />
+    <app-back-to-top class="home__back-to-top" [visible]="scrolled()" />
     <p>
       Coded in
       <button
         class="home__footer-link"
+        data-testid="footer-link"
         (click)="openLink('https://code.visualstudio.com/')"
         aria-label="Visual Studio Code"
       >
@@ -62,6 +59,7 @@
       built with
       <button
         class="home__footer-link"
+        data-testid="footer-link"
         (click)="openLink('https://nx.dev/')"
         aria-label="Nx"
       >
@@ -70,6 +68,7 @@
       and modern
       <button
         class="home__footer-link"
+        data-testid="footer-link"
         (click)="openLink('https://angular.dev/')"
         aria-label="Angular"
       >
@@ -78,6 +77,7 @@
       deployed on
       <button
         class="home__footer-link"
+        data-testid="footer-link"
         (click)="openLink('https://docs.github.com/en/pages')"
         aria-label="GitHub Pages"
       >
@@ -86,6 +86,7 @@
       using
       <button
         class="home__footer-link"
+        data-testid="footer-link"
         (click)="openLink('https://github.com/features/actions')"
         aria-label="GitHub Actions"
       >

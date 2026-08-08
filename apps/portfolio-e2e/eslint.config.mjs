@@ -8,6 +8,12 @@ export default [
   {
     files: ['**/*.ts', '**/*.js'],
     // Override or add rules here
-    rules: {},
+    rules: {
+      // Shared helpers that wrap `expect` still count as assertions
+      'playwright/expect-expect': [
+        'warn',
+        { assertFunctionNames: ['expectFocusRing', 'expectScale'] },
+      ],
+    },
   },
 ];

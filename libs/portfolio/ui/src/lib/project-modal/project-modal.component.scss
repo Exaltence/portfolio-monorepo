@@ -1,3 +1,5 @@
+@use 'interaction' as *;
+
 :host {
   display: block;
 }
@@ -39,20 +41,13 @@
 }
 
 .project-modal-enter {
-  animation: project-modal-enter var(--motion-duration)
+  animation: project-modal-enter var(--motion-duration-scene)
     var(--motion-ease-standard) both;
 }
 
 .project-modal-leave {
-  animation: project-modal-leave var(--motion-duration)
+  animation: project-modal-leave var(--motion-duration-scene)
     var(--motion-ease-standard) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-modal-enter,
-  .project-modal-leave {
-    animation-duration: 0.01ms;
-  }
 }
 
 .project-modal__close {
@@ -67,14 +62,20 @@
   background: transparent;
   border: 1px solid transparent;
   transition:
-    color 0.3s ease,
-    border-color 0.3s ease,
-    scale 0.3s ease;
+    color var(--motion-duration-state) var(--motion-ease-standard),
+    border-color var(--motion-duration-state) var(--motion-ease-standard),
+    scale var(--motion-duration-press) var(--motion-ease-standard);
 
-  &:hover {
+  @include on-hover {
     color: var(--mc);
     border-color: var(--mc);
-    scale: 0.92;
+    scale: var(--hover-shrink-scale);
+  }
+
+  &:active {
+    color: var(--mc);
+    border-color: var(--mc);
+    scale: var(--press-scale-deep);
   }
 }
 
@@ -125,20 +126,13 @@
 }
 
 .project-modal-image-enter {
-  animation: project-modal-image-enter var(--motion-duration)
+  animation: project-modal-image-enter var(--motion-duration-scene)
     var(--motion-ease-linear) both;
 }
 
 .project-modal-image-leave {
-  animation: project-modal-image-leave var(--motion-duration)
+  animation: project-modal-image-leave var(--motion-duration-scene)
     var(--motion-ease-linear) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-modal-image-enter,
-  .project-modal-image-leave {
-    animation-duration: 0.01ms;
-  }
 }
 
 .project-modal__viewport {
@@ -177,21 +171,14 @@
 }
 
 .project-modal-content-enter {
-  animation: project-modal-content-enter var(--motion-duration)
+  animation: project-modal-content-enter var(--motion-duration-scene)
     var(--motion-ease-standard) both;
 }
 
 .project-modal-content-leave {
   pointer-events: none;
-  animation: project-modal-content-leave var(--motion-duration)
+  animation: project-modal-content-leave var(--motion-duration-scene)
     var(--motion-ease-standard) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-modal-content-enter,
-  .project-modal-content-leave {
-    animation-duration: 0.01ms;
-  }
 }
 
 .project-modal__thumbs {
@@ -209,12 +196,22 @@
   background: transparent;
   border: 1px solid transparent;
   border-radius: 2px;
-  transition: scale 0.3s ease;
+  transition:
+    border-color var(--motion-duration-state) var(--motion-ease-standard),
+    scale var(--motion-duration-press) var(--motion-ease-standard);
 
-  &:not(.active):hover {
-    padding: 0.25rem;
-    border-color: var(--text-strong);
-    scale: 1.08;
+  @include on-focus;
+
+  &:not(.active) {
+    @include on-hover {
+      border-color: var(--text-strong);
+      scale: var(--hover-grow-scale);
+    }
+
+    &:active {
+      border-color: var(--text-strong);
+      scale: var(--press-scale);
+    }
   }
 
   &.active {
@@ -265,16 +262,6 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
-  &:hover {
-    color: var(--mc);
-
-    .project-modal__button-icon {
-      color: var(--mc);
-      border-color: var(--mc);
-      margin: 0 var(--space-4);
-    }
-  }
 }
 
 .project-modal__button {
@@ -286,7 +273,19 @@
   padding: var(--space-8) var(--space-10);
   line-height: 1;
   text-transform: uppercase;
-  transition: color 0.3s ease;
+  transition: color var(--motion-duration-state) var(--motion-ease-standard);
+
+  @include on-focus;
+
+  @include on-hover-press {
+    color: var(--mc);
+
+    .project-modal__button-icon {
+      color: var(--mc);
+      border-color: var(--mc);
+      margin: 0 var(--space-4);
+    }
+  }
 }
 
 .project-modal__button-icon {
@@ -295,9 +294,9 @@
   color: var(--text);
   border: 1px solid transparent;
   transition:
-    color 0.3s ease,
-    border-color 0.3s ease,
-    margin 0.3s ease;
+    color var(--motion-duration-state) var(--motion-ease-standard),
+    border-color var(--motion-duration-state) var(--motion-ease-standard),
+    margin var(--motion-duration-state) var(--motion-ease-standard);
 }
 
 .prev {

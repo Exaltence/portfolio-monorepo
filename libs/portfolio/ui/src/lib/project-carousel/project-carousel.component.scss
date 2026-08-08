@@ -1,3 +1,5 @@
+@use 'interaction' as *;
+
 :host {
   display: block;
 }
@@ -5,9 +7,7 @@
 .carousel {
   position: relative;
 
-  &:focus-visible {
-    outline: none;
-  }
+  @include on-focus;
 }
 
 .carousel__viewport {
@@ -18,7 +18,7 @@
 .carousel__track {
   display: flex;
   gap: var(--space-5);
-  transition: transform 0.3s ease;
+  transition: transform var(--motion-duration-scene) var(--motion-ease-standard);
   will-change: transform;
 
   &--instant {
@@ -61,14 +61,22 @@
   border: 1px solid transparent;
   cursor: pointer;
   transition:
-    color 0.3s ease,
-    border-color 0.3s ease,
-    scale 0.3s ease;
+    color var(--motion-duration-state) var(--motion-ease-standard),
+    border-color var(--motion-duration-state) var(--motion-ease-standard),
+    scale var(--motion-duration-press) var(--motion-ease-standard);
 
-  &:hover {
+  @include on-focus;
+
+  @include on-hover {
     color: var(--mc);
     border-color: var(--mc);
-    scale: 1.08;
+    scale: var(--hover-grow-scale);
+  }
+
+  &:active {
+    color: var(--mc);
+    border-color: var(--mc);
+    scale: var(--press-scale);
   }
 }
 

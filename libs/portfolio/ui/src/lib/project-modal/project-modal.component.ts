@@ -10,6 +10,7 @@ import {
 import { filter } from 'rxjs';
 import { ProjectModalData } from '@portfolio-monorepo/portfolio/data';
 import { IconComponent } from '@portfolio-monorepo/shared/ui';
+import { motionDurationMs } from '@portfolio-monorepo/shared/util';
 
 @Component({
   selector: 'app-project-modal',
@@ -85,9 +86,12 @@ export class ProjectModalComponent {
         .querySelector('.project-modal-backdrop')
         ?.classList.add('closing');
       // Sync close with animation duration.
-      setTimeout(() => {
-        this.dialogRef.close();
-      }, 300);
+      setTimeout(
+        () => {
+          this.dialogRef.close();
+        },
+        motionDurationMs('--motion-duration-scene', 300),
+      );
     };
 
     element.addEventListener('animationend', handleAnimationEnd);

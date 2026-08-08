@@ -1,3 +1,5 @@
+@use 'interaction' as *;
+
 :host {
   display: contents;
 }
@@ -11,16 +13,28 @@
   justify-content: center;
   border: 1px solid transparent;
   cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
   transform: rotate(90deg);
   transition:
-    color 0.3s ease,
-    border-color 0.3s ease,
-    scale 0.3s ease;
+    color var(--motion-duration-state) var(--motion-ease-standard),
+    border-color var(--motion-duration-state) var(--motion-ease-standard),
+    scale var(--motion-duration-press) var(--motion-ease-standard),
+    opacity var(--motion-duration-scene) var(--motion-ease-linear),
+    visibility var(--motion-duration-scene) var(--motion-ease-linear);
 
-  &:hover {
+  @include on-focus;
+
+  @include on-hover {
     color: var(--mc);
     border-color: var(--mc);
-    scale: 1.08;
+    scale: var(--hover-grow-scale);
+  }
+
+  &:active {
+    color: var(--mc);
+    border-color: var(--mc);
+    scale: var(--press-scale);
   }
 
   &.is-visible {

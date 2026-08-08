@@ -8,11 +8,12 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
+import { motionDurationMs } from '@portfolio-monorepo/shared/util';
 import { Theme } from '../models/theme/theme.model';
 
 const STORAGE_KEY = 'theme';
 const TRANSITION_CLASS = 'theme-transition';
-const TRANSITION_DURATION_MS = 300;
+const TRANSITION_DURATION_FALLBACK_MS = 300;
 
 export const ThemeStore = signalStore(
   { providedIn: 'root' },
@@ -28,9 +29,15 @@ export const ThemeStore = signalStore(
       clearTimeout(transitionTimeout);
       root.classList.add(TRANSITION_CLASS);
       root.classList.toggle('light', theme === 'light');
-      transitionTimeout = setTimeout(() => {
-        root.classList.remove(TRANSITION_CLASS);
-      }, TRANSITION_DURATION_MS);
+      transitionTimeout = setTimeout(
+        () => {
+          root.classList.remove(TRANSITION_CLASS);
+        },
+        motionDurationMs(
+          '--motion-duration-scene',
+          TRANSITION_DURATION_FALLBACK_MS,
+        ),
+      );
     };
     const setTheme = (theme: Theme): void => {
       patchState(store, { theme });

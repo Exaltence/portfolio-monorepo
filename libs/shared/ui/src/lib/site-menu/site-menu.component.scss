@@ -1,3 +1,5 @@
+@use 'interaction' as *;
+
 :host {
   display: contents;
 }
@@ -46,14 +48,20 @@
   background: transparent;
   border: 1px solid transparent;
   transition:
-    color 0.3s ease,
-    border-color 0.3s ease,
-    scale 0.3s ease;
+    color var(--motion-duration-state) var(--motion-ease-standard),
+    border-color var(--motion-duration-state) var(--motion-ease-standard),
+    scale var(--motion-duration-press) var(--motion-ease-standard);
 
-  &:hover {
+  @include on-hover {
     color: var(--mc);
     border-color: var(--mc);
-    scale: 0.92;
+    scale: var(--hover-shrink-scale);
+  }
+
+  &:active {
+    color: var(--mc);
+    border-color: var(--mc);
+    scale: var(--press-scale-deep);
   }
 }
 
@@ -69,8 +77,14 @@
   margin-bottom: var(--space-4);
   cursor: pointer;
 
-  &:hover .site-menu__link {
-    color: var(--mc);
+  @include on-hover {
+    .site-menu__link {
+      color: var(--mc);
+    }
+
+    .site-menu__text::after {
+      width: 100%;
+    }
   }
 }
 
@@ -81,7 +95,17 @@
   font-size: var(--fs-lg);
   color: var(--text-strong);
   padding-bottom: 2px;
-  transition: color 0.3s ease;
+  transition: color var(--motion-duration-state) var(--motion-ease-standard);
+
+  @include on-focus;
+
+  &:active {
+    color: var(--mc);
+
+    .site-menu__text::after {
+      width: 100%;
+    }
+  }
 }
 
 .site-menu__text {
@@ -100,11 +124,7 @@
   width: 0%;
   height: 2px;
   background: var(--mc);
-  transition: width 0.3s ease;
-}
-
-.site-menu__item:hover .site-menu__text::after {
-  width: 100%;
+  transition: width var(--motion-duration-state) var(--motion-ease-standard);
 }
 
 @keyframes site-menu-overlay-enter {
@@ -128,12 +148,12 @@
 }
 
 .site-menu-overlay-enter {
-  animation: site-menu-overlay-enter var(--motion-duration)
+  animation: site-menu-overlay-enter var(--motion-duration-scene)
     var(--motion-ease-linear) both;
 }
 
 .site-menu-overlay-leave {
-  animation: site-menu-overlay-leave var(--motion-duration)
+  animation: site-menu-overlay-leave var(--motion-duration-scene)
     var(--motion-ease-linear) both;
 }
 
@@ -158,12 +178,12 @@
 }
 
 .site-menu-panel-enter {
-  animation: site-menu-panel-enter var(--motion-duration)
+  animation: site-menu-panel-enter var(--motion-duration-scene)
     var(--motion-ease-standard) both;
 }
 
 .site-menu-panel-leave {
-  animation: site-menu-panel-leave var(--motion-duration)
+  animation: site-menu-panel-leave var(--motion-duration-scene)
     var(--motion-ease-standard) both;
 }
 
@@ -179,17 +199,13 @@
   }
 }
 
+/*
+ * `--stagger-index` is bound per item in the template; the timing stays here so
+ * reduced motion can zero it centrally (inline `animation-delay` could not
+ * be overridden by media query).
+ */
 .site-menu-link-enter {
-  animation: site-menu-link-enter var(--motion-duration)
+  animation: site-menu-link-enter var(--motion-duration-scene)
     var(--motion-ease-standard) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-menu-overlay-enter,
-  .site-menu-overlay-leave,
-  .site-menu-panel-enter,
-  .site-menu-panel-leave,
-  .site-menu-link-enter {
-    animation-duration: 0.01ms;
-  }
+  animation-delay: calc(var(--motion-stagger) * var(--stagger-index, 0));
 }

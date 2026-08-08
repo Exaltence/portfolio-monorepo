@@ -1,3 +1,5 @@
+@use 'interaction' as *;
+
 *,
 *::before,
 *::after {
@@ -55,18 +57,16 @@ p {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color var(--motion-duration-state) var(--motion-ease-standard);
+
+  @include on-focus;
+
+  @include on-hover-press {
+    color: var(--mc);
+  }
 }
 
 img {
   max-width: 100%;
   vertical-align: middle;
-}
-
-a:hover {
-  color: var(--mc);
-}
-
-a:focus {
-  outline: none;
 }

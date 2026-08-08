@@ -1,12 +1,25 @@
+@use 'interaction' as *;
+
 :host {
   display: block;
   overflow: hidden;
   cursor: pointer;
-}
 
-:host:focus-visible {
-  outline: 2px solid var(--mc);
-  outline-offset: 2px;
+  @include on-focus;
+
+  @include on-hover-press {
+    .project-card__title {
+      color: var(--mc);
+    }
+
+    .project-card__title::before {
+      width: 1rem;
+    }
+
+    .project-card__title::after {
+      height: 1rem;
+    }
+  }
 }
 
 .project-card__media {
@@ -36,11 +49,7 @@
   font-size: var(--fs-lg);
   font-weight: 400;
   color: var(--text-strong);
-  transition: color 0.3s ease;
-}
-
-:host:hover .project-card__title {
-  color: var(--mc);
+  transition: color var(--motion-duration-state) var(--motion-ease-standard);
 }
 
 /*
@@ -52,8 +61,8 @@
   position: absolute;
   background: var(--mc);
   transition:
-    width 0.3s ease,
-    height 0.3s ease;
+    width var(--motion-duration-state) var(--motion-ease-standard),
+    height var(--motion-duration-state) var(--motion-ease-standard);
 }
 
 .project-card__title::before {
@@ -68,12 +77,4 @@
   right: 0;
   width: 2px;
   height: 0;
-}
-
-:host:hover .project-card__title::before {
-  width: 1rem;
-}
-
-:host:hover .project-card__title::after {
-  height: 1rem;
 }

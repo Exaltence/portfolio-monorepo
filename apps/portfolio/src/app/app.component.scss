@@ -26,8 +26,8 @@
   width: 2.5rem;
   height: 2.5rem;
   transition:
-    width 0.2s ease,
-    height 0.2s ease;
+    width var(--motion-duration-state) var(--motion-ease-standard),
+    height var(--motion-duration-state) var(--motion-ease-standard);
 }
 
 .app__cursor--inner {

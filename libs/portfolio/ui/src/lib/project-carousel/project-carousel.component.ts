@@ -16,10 +16,17 @@ import {
 } from '@angular/core';
 import { Project } from '@portfolio-monorepo/portfolio/data';
 import { IconComponent } from '@portfolio-monorepo/shared/ui';
+import { motionDurationMs } from '@portfolio-monorepo/shared/util';
 import { ProjectCardComponent } from '../project-card/project-card.component';
 
 const AUTOPLAY_MS = 3000;
 const GAP_PX = 20;
+const SETTLE_FALLBACK_MS = 300;
+/*
+ * Generous on purpose. This is a deadlock net, not a timing mechanism: firing it
+ * before a real `transitionend` would advance the track mid-slide.
+ */
+const SETTLE_FALLBACK_GRACE_MS = 250;
 
 interface CarouselSlide {
   readonly key: string;
@@ -47,6 +54,7 @@ export class ProjectCarouselComponent {
   private readonly pending = signal(0);
   private readonly busy = signal(false);
   private readonly instant = signal(false);
+  private settleFallback: ReturnType<typeof setTimeout> | undefined;
 
   readonly index = computed(() => {
     const count = this.count();
@@ -71,6 +79,11 @@ export class ProjectCarouselComponent {
 
   private readonly paused = signal(false);
   private readonly hidden = signal(document.hidden);
+  /*
+   * Sampled once, deliberately. carousel.spec.ts loads under reduced motion to
+   * disable autoplay and then clears it to measure the track transition; making
+   * this reactive would bring autoplay back mid-test.
+   */
   private readonly reducedMotion = matchMedia(
     '(prefers-reduced-motion: reduce)',
   ).matches;
@@ -141,6 +154,7 @@ export class ProjectCarouselComponent {
     });
 
     this.destroyRef.onDestroy(() => this.keyManager?.destroy());
+    this.destroyRef.onDestroy(() => clearTimeout(this.settleFallback));
   }
 
   next(): void {
@@ -181,6 +195,7 @@ export class ProjectCarouselComponent {
     if (event.propertyName !== 'transform') {
       return;
     }
+    clearTimeout(this.settleFallback);
     const count = this.count();
     const render = this.render();
     if (count > 0 && (render < count || render >= count * 2)) {
@@ -189,14 +204,12 @@ export class ProjectCarouselComponent {
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
           this.instant.set(false);
-          this.busy.set(false);
-          this.pump();
+          this.settle();
         }),
       );
       return;
     }
-    this.busy.set(false);
-    this.pump();
+    this.settle();
   }
 
   protected onKeydown(event: KeyboardEvent): void {
@@ -220,6 +233,30 @@ export class ProjectCarouselComponent {
     this.pending.update((value) => value - dir);
     this.busy.set(true);
     this.render.update((value) => value + dir);
+    this.armSettleFallback();
+  }
+
+  /*
+   * `busy` is otherwise cleared only by `transitionend`. Under reduced motion the
+   * track transition is near-zero, and a dropped or coalesced event would strand
+   * the carousel permanently. This turns that deadlock into a dropped frame.
+   */
+  private armSettleFallback(): void {
+    clearTimeout(this.settleFallback);
+    const duration = motionDurationMs(
+      '--motion-duration-scene',
+      SETTLE_FALLBACK_MS,
+    );
+    this.settleFallback = setTimeout(
+      () => this.settle(),
+      Math.max(duration * 2, duration + SETTLE_FALLBACK_GRACE_MS),
+    );
+  }
+
+  private settle(): void {
+    clearTimeout(this.settleFallback);
+    this.busy.set(false);
+    this.pump();
   }
 
   private resetAutoplay(): void {

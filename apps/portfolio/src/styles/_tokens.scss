@@ -25,7 +25,38 @@
   --space-13: 3.25rem;
   --space-14: 3.5rem;
   --space-section: 6.25rem;
-  --motion-duration: 300ms;
+  /* stylelint-disable declaration-property-value-disallowed-list */
+  --motion-duration-press: 120ms;
+  --motion-duration-state: 200ms;
+  --motion-duration-scene: 300ms;
+  --motion-duration-pulse: 3s;
+  --motion-stagger: 80ms;
   --motion-ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
   --motion-ease-linear: linear;
+  /* stylelint-enable declaration-property-value-disallowed-list */
+  --hover-grow-scale: 1.08;
+  --hover-grow-scale-strong: 1.16;
+  --hover-shrink-scale: 0.92;
+  --press-scale: 0.96;
+  --press-scale-deep: 0.88;
+}
+
+/*
+ * `--motion-duration-pulse` is deliberately not zeroed: a 0.01ms `infinite`
+ * animation would spin the compositor forever.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* stylelint-disable declaration-property-value-disallowed-list */
+    --motion-duration-press: 0.01ms;
+    --motion-duration-state: 0.01ms;
+    --motion-duration-scene: 0.01ms;
+    --motion-stagger: 0ms;
+    /* stylelint-enable declaration-property-value-disallowed-list */
+    --hover-grow-scale: 1;
+    --hover-grow-scale-strong: 1;
+    --hover-shrink-scale: 1;
+    --press-scale: 1;
+    --press-scale-deep: 1;
+  }
 }

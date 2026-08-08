@@ -33,7 +33,7 @@
               class="site-menu__link"
               data-testid="nav-item"
               animate.enter="site-menu-link-enter"
-              [style.animation-delay.ms]="i * 60"
+              [style.--stagger-index]="i"
               (click)="select(item)"
               [attr.aria-label]="'Navigate to ' + item.label"
             >

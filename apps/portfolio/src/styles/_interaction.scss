@@ -1,0 +1,26 @@
+@mixin on-hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin on-hover-press {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+
+  &:active {
+    @content;
+  }
+}
+
+@mixin on-focus {
+  &:focus-visible {
+    outline: 2px solid var(--mc);
+    outline-offset: 2px;
+  }
+}

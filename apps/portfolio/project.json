@@ -20,7 +20,10 @@
             "input": "apps/portfolio/public"
           }
         ],
-        "styles": ["apps/portfolio/src/styles.scss"]
+        "styles": ["apps/portfolio/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/portfolio/src/styles"]
+        }
       },
       "configurations": {
         "production": {

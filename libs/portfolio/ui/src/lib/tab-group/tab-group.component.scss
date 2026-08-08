@@ -1,3 +1,5 @@
+@use 'interaction' as *;
+
 :host {
   display: block;
 }
@@ -29,8 +31,8 @@
   border: 0;
   border-bottom: 2px solid transparent;
   transition:
-    color 0.3s ease,
-    border-color 0.3s ease;
+    color var(--motion-duration-state) var(--motion-ease-standard),
+    border-color var(--motion-duration-state) var(--motion-ease-standard);
 
   /* 
    * Separator line between tabs on larger screens
@@ -52,8 +54,16 @@
     }
   }
 
-  &:hover {
-    color: var(--text-strong);
+  @include on-focus;
+
+  &:not(.active) {
+    @include on-hover-press {
+      color: var(--text-strong);
+
+      &::before {
+        width: 100%;
+      }
+    }
   }
 
   &.active {
@@ -77,12 +87,8 @@
     height: 2px;
     background: var(--text-strong);
     transition:
-      width 0.3s ease,
+      width var(--motion-duration-state) var(--motion-ease-standard),
       var(--theme-surface-transition);
-  }
-
-  &:hover::before {
-    width: 100%;
   }
 }
 
@@ -116,19 +122,12 @@
 }
 
 .tab-group-panel-enter {
-  animation: tab-group-panel-enter var(--motion-duration)
+  animation: tab-group-panel-enter var(--motion-duration-scene)
     var(--motion-ease-linear) both;
 }
 
 .tab-group-panel-leave {
   pointer-events: none;
-  animation: tab-group-panel-leave var(--motion-duration)
+  animation: tab-group-panel-leave var(--motion-duration-scene)
     var(--motion-ease-linear) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tab-group-panel-enter,
-  .tab-group-panel-leave {
-    animation-duration: 0.01ms;
-  }
 }

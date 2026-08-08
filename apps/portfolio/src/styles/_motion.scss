@@ -11,33 +11,26 @@
 }
 
 .u-enter-fade-slide {
-  animation: u-fade-slide-in var(--motion-duration) var(--motion-ease-standard)
-    both;
+  animation: u-fade-slide-in var(--motion-duration-scene)
+    var(--motion-ease-standard) both;
 }
 
 .u-enter-delay-1 {
-  animation-delay: 80ms;
+  animation-delay: calc(var(--motion-stagger) * 1);
 }
 
 .u-enter-delay-2 {
-  animation-delay: 160ms;
+  animation-delay: calc(var(--motion-stagger) * 2);
 }
 
 .u-enter-delay-3 {
-  animation-delay: 240ms;
+  animation-delay: calc(var(--motion-stagger) * 3);
 }
 
 .u-enter-delay-4 {
-  animation-delay: 320ms;
+  animation-delay: calc(var(--motion-stagger) * 4);
 }
 
 .u-enter-delay-5 {
-  animation-delay: 400ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .u-enter-fade-slide {
-    animation-duration: 0.01ms;
-    animation-delay: 0s;
-  }
+  animation-delay: calc(var(--motion-stagger) * 5);
 }

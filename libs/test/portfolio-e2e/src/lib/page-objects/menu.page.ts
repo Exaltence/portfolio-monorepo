@@ -15,6 +15,10 @@ export class MenuPage {
     return this.page.getByTestId('nav-item');
   }
 
+  get closeButton(): Locator {
+    return this.page.getByTestId('nav-close');
+  }
+
   async open(): Promise<void> {
     await this.trigger.click();
   }
