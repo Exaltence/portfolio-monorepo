@@ -205,7 +205,6 @@
 .project-modal__thumb {
   width: 4.5rem;
   padding: 0.25rem;
-
   cursor: pointer;
   background: transparent;
   border: 1px solid transparent;
@@ -240,10 +239,7 @@
   align-items: center;
   gap: 0;
   border-top: 1px solid var(--line);
-  margin-top: var(--space-8);
-  margin-left: calc(-1 * var(--space-10));
-  margin-right: calc(-1 * var(--space-10));
-  margin-bottom: calc(-1 * var(--space-10));
+  margin: var(--space-8) calc(-1 * var(--space-10)) calc(-1 * var(--space-10));
   transition: var(--theme-surface-transition);
 }
 
@@ -297,7 +293,6 @@
   width: 3rem;
   height: 3rem;
   color: var(--text);
-
   border: 1px solid transparent;
   transition:
     color 0.3s ease,

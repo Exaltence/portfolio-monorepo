@@ -15,6 +15,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
-    }
+    },
+    "stylelint": {}
   }
 }

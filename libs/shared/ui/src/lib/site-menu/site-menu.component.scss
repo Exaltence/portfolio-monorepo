@@ -88,8 +88,9 @@
   position: relative;
   display: inline-block;
 }
-/* 
- * Sliding underline animation on hover 
+
+/*
+ * Sliding underline animation on hover
  */
 .site-menu__text::after {
   content: '';

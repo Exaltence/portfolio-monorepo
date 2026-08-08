@@ -36,7 +36,12 @@
     },
     "stylelint": {
       "cache": true,
-      "inputs": ["default", "{workspaceRoot}/stylelint.config.mjs"]
+      "inputs": ["default", "{workspaceRoot}/stylelint.config.mjs"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"**/*.scss\"",
+        "cwd": "{projectRoot}"
+      }
     }
   },
   "plugins": [

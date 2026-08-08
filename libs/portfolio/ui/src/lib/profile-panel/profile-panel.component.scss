@@ -24,17 +24,11 @@
 }
 
 .profile-panel__border--1 {
-  top: var(--space-5);
-  right: 0;
-  bottom: var(--space-5);
-  left: 0;
+  inset: var(--space-5) 0;
 }
 
 .profile-panel__border--2 {
-  top: 0;
-  right: var(--space-5);
-  bottom: 0;
-  left: var(--space-5);
+  inset: 0 var(--space-5);
 }
 
 .profile-panel:hover .profile-panel__border {
@@ -163,7 +157,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
