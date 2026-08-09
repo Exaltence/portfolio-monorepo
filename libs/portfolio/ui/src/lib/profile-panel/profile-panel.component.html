@@ -23,7 +23,7 @@
     <div class="profile-panel__intro">
       <p class="profile-panel__greeting">{{ profile().greeting }}</p>
       <h1 class="profile-panel__name" data-testid="profile-name">
-        <span class="profile-panel__sr">{{ profile().name }}</span>
+        <span class="u-sr-only">{{ profile().name }}</span>
         <span
           class="profile-panel__typed"
           aria-hidden="true"
@@ -36,46 +36,46 @@
   <ul class="profile-panel__social">
     @for (link of profile().social; track link.url) {
       <li>
-        <button
-          type="button"
+        <a
           class="profile-panel__social-link"
-          (click)="openLink(link.url)"
+          [href]="link.url"
+          target="_blank"
+          rel="noopener noreferrer"
           data-testid="social-link"
-          [attr.aria-label]="link.label"
+          [attr.aria-label]="link.label + ' (opens in a new tab)'"
         >
           <app-icon
             class="profile-panel__social-link-icon"
             [name]="link.icon"
           />
-        </button>
+        </a>
       </li>
     }
   </ul>
 
   @if (profile().available) {
-    <button
-      type="button"
+    <a
       class="profile-panel__availability"
-      (click)="openLink(profile().availabilityUrl)"
+      [href]="profile().availabilityUrl"
+      target="_blank"
+      rel="noopener noreferrer"
       data-testid="availability"
-      aria-label="Available for hire!"
     >
-      <span class="profile-panel__dot"></span>
+      <span class="profile-panel__dot" aria-hidden="true"></span>
       <span>Available for hire!</span>
-    </button>
+    </a>
   }
 
-  <button
-    type="button"
+  <a
     class="profile-panel__cv"
-    (click)="downloadCv()"
+    [href]="profile().cvUrl"
+    download
     data-testid="cv-link"
-    aria-label="Download CV"
   >
     <app-icon
       class="profile-panel__cv-icon"
       name="mdi-light--download"
     ></app-icon>
     <span class="profile-panel__cv-text">Download CV</span>
-  </button>
+  </a>
 </div>

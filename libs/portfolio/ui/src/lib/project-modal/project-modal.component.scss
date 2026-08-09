@@ -61,6 +61,7 @@
   cursor: pointer;
   background: transparent;
   border: 1px solid transparent;
+  z-index: 10;
   transition:
     color var(--motion-duration-state) var(--motion-ease-standard),
     border-color var(--motion-duration-state) var(--motion-ease-standard),
@@ -240,9 +241,7 @@
   transition: var(--theme-surface-transition);
 }
 
-/*
- * Sliding text with border icon animation on hover
- */
+// Sliding text with border icon animation on hover
 .project-modal__nav::after {
   content: '';
   position: absolute;
@@ -278,10 +277,10 @@
   @include on-focus;
 
   @include on-hover-press {
-    color: var(--mc);
+    color: var(--mc-text);
 
     .project-modal__button-icon {
-      color: var(--mc);
+      color: var(--mc-text);
       border-color: var(--mc);
       margin: 0 var(--space-4);
     }

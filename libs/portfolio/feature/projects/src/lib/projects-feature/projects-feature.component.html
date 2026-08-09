@@ -6,15 +6,20 @@
     </header>
     <app-project-carousel
       [projects]="store.projects.value()"
+      [paused]="modalOpen()"
       (selected)="open($event)"
     />
   </section>
 } @else if (store.projects.error()) {
-  <p class="projects-feature__error" data-testid="projects-error">
+  <p class="projects-feature__error" role="alert" data-testid="projects-error">
     Unable to load the projects.
   </p>
 } @else {
-  <p class="projects-feature__loading" data-testid="projects-loading">
+  <p
+    class="projects-feature__loading"
+    role="status"
+    data-testid="projects-loading"
+  >
     Loading…
   </p>
 }

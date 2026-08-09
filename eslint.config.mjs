@@ -9,7 +9,8 @@ export default defineConfig([
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
-    ignores: ['**/dist', '**/out-tsc'],
+    // `.angular`/`.nx` are build caches and `wip`/`docs` are gitignored scratch space
+    ignores: ['**/dist', '**/out-tsc', '.angular', '.nx', 'wip', 'docs'],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
@@ -18,6 +19,31 @@ export default defineConfig([
       tseslint.configs.recommended,
       tseslint.configs.stylistic,
     ],
+  },
+  // Angular rules and the template parser live here, not per-project: lefthook lints staged
+  // files from the workspace root, where flat config only ever loads this one file
+  ...nx.configs['flat/angular'],
+  ...nx.configs['flat/angular-template'],
+  {
+    files: ['**/*.ts'],
+    rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
+        },
+      ],
+    },
   },
   // Enforce Nx module boundaries across all JS/TS files
   {

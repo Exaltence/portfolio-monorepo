@@ -2,9 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeStore } from '@portfolio-monorepo/shared/data';
 import { ThemeToggleComponent } from '@portfolio-monorepo/shared/ui';
-/*
- * TODO: Fix styling & enable Magic Cursor
- */
+// TODO: Fix styling & enable Magic Cursor
 // import {
 //   MagicCursorDirective,
 //   ThemeToggleComponent,

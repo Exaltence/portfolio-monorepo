@@ -25,7 +25,7 @@ export class ProjectCardComponent implements FocusableOption {
   readonly opened = output<Project>();
 
   focus(): void {
-    this.host.nativeElement.focus();
+    this.host.nativeElement.focus({ preventScroll: true });
   }
 
   protected emitOpen(): void {

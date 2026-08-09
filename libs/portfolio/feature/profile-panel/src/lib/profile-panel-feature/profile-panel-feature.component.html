@@ -1,11 +1,19 @@
 @if (store.profile.hasValue()) {
   <app-profile-panel [profile]="store.profile.value()" />
 } @else if (store.profile.error()) {
-  <p class="profile-panel-feature__error" data-testid="profile-error">
+  <p
+    class="profile-panel-feature__error"
+    role="alert"
+    data-testid="profile-error"
+  >
     Unable to load profile.
   </p>
 } @else {
-  <p class="profile-panel-feature__loading" data-testid="profile-loading">
+  <p
+    class="profile-panel-feature__loading"
+    role="status"
+    data-testid="profile-loading"
+  >
     Loading profile…
   </p>
 }

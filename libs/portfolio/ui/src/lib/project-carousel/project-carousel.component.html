@@ -1,17 +1,40 @@
 <div
+  #root
   class="carousel"
   data-testid="carousel"
   [attr.data-active-index]="index()"
   role="group"
   aria-roledescription="carousel"
   aria-label="Featured projects"
+  [attr.aria-describedby]="helpId"
   tabindex="0"
-  (pointerenter)="onPointerEnter($event)"
+  (pointerover)="onPointerActive($event)"
   (pointerleave)="onPointerLeave($event)"
-  (focusin)="onFocusIn()"
   (keydown)="onKeydown($event)"
 >
+  <p class="u-sr-only" [id]="helpId">
+    Use the left and right arrow keys to move between projects.
+  </p>
+
   <div class="carousel__nav">
+    @if (rotates()) {
+      <button
+        type="button"
+        class="carousel__button"
+        data-testid="carousel-rotation"
+        [attr.aria-label]="
+          userPaused()
+            ? 'Resume automatic rotation'
+            : 'Pause automatic rotation'
+        "
+        (click)="toggleRotation()"
+      >
+        <app-icon
+          class="carousel__button-icon"
+          [name]="userPaused() ? 'mdi-light--play' : 'mdi-light--pause'"
+        />
+      </button>
+    }
     <button
       type="button"
       class="carousel__button"
@@ -42,15 +65,18 @@
       [style.transform]="'translate3d(' + offset() + 'px, 0, 0)'"
       (transitionend)="onTransitionEnd($event)"
     >
-      @for (slide of slides(); track slide.key) {
+      @for (slide of slides(); track slide.key; let i = $index) {
         <div
           class="carousel__slide"
           [class.carousel__slide--clone]="slide.clone"
           [attr.aria-hidden]="slide.clone ? 'true' : null"
+          [attr.role]="slide.label ? 'group' : null"
+          [attr.aria-roledescription]="slide.label ? 'slide' : null"
+          [attr.aria-label]="slide.label"
         >
           <app-project-card
             [project]="slide.project"
-            (opened)="onSelect($event)"
+            (opened)="onSelect($event, i)"
           />
         </div>
       }

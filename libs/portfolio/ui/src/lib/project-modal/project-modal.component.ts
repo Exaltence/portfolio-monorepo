@@ -12,6 +12,10 @@ import { ProjectModalData } from '@portfolio-monorepo/portfolio/data';
 import { IconComponent } from '@portfolio-monorepo/shared/ui';
 import { motionDurationMs } from '@portfolio-monorepo/shared/util';
 
+const LEAVE_MS = 300;
+// Generous on purpose, matching the carousel's settle net: deadlock guard, not a timing mechanism
+const LEAVE_FALLBACK_GRACE_MS = 250;
+
 @Component({
   selector: 'app-project-modal',
   imports: [IconComponent],
@@ -70,30 +74,40 @@ export class ProjectModalComponent {
     this.closing.set(true);
   }
 
-  // deferred so the fade/scale-down leave animation can play before CDK tears down the dialog
+  // Deferred so the fade/scale-down leave animation can play before CDK tears down the dialog
   protected onLeave(event: AnimationCallbackEvent): void {
     const element = event.target as HTMLElement;
-    const handleAnimationEnd = (e: AnimationEvent) => {
-      if (e.target !== element) {
+    const duration = motionDurationMs('--motion-duration-scene', LEAVE_MS);
+    let finished = false;
+
+    const finish = (): void => {
+      if (finished) {
         return;
       }
-
+      finished = true;
+      clearTimeout(fallback);
       element.removeEventListener('animationend', handleAnimationEnd);
       event.animationComplete();
 
-      // CDK-dialog api limitation workaround Angular v22, no existing overlay lifecycle hook to wait for the backdrop fade-out animation to complete before closing the dialog.
+      // CDK-dialog api limitation workaround Angular v22, no existing overlay lifecycle hook to wait for the backdrop fade-out animation to complete before closing the dialog
       document
         .querySelector('.project-modal-backdrop')
         ?.classList.add('closing');
-      // Sync close with animation duration.
-      setTimeout(
-        () => {
-          this.dialogRef.close();
-        },
-        motionDurationMs('--motion-duration-scene', 300),
-      );
+      // Sync close with animation duration
+      setTimeout(() => this.dialogRef.close(), duration);
+    };
+
+    const handleAnimationEnd = (e: AnimationEvent): void => {
+      if (e.target !== element) {
+        return;
+      }
+      finish();
     };
 
     element.addEventListener('animationend', handleAnimationEnd);
+    const fallback = setTimeout(
+      finish,
+      Math.max(duration * 2, duration + LEAVE_FALLBACK_GRACE_MS),
+    );
   }
 }

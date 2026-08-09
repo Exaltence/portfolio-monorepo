@@ -179,7 +179,7 @@ describe('TabGroupComponent', () => {
     expect(ids).toHaveLength(4);
     expect(new Set(ids).size).toBe(ids.length);
 
-    // Each panel must resolve to a tab inside its own group, not the first one.
+    // Each panel must resolve to a tab inside its own group, not the first one
     for (const tabPanel of Array.from(
       host.querySelectorAll('[role="tabpanel"]'),
     )) {

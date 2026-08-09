@@ -40,6 +40,18 @@ describe('ResumeListComponent', () => {
     expect(rows[0].textContent).toContain('Angular Web Developer');
   });
 
+  it('should emit headings in ascending order with the organisation as a label', async () => {
+    fixture.componentRef.setInput('entries', ENTRIES);
+    await fixture.whenStable();
+
+    const levels = [
+      ...element().querySelectorAll('h1, h2, h3, h4, h5, h6'),
+    ].map((heading) => Number(heading.tagName.slice(1)));
+
+    expect(levels).toEqual([3, 3]);
+    expect(element().querySelector('.resume-list__org')?.tagName).toBe('P');
+  });
+
   it('should render the empty state when there are no entries', async () => {
     fixture.componentRef.setInput('entries', []);
     await fixture.whenStable();

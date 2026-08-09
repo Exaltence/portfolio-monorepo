@@ -16,6 +16,10 @@ export class MenuPage {
     return this.page.getByTestId('nav-overlay');
   }
 
+  get panel(): Locator {
+    return this.page.locator('.site-menu__panel');
+  }
+
   get items(): Locator {
     return this.page.getByTestId('nav-item');
   }

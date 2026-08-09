@@ -34,9 +34,7 @@
     color var(--motion-duration-state) var(--motion-ease-standard),
     border-color var(--motion-duration-state) var(--motion-ease-standard);
 
-  /* 
-   * Separator line between tabs on larger screens
-   */
+  // Separator line between tabs on larger screens
   @media (width >= 434px) {
     &:not(:last-child)::after {
       position: absolute;
@@ -67,7 +65,7 @@
   }
 
   &.active {
-    color: var(--mc);
+    color: var(--mc-text);
     border-bottom-color: var(--mc);
   }
 
@@ -75,9 +73,7 @@
     display: none;
   }
 
-  /*
-   * Sliding underline animation on hover
-   */
+  // Sliding underline animation on hover
   &::before {
     content: '';
     position: absolute;

@@ -1,25 +1,22 @@
 @if (open()) {
-  <div
-    class="site-menu"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Site menu"
-    cdkTrapFocus
-    [cdkTrapFocusAutoCapture]="true"
-  >
-    <button
-      type="button"
+  <div class="site-menu" role="dialog" aria-modal="true" aria-label="Site menu">
+    <div
       class="site-menu__overlay"
       data-testid="nav-overlay"
-      aria-label="Close menu"
+      aria-hidden="true"
       animate.enter="site-menu-overlay-enter"
       animate.leave="site-menu-overlay-leave"
       (click)="close()"
-    ></button>
+    ></div>
 
+    <!-- Trap on the panel, not `.site-menu`: CDK's wrap anchors need a positioned ancestor or they land at page top -->
+    <!-- `tabindex="-1"` keeps a click on the panel's padding off `body`, where the trap and Escape both stop working -->
     <nav
       class="site-menu__panel"
       aria-label="Primary"
+      tabindex="-1"
+      cdkTrapFocus
+      [cdkTrapFocusAutoCapture]="true"
       animate.enter="site-menu-panel-enter"
       animate.leave="site-menu-panel-leave"
     >

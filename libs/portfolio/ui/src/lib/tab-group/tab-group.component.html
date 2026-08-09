@@ -11,7 +11,6 @@
         [attr.aria-controls]="idPrefix + '-panel'"
         [class.active]="active() === i"
         [attr.aria-selected]="active() === i"
-        [attr.aria-label]="'Tab ' + (i + 1) + ': ' + label"
         [attr.tabindex]="active() === i ? 0 : -1"
         (click)="select(i)"
         (keydown)="onKeydown($event)"

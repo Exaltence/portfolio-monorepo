@@ -1,4 +1,6 @@
 .light {
+  color-scheme: light;
+
   --bg: #fff;
   --text: #737373;
   --text-strong: #000;
@@ -6,6 +8,21 @@
   --l-line: rgb(0 0 0 / 20%);
   --line: rgb(0 0 0 / 20%);
   --line-strong: rgb(0 0 0 / 30%);
+}
+
+/*
+ * The accent carries hover, selection and focus across the app, and it does so
+ * through borders, outlines and pseudo-element backgrounds — all of which the
+ * forced palette flattens into the page background, taking every one of those
+ * states with it. Mapping the two accent tokens onto a system colour restores
+ * all of them at once, because nothing draws an accent any other way.
+ */
+@media (forced-colors: active) {
+  :root,
+  :root.light {
+    --mc: CanvasText;
+    --mc-text: CanvasText;
+  }
 }
 
 html {
@@ -17,7 +34,7 @@ html {
 .theme-transition {
   /*
    * Interaction feedback is normally faster than surface choreography. 
-   * During a theme cross-fade they must land together
+   * During a theme cross-fade they must land together.
    */
   --motion-duration-state: var(--motion-duration-scene);
   --theme-surface-transition:

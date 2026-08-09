@@ -97,6 +97,23 @@ describe('ProjectModalComponent', () => {
     );
   });
 
+  it('should expose the selected thumbnail as pressed rather than by colour alone', async () => {
+    await fixture.whenStable();
+
+    expect(byTestId('modal-image-0').getAttribute('aria-pressed')).toBe('true');
+    expect(byTestId('modal-image-1').getAttribute('aria-pressed')).toBe(
+      'false',
+    );
+
+    byTestId('modal-image-1').click();
+    await fixture.whenStable();
+
+    expect(byTestId('modal-image-0').getAttribute('aria-pressed')).toBe(
+      'false',
+    );
+    expect(byTestId('modal-image-1').getAttribute('aria-pressed')).toBe('true');
+  });
+
   it('should hide the modal when close is clicked', async () => {
     await fixture.whenStable();
 
@@ -123,6 +140,63 @@ describe('ProjectModalComponent', () => {
     expect(animationComplete).toHaveBeenCalledTimes(1);
     vi.advanceTimersByTime(300);
     expect(dialogRef.close).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
+
+  it('should still close the dialog when the leave animation never reports completion', () => {
+    vi.useFakeTimers();
+    const target = document.createElement('div');
+    const animationComplete = vi.fn();
+
+    fixture.componentInstance['onLeave']({
+      target,
+      animationComplete,
+    } as AnimationCallbackEvent);
+
+    expect(dialogRef.close).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(5000);
+
+    expect(animationComplete).toHaveBeenCalledTimes(1);
+    expect(dialogRef.close).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
+
+  it('should ignore an animation end that arrives after the fallback closed it', () => {
+    vi.useFakeTimers();
+    const target = document.createElement('div');
+    const animationComplete = vi.fn();
+
+    fixture.componentInstance['onLeave']({
+      target,
+      animationComplete,
+    } as AnimationCallbackEvent);
+
+    vi.advanceTimersByTime(5000);
+    target.dispatchEvent(new Event('animationend'));
+    vi.advanceTimersByTime(5000);
+
+    expect(animationComplete).toHaveBeenCalledTimes(1);
+    expect(dialogRef.close).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
+
+  it('should not let the fallback cut a leave animation short', () => {
+    vi.useFakeTimers();
+    const target = document.createElement('div');
+    const animationComplete = vi.fn();
+
+    fixture.componentInstance['onLeave']({
+      target,
+      animationComplete,
+    } as AnimationCallbackEvent);
+
+    // 300ms is the default scene duration
+    vi.advanceTimersByTime(300);
+    expect(animationComplete).not.toHaveBeenCalled();
 
     vi.useRealTimers();
   });

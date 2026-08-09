@@ -1,4 +1,10 @@
-import { Component, signal } from '@angular/core';
+import {
+  Component,
+  Injector,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 import { AboutFeatureComponent } from '@portfolio-monorepo/portfolio/feature/about';
 import { ProfilePanelFeatureComponent } from '@portfolio-monorepo/portfolio/feature/profile-panel';
 import { ProjectsFeatureComponent } from '@portfolio-monorepo/portfolio/feature/projects';
@@ -6,6 +12,7 @@ import { NavItem } from '@portfolio-monorepo/shared/data';
 import {
   BackToTopComponent,
   IconComponent,
+  NoDragDirective,
   ScrollSpyDirective,
   SiteMenuComponent,
 } from '@portfolio-monorepo/shared/ui';
@@ -21,11 +28,13 @@ import { scrollToElement } from '@portfolio-monorepo/shared/util';
     AboutFeatureComponent,
     ProjectsFeatureComponent,
     IconComponent,
+    NoDragDirective,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  private readonly injector = inject(Injector);
   protected readonly scrolled = signal(false);
   protected readonly menuOpen = signal(false);
   protected readonly year = new Date().getFullYear();
@@ -40,12 +49,14 @@ export class HomeComponent {
 
   protected navigate(item: NavItem): void {
     const target = document.getElementById(item.fragment);
-    if (target) {
-      scrollToElement(target);
+    if (!target) {
+      return;
     }
-  }
+    scrollToElement(target);
 
-  protected openLink(url: string): void {
-    window.open(url, '_blank', 'noopener,noreferrer');
+    // Without this the trap restores focus to the trigger at the top of the page
+    afterNextRender(() => target.focus({ preventScroll: true }), {
+      injector: this.injector,
+    });
   }
 }

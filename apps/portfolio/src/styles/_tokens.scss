@@ -43,7 +43,7 @@
 
 /*
  * `--motion-duration-pulse` is deliberately not zeroed: a 0.01ms `infinite`
- * animation would spin the compositor forever.
+ * animation would spin the compositor forever
  */
 @media (prefers-reduced-motion: reduce) {
   :root {

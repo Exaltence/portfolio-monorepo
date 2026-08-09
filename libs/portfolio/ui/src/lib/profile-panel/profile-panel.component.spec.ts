@@ -62,47 +62,66 @@ describe('ProfilePanelComponent', () => {
     ).toContain('Hi There! I am');
   });
 
+  function anchor(testId: string): HTMLAnchorElement {
+    return element().querySelector(
+      `[data-testid="${testId}"]`,
+    ) as HTMLAnchorElement;
+  }
+
   it('should render one link per social entry', async () => {
     await fixture.whenStable();
 
-    expect(
-      element().querySelectorAll('[data-testid="social-link"]'),
-    ).toHaveLength(FAKE_PROFILE.social.length);
-  });
+    const links = [
+      ...element().querySelectorAll<HTMLAnchorElement>(
+        '[data-testid="social-link"]',
+      ),
+    ];
 
-  it('should trigger the CV download', async () => {
-    const createElementSpy = vi.spyOn(document, 'createElement');
-    const clickSpy = vi
-      .spyOn(HTMLAnchorElement.prototype, 'click')
-      .mockImplementation(() => undefined);
-    await fixture.whenStable();
-
-    const button = element().querySelector(
-      '[data-testid="cv-link"]',
-    ) as HTMLButtonElement;
-    button.click();
-
-    const anchor = createElementSpy.mock.results.at(-1)
-      ?.value as HTMLAnchorElement;
-    expect(anchor.href).toContain('cv-shaun-vercauteren.pdf');
-    expect(anchor.download).toBe('');
-    expect(clickSpy).toHaveBeenCalledOnce();
-  });
-
-  it('should open the availability url in a new tab', async () => {
-    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
-    await fixture.whenStable();
-
-    const button = element().querySelector(
-      '[data-testid="availability"]',
-    ) as HTMLButtonElement;
-    button.click();
-
-    expect(openSpy).toHaveBeenCalledWith(
-      'https://example.com/li',
-      '_blank',
-      'noopener,noreferrer',
+    expect(links).toHaveLength(FAKE_PROFILE.social.length);
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(
+      FAKE_PROFILE.social.map((entry) => entry.url),
     );
+    expect(links.map((link) => link.getAttribute('aria-label'))).toEqual(
+      FAKE_PROFILE.social.map((entry) => `${entry.label} (opens in a new tab)`),
+    );
+  });
+
+  it('should expose the CV as a downloadable link rather than a synthesised click', async () => {
+    await fixture.whenStable();
+
+    const cv = anchor('cv-link');
+    expect(cv.tagName).toBe('A');
+    expect(cv.getAttribute('href')).toBe(FAKE_PROFILE.cvUrl);
+    expect(cv.hasAttribute('download')).toBe(true);
+  });
+
+  it('should expose the availability url as a safe external link', async () => {
+    await fixture.whenStable();
+
+    const availability = anchor('availability');
+    expect(availability.getAttribute('href')).toBe(
+      FAKE_PROFILE.availabilityUrl,
+    );
+    expect(availability.getAttribute('target')).toBe('_blank');
+    expect(availability.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
+  it('should suppress native dragging on every outbound link', async () => {
+    await fixture.whenStable();
+
+    const links = [...element().querySelectorAll<HTMLAnchorElement>('a[href]')];
+    expect(links.length).toBeGreaterThan(0);
+
+    for (const link of links) {
+      expect(link.getAttribute('draggable')).toBe('false');
+
+      const dragstart = new Event('dragstart', {
+        bubbles: true,
+        cancelable: true,
+      });
+      link.dispatchEvent(dragstart);
+      expect(dragstart.defaultPrevented).toBe(true);
+    }
   });
 
   it('should render the typing title host element', async () => {

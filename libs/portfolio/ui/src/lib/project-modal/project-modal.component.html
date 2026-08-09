@@ -52,6 +52,7 @@
                     class="project-modal__thumb"
                     [attr.data-testid]="'modal-image-' + j"
                     [class.active]="activeImage() === j"
+                    [attr.aria-pressed]="activeImage() === j"
                     [attr.aria-label]="'Show image ' + (j + 1)"
                     (click)="showImage(j)"
                   >

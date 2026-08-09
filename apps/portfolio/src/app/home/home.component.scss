@@ -43,7 +43,7 @@
     transform var(--motion-duration-state) var(--motion-ease-standard),
     scale var(--motion-duration-press) var(--motion-ease-standard);
 
-  /* re-declared after `all: unset` above, which also resets animation-* */
+  // Re-declared after `all: unset` above, which also resets animation-*
   &.u-enter-fade-slide {
     animation: u-fade-slide-in var(--motion-duration-scene)
       var(--motion-ease-standard) both;
@@ -53,13 +53,13 @@
   @include on-focus;
 
   @include on-hover {
-    color: var(--mc);
+    color: var(--mc-text);
     border-color: var(--mc);
     transform: translateX(-0.125rem);
   }
 
   &:active {
-    color: var(--mc);
+    color: var(--mc-text);
     border-color: var(--mc);
     transform: translateX(-0.125rem);
     scale: var(--press-scale);
@@ -81,6 +81,8 @@
 
 .home__section {
   margin-bottom: var(--space-section);
+
+  @include on-focus;
 
   &:first-child {
     margin-top: var(--space-section);
@@ -116,9 +118,7 @@
 }
 
 .home__footer {
-  /*
-   * Geometry back-to-top button, shared with the top rule below 
-   */
+  // Geometry back-to-top button, shared with the top rule below
   --btt-inset: 8%;
   --btt-size: calc(3rem + 2px);
   --btt-gap: 1.5rem;
@@ -131,9 +131,7 @@
   color: var(--text);
 }
 
-/*
- * Top rule drawn as two segments so it breaks around the back-to-top button.
- */
+// Top rule drawn as two segments so it breaks around the back-to-top button
 .home__footer::before,
 .home__footer::after {
   content: '';
@@ -155,15 +153,10 @@
 }
 
 .home__footer-link {
-  all: unset;
-  cursor: pointer;
-  color: var(--text-strong);
   position: relative;
-  transition: color var(--motion-duration-state) var(--motion-ease-standard);
+  color: var(--text-strong);
 
-  /*
-   * Center expanding underline animation on hover
-   */
+  // Center expanding underline animation on hover
   &::after {
     content: '';
     position: absolute;
@@ -178,10 +171,12 @@
       var(--motion-ease-standard);
   }
 
-  @include on-focus;
-
+  /*
+   * The hover colour cannot be left to the global `a` rule, 
+   * emulated encapsulation appends an attribute selector to component rules.
+   */
   @include on-hover-press {
-    color: var(--mc);
+    color: var(--mc-text);
 
     &::after {
       transform: translateX(-50%) scaleX(var(--hover-grow-scale));

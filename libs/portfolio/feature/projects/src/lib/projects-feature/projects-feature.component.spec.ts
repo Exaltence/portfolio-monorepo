@@ -1,6 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Subject } from 'rxjs';
 
 import { Project, ProjectsStore } from '@portfolio-monorepo/portfolio/data';
 import { ProjectModalComponent } from '@portfolio-monorepo/portfolio/ui';
@@ -48,7 +49,12 @@ interface ResourceStub {
 describe('ProjectsFeatureComponent', () => {
   const originalObserver = window.IntersectionObserver;
   let projects: ResourceStub;
-  let dialog: { open: ReturnType<typeof vi.fn> };
+  let dialog: {
+    open: ReturnType<typeof vi.fn>;
+    afterOpened: Subject<void>;
+    afterAllClosed: Subject<void>;
+    openDialogs: unknown[];
+  };
   let fixture: ComponentFixture<ProjectsFeatureComponent>;
 
   beforeEach(() => {
@@ -64,7 +70,12 @@ describe('ProjectsFeatureComponent', () => {
       error: vi.fn(() => undefined),
       isLoading: vi.fn(() => false),
     };
-    dialog = { open: vi.fn() };
+    dialog = {
+      open: vi.fn(),
+      afterOpened: new Subject<void>(),
+      afterAllClosed: new Subject<void>(),
+      openDialogs: [],
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -93,8 +104,28 @@ describe('ProjectsFeatureComponent', () => {
     expect(dialog.open).toHaveBeenCalledWith(ProjectModalComponent, {
       data: { projects: PROJECTS, index: 1 },
       autoFocus: true,
+      ariaLabel: 'Project details',
       backdropClass: 'project-modal-backdrop',
     });
+  });
+
+  it('should pause the carousel while a dialog is open and resume once it closes', async () => {
+    await fixture.whenStable();
+    const carousel = fixture.debugElement.children[0].query(
+      (node) => node.name === 'app-project-carousel',
+    ).componentInstance as { paused: () => boolean };
+
+    expect(carousel.paused()).toBe(false);
+
+    dialog.openDialogs = [{}];
+    dialog.afterOpened.next();
+    fixture.detectChanges();
+    expect(carousel.paused()).toBe(true);
+
+    dialog.openDialogs = [];
+    dialog.afterAllClosed.next();
+    fixture.detectChanges();
+    expect(carousel.paused()).toBe(false);
   });
 
   it('should render the loading state when the store has no value', async () => {
@@ -108,5 +139,18 @@ describe('ProjectsFeatureComponent', () => {
         '[data-testid="projects-loading"]',
       ),
     ).not.toBeNull();
+  });
+
+  it('should announce the failure state through a live region', async () => {
+    projects.hasValue.mockReturnValue(false);
+    projects.error.mockReturnValue(new Error('offline'));
+    fixture = TestBed.createComponent(ProjectsFeatureComponent);
+    await fixture.whenStable();
+
+    expect(
+      (fixture.nativeElement as HTMLElement)
+        .querySelector('[data-testid="projects-error"]')
+        ?.getAttribute('role'),
+    ).toBe('alert');
   });
 });

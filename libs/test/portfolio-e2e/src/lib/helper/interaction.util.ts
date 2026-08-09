@@ -1,7 +1,12 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import { requireBoundingBox } from './wait-for-settled-transform.util';
 
+/*
+ * Two accents on purpose. `--mc` is chrome — borders, focus rings, icon-only controls
+ * `--mc-text` is the only one allowed to colour text.
+ */
 export const ACCENT_COLOR = 'rgb(152, 119, 80)';
+export const ACCENT_TEXT_COLOR = 'rgb(173, 138, 94)';
 
 export const isHoverCapable = (page: Page): Promise<boolean> =>
   page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches);

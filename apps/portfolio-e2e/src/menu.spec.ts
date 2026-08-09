@@ -27,15 +27,67 @@ test('keeps keyboard focus inside the open menu', async ({ page }) => {
   }
 });
 
+test('holds the scroll position while tabbing past the end of the menu', async ({
+  page,
+}) => {
+  const menu = new MenuPage(page);
+  await menu.goto();
+  await page.evaluate(() => window.scrollTo(0, 800));
+  await menu.open();
+
+  const opened = await page.evaluate(() => window.scrollY);
+  expect(opened).toBeGreaterThan(0);
+
+  // Enough passes to wrap twice
+  for (let i = 1; i <= 8; i++) {
+    await page.keyboard.press('Tab');
+    expect(
+      await page.evaluate(() => Math.round(window.scrollY)),
+      `tab stop ${i} moved the page`,
+    ).toBe(opened);
+  }
+});
+
+/*
+ * Clicking the panel's own padding used to drop focus to `<body>`, which took
+ * the trap and the Escape handler with it — Tab reached the page behind and the
+ * menu could no longer be dismissed from the keyboard. Every other spec here
+ * clicks a control, so none of them touch this.
+ */
+test('survives a click on dead space inside the panel', async ({ page }) => {
+  const menu = new MenuPage(page);
+  await menu.goto();
+  await menu.open();
+
+  await menu.panel.click({ position: { x: 4, y: 4 } });
+  await expect(menu.items.first()).toBeVisible();
+
+  expect(
+    await page.evaluate(
+      () => document.activeElement?.closest('.site-menu') != null,
+    ),
+    'focus left the menu',
+  ).toBe(true);
+
+  await page.keyboard.press('Tab');
+  expect(
+    await page.evaluate(
+      () => document.activeElement?.closest('.site-menu') != null,
+    ),
+    'Tab escaped the focus trap',
+  ).toBe(true);
+
+  await page.keyboard.press('Escape');
+  await expect(menu.items.first()).toBeHidden();
+});
+
 test('closes on Escape and hands focus back to the trigger', async ({
   page,
 }) => {
   const menu = new MenuPage(page);
   await menu.goto();
 
-  /*
-   * Opened from the keyboard because WebKit does not focus a button on click
-   */
+  // Opened from the keyboard because WebKit does not focus a button on click
   await menu.trigger.focus();
   await page.keyboard.press('Enter');
   await expect(menu.items.first()).toBeVisible();
@@ -57,4 +109,6 @@ test('navigates to the portfolio section from the menu', async ({ page }) => {
 
   await expect(menu.items.first()).toBeHidden();
   await expect(page.locator('#portfolio')).toBeInViewport();
+
+  await expect(page.locator('#portfolio')).toBeFocused();
 });

@@ -21,11 +21,6 @@ const settle = (projects: ProjectsPage): Promise<string> =>
 test.beforeEach(async ({ page }) => {
   const projects = new ProjectsPage(page);
   await gotoReady(page, '/', projects.cards.first());
-  /*
-   * The carousel samples prefers-reduced-motion once, at construction, purely to
-   * gate autoplay. Clearing it after load keeps autoplay off while restoring the
-   * track transition these specs measure, reduced motion zeroes it.
-   */
   await page.emulateMedia({ reducedMotion: 'no-preference' });
 });
 

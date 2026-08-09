@@ -18,6 +18,8 @@ export type IconName =
   | 'mdi-light--arrow-left'
   | 'mdi-light--download'
   | 'mdi-light--menu'
+  | 'mdi-light--pause'
+  | 'mdi-light--play'
   | 'simple-icons--discord'
   | 'simple-icons--githubcopilot'
   | 'simple-icons--nestjs'

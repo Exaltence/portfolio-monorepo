@@ -21,6 +21,14 @@ export class ProjectsPage {
     return this.page.getByTestId('carousel-prev');
   }
 
+  get rotation(): Locator {
+    return this.page.getByTestId('carousel-rotation');
+  }
+
+  get slides(): Locator {
+    return this.page.locator('.carousel__slide[role="group"]');
+  }
+
   get viewport(): Locator {
     return this.page.getByTestId('carousel-viewport');
   }
@@ -46,6 +54,57 @@ export class ProjectsPage {
         slides[1].getBoundingClientRect().left -
         slides[0].getBoundingClientRect().left
       );
+    });
+  }
+
+  get cloneCards(): Locator {
+    return this.page.locator(
+      '.carousel__slide[aria-hidden="true"] [data-testid="project-card"]',
+    );
+  }
+
+  async viewportScrollLeft(): Promise<number> {
+    return this.viewport.evaluate((el) => el.scrollLeft);
+  }
+
+  async focusedCardIsWithinFrame(): Promise<boolean> {
+    return this.viewport.evaluate((viewportEl) => {
+      const active = document.activeElement as HTMLElement | null;
+      if (!active || !viewportEl.contains(active)) {
+        return false;
+      }
+      const frame = viewportEl.getBoundingClientRect();
+      const rect = active.getBoundingClientRect();
+      return rect.left >= frame.left - 1 && rect.right <= frame.right + 1;
+    });
+  }
+
+  async focusIsInsideHiddenSubtree(): Promise<boolean> {
+    return this.page.evaluate(
+      () => document.activeElement?.closest('[aria-hidden="true"]') != null,
+    );
+  }
+
+  /*
+   * Index into `cloneCards`, Which slides are clones depends on where the track has
+   * settled, so this has to be measured rather than assumed.
+   */
+  async visibleCloneIndex(): Promise<number> {
+    return this.viewport.evaluate((viewportEl) => {
+      const frame = viewportEl.getBoundingClientRect();
+      const clones = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          '.carousel__slide[aria-hidden="true"] [data-testid="project-card"]',
+        ),
+      );
+      return clones.findIndex((card) => {
+        const rect = card.getBoundingClientRect();
+        return (
+          rect.width > 0 &&
+          rect.left >= frame.left - 1 &&
+          rect.right <= frame.right + 1
+        );
+      });
     });
   }
 

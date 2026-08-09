@@ -70,7 +70,24 @@ them, Firefox generally does not, so it draws an instant RST and e2e fails with
 page loads mean more chances to pick IPv4, but load is not the cause. Don't remove the `host` entry, and
 don't switch it to `0.0.0.0` — that is IPv4-only and just inverts the problem.
 
+**No narrative comments** keep comments to an absolute minimum only when absolutely necessary. Comments should be one line with a maximum of 100 characters explaining the why not what.
+
 **Library `test` targets borrow the app's build.** Each lib's `project.json` sets `buildTarget: portfolio:build:development`, so a broken app build breaks lib tests too.
+
+**"Nx detected a flaky task" is usually stale history, not a flaky test.** Nx records every task
+hash's outcomes in the SQLite DB under `.nx/workspace-data/`, and flags a hash that has ever recorded
+both a pass and a fail — forever, until the hash changes. Because all lib tests share the app's build
+(above), one transiently broken build fails every project at the same instant and poisons them all.
+Check before chasing a test: identical failure timestamps across several projects mean a batch abort.
+Clear it with `npx nx daemon --stop` then `npx nx reset --onlyWorkspaceData` — the daemon holds the DB
+open, so the reset fails with `EPERM` if you skip the stop, and `--onlyWorkspaceData` spares the cache.
+
+**ESLint config must be complete at the workspace root.** lefthook's pre-commit lints staged files from
+the root, and flat config loads exactly one config file — the root one — so per-project configs never
+apply there. Angular rules and the template parser therefore live in [eslint.config.mjs](../eslint.config.mjs);
+per-project configs only add what is genuinely project-specific (ngrx for the app, Playwright for e2e,
+the framework-agnostic bans for util). Splitting Angular back out makes `*.html` silently unlinted and
+turns every `@angular-eslint` disable comment into a "rule not found" error.
 
 ## MCP servers
 

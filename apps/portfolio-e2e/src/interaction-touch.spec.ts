@@ -11,10 +11,6 @@ import {
   releaseWithoutClick,
 } from '@portfolio-monorepo/test/portfolio-e2e';
 
-/*
- * Coarse-pointer emulation, which makes `(hover: hover) and (pointer: fine)`
- * evaluate false.
- */
 test.use({ ...devices['Pixel 5'] });
 
 test('reports a coarse pointer so the hover guard stays inert', async ({

@@ -25,9 +25,11 @@
     </app-tab-group>
   </section>
 } @else if (store.about.error()) {
-  <p class="about-feature__error" data-testid="about-error">
+  <p class="about-feature__error" role="alert" data-testid="about-error">
     Unable to load the about section.
   </p>
 } @else {
-  <p class="about-feature__loading" data-testid="about-loading">Loading…</p>
+  <p class="about-feature__loading" role="status" data-testid="about-loading">
+    Loading…
+  </p>
 }

@@ -1,8 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-/*
- * Navigates and waits for the page to be genuinely interactive before handing back.
- */
+// Navigates and waits for the page to be genuinely interactive before handing back
 export const gotoReady = async (
   page: Page,
   path = '/',

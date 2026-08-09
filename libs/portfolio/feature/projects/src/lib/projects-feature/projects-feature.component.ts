@@ -1,5 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   Project,
   ProjectModalData,
@@ -9,6 +10,7 @@ import {
   ProjectCarouselComponent,
   ProjectModalComponent,
 } from '@portfolio-monorepo/portfolio/ui';
+import { map, merge } from 'rxjs';
 
 @Component({
   selector: 'app-projects-feature',
@@ -20,6 +22,14 @@ export class ProjectsFeatureComponent {
   protected readonly store = inject(ProjectsStore);
   private readonly dialog = inject(Dialog);
 
+  // Resume the carousel's autoplay when the modal closes, and pause it when the modal opens
+  protected readonly modalOpen = toSignal(
+    merge(this.dialog.afterOpened, this.dialog.afterAllClosed).pipe(
+      map(() => this.dialog.openDialogs.length > 0),
+    ),
+    { initialValue: false },
+  );
+
   protected open(project: Project): void {
     const projects = this.store.projects.value();
     if (!projects) {
@@ -29,6 +39,7 @@ export class ProjectsFeatureComponent {
     this.dialog.open<unknown, ProjectModalData>(ProjectModalComponent, {
       data: { projects, index },
       autoFocus: true,
+      ariaLabel: 'Project details',
       backdropClass: 'project-modal-backdrop',
     });
   }

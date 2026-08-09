@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 import {
   ACCENT_COLOR,
+  ACCENT_TEXT_COLOR,
   HomePage,
   MenuPage,
   ProjectsPage,
@@ -65,8 +66,23 @@ test('grows the tab underline on press, leaving the active tab alone', async ({
   await releaseWithoutClick(page);
 
   await holdPointer(page, activeTab);
-  await expect(activeTab).toHaveCSS('color', ACCENT_COLOR);
+  await expect(activeTab).toHaveCSS('color', ACCENT_TEXT_COLOR);
   await releaseWithoutClick(page);
+});
+
+test('colours accent text with the contrast-safe accent, not the chrome one', async ({
+  page,
+}) => {
+  const home = new HomePage(page);
+  await home.goto();
+
+  await home.selectTab('Experience');
+  await expect(home.resumeTitles.first()).toHaveCSS('color', ACCENT_TEXT_COLOR);
+
+  const link = home.footerLinks.first();
+  await link.scrollIntoViewIfNeeded();
+  await link.hover();
+  await expect(link).toHaveCSS('color', ACCENT_TEXT_COLOR);
 });
 
 test('draws a focus ring on keyboard focus', async ({ page }) => {
@@ -86,6 +102,13 @@ test('draws a focus ring on keyboard focus', async ({ page }) => {
   await menu.open();
   await tabTo(page, menu.items.first());
   await expectFocusRing(menu.items.first());
+
+  await home.goto();
+  const link = home.footerLinks.first();
+  await link.scrollIntoViewIfNeeded();
+  await page.keyboard.press('Tab');
+  await link.focus();
+  await expectFocusRing(link);
 });
 
 test.describe('reduced motion', () => {
@@ -122,10 +145,6 @@ test.describe('reduced motion', () => {
       .toBe(0);
   });
 
-  /*
-   * Guards the tokens actually reaching the elements: asserting token values
-   * alone passes even when a hover state hard-codes its own scale.
-   */
   test('holds rendered scale at rest while hovering', async ({ page }) => {
     const home = new HomePage(page);
     const projects = new ProjectsPage(page);

@@ -36,6 +36,10 @@ export class HomePage {
     return this.page.getByTestId('resume-entry');
   }
 
+  get resumeTitles(): Locator {
+    return this.page.locator('.resume-list__title');
+  }
+
   get cvLink(): Locator {
     return this.page.getByTestId('cv-link');
   }

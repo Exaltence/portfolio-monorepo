@@ -65,4 +65,13 @@ describe('HomeComponent', () => {
     expect(el.querySelector('app-back-to-top')).not.toBeNull();
     expect(el.querySelector('app-profile-panel-feature')).not.toBeNull();
   });
+
+  it('should make each section a programmatic focus target for menu navigation', async () => {
+    await fixture.whenStable();
+
+    const el = fixture.nativeElement as HTMLElement;
+    for (const id of ['home', 'portfolio']) {
+      expect(el.querySelector(`#${id}`)?.getAttribute('tabindex')).toBe('-1');
+    }
+  });
 });
