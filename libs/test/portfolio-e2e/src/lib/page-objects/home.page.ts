@@ -24,6 +24,10 @@ export class HomePage {
     return this.page.getByTestId('tab-header');
   }
 
+  get tabPanel(): Locator {
+    return this.page.getByTestId('tab-panel');
+  }
+
   get skillBadges(): Locator {
     return this.page.getByTestId('skill-badge');
   }

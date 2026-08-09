@@ -1,5 +1,12 @@
 @if (open()) {
-  <div class="site-menu">
+  <div
+    class="site-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Site menu"
+    cdkTrapFocus
+    [cdkTrapFocusAutoCapture]="true"
+  >
     <button
       type="button"
       class="site-menu__overlay"
@@ -17,6 +24,7 @@
       animate.leave="site-menu-panel-leave"
     >
       <button
+        cdkFocusInitial
         type="button"
         class="site-menu__close"
         data-testid="nav-close"

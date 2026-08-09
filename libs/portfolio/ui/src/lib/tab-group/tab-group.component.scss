@@ -94,6 +94,8 @@
 
 .tab-group__panel {
   display: grid;
+
+  @include on-focus;
 }
 
 .tab-group__panel-content {

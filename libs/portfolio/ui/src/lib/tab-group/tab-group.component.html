@@ -2,23 +2,33 @@
   <div class="tab-group__header" role="tablist">
     @for (label of tabGroup(); track label; let i = $index) {
       <button
+        #tab
         type="button"
         class="tab-group__tab"
         data-testid="tab-header"
         role="tab"
-        [id]="'tab-' + i"
+        [id]="idPrefix + '-tab-' + i"
+        [attr.aria-controls]="idPrefix + '-panel'"
         [class.active]="active() === i"
         [attr.aria-selected]="active() === i"
         [attr.aria-label]="'Tab ' + (i + 1) + ': ' + label"
         [attr.tabindex]="active() === i ? 0 : -1"
         (click)="select(i)"
+        (keydown)="onKeydown($event)"
       >
         {{ label }}
       </button>
     }
   </div>
 
-  <div class="tab-group__panel" data-testid="tab-panel" role="tabpanel">
+  <div
+    class="tab-group__panel"
+    data-testid="tab-panel"
+    role="tabpanel"
+    tabindex="0"
+    [id]="idPrefix + '-panel'"
+    [attr.aria-labelledby]="idPrefix + '-tab-' + active()"
+  >
     @for (panel of panels(); track $index) {
       @if (active() === $index) {
         <div
