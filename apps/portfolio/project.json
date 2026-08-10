@@ -17,7 +17,8 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/portfolio/public"
+            "input": "apps/portfolio/public",
+            "ignore": ["img/icons/!(sprite).svg"]
           }
         ],
         "styles": ["apps/portfolio/src/styles.scss"],
@@ -102,6 +103,18 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "stylelint": {}
+    "stylelint": {},
+    "icon-sprite": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/icons/scripts/generate-icon-sprite.js",
+        "cwd": "{workspaceRoot}"
+      },
+      "configurations": {
+        "check": {
+          "command": "node tools/icons/scripts/generate-icon-sprite.js --check"
+        }
+      }
+    }
   }
 }

@@ -76,8 +76,7 @@ don't switch it to `0.0.0.0` — that is IPv4-only and just inverts the problem.
 
 **"Nx detected a flaky task" is usually stale history, not a flaky test.** Nx records every task
 hash's outcomes in the SQLite DB under `.nx/workspace-data/`, and flags a hash that has ever recorded
-both a pass and a fail — forever, until the hash changes. Because all lib tests share the app's build
-(above), one transiently broken build fails every project at the same instant and poisons them all.
+both a pass and a fail — forever, until the hash changes.
 Check before chasing a test: identical failure timestamps across several projects mean a batch abort.
 Clear it with `npx nx daemon --stop` then `npx nx reset --onlyWorkspaceData` — the daemon holds the DB
 open, so the reset fails with `EPERM` if you skip the stop, and `--onlyWorkspaceData` spares the cache.

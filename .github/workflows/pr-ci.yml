@@ -35,6 +35,9 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Verify icon sprite is up to date
+        run: npm exec nx run portfolio:icon-sprite:check
+
       - name: Lint
         run: npm exec nx run portfolio:lint
 

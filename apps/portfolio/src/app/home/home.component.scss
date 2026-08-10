@@ -1,4 +1,5 @@
 @use 'interaction' as *;
+@use 'breakpoints' as *;
 
 :host {
   display: block;
@@ -10,7 +11,7 @@
   min-height: 100dvh;
 }
 
-@media (width >= 1041px) {
+@media (width > #{$small-device}) {
   .home {
     grid-template-columns: 65% 35%;
   }
@@ -96,7 +97,7 @@
   transition: var(--theme-surface-transition);
 }
 
-@media (width >= 1041px) {
+@media (width > #{$small-device}) {
   .home__aside {
     position: sticky;
     top: 0;

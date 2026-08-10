@@ -14,6 +14,8 @@
     "format:write": "nx format:write",
     "test": "nx run-many --target=test",
     "e2e": "nx run portfolio-e2e:e2e",
+    "icon-sprite": "nx run portfolio:icon-sprite",
+    "icon-sprite:check": "nx run portfolio:icon-sprite:check",
     "e2e:report": "playwright show-report dist/.playwright/apps/portfolio-e2e/playwright-report"
   },
   "private": true,

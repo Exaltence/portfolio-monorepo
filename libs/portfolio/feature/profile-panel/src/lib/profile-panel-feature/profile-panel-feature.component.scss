@@ -1,5 +1,13 @@
+@use 'breakpoints' as *;
+
 :host {
   display: block;
+}
+
+@media (width <= #{$small-device}) {
+  :host {
+    min-height: calc(82.4vw + 17rem);
+  }
 }
 
 .profile-panel-feature__error,

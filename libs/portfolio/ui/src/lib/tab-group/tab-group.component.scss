@@ -1,5 +1,7 @@
 @use 'interaction' as *;
 
+$stack-below: 434px;
+
 :host {
   display: block;
 }
@@ -13,7 +15,7 @@
   margin-bottom: var(--space-10);
 }
 
-@media (width <= 433px) {
+@media (width < #{$stack-below}) {
   .tab-group__header {
     flex-direction: column;
   }
@@ -35,7 +37,7 @@
     border-color var(--motion-duration-state) var(--motion-ease-standard);
 
   // Separator line between tabs on larger screens
-  @media (width >= 434px) {
+  @media (width >= #{$stack-below}) {
     &:not(:last-child)::after {
       position: absolute;
       top: 50%;

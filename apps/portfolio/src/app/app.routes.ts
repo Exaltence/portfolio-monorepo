@@ -1,14 +1,16 @@
 import { Route } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './home/home.component';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () =>
-      import('./home/home.component').then((m) => m.HomeComponent),
+    component: HomeComponent,
   },
   {
     path: '**',
-    component: NotFoundComponent,
+    loadComponent: () =>
+      import('./not-found/not-found.component').then(
+        (m) => m.NotFoundComponent,
+      ),
   },
 ];

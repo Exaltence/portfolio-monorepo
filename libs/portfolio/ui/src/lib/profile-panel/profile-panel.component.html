@@ -24,11 +24,17 @@
       <p class="profile-panel__greeting">{{ profile().greeting }}</p>
       <h1 class="profile-panel__name" data-testid="profile-name">
         <span class="u-sr-only">{{ profile().name }}</span>
-        <span
-          class="profile-panel__typed"
-          aria-hidden="true"
-          [appTypingTitle]="profile().roles"
-        ></span>
+        <span class="profile-panel__typed" aria-hidden="true">
+          <span class="profile-panel__typed-sizer">
+            @for (role of profile().roles; track $index) {
+              <span>{{ role }}</span>
+            }
+          </span>
+          <span
+            class="profile-panel__typed-text"
+            [appTypingTitle]="profile().roles"
+          ></span>
+        </span>
       </h1>
     </div>
   </div>

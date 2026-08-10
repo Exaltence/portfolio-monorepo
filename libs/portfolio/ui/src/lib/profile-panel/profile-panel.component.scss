@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  container-type: inline-size;
 
   @include on-hover {
     .profile-panel__border {
@@ -63,6 +64,7 @@
 
 .profile-panel__greeting {
   margin-bottom: var(--space-2);
+  font-size: clamp(0.625rem, 2.6cqi, var(--fs-base));
   font-weight: 500;
   color: var(--text);
   text-transform: uppercase;
@@ -73,80 +75,38 @@
   min-height: 1.5em;
   margin: 0;
   overflow: hidden;
-  font-size: 1.25rem;
+
+  // Tracks the panel, not the viewport
+  font-size: clamp(0.75rem, 4.5cqi, var(--fs-lg));
   font-weight: 600;
 }
 
-// Large desktops
-@media (width >= 2048px) {
-  .profile-panel__greeting {
-    font-size: var(--fs-sm);
-  }
-
-  .profile-panel__name {
-    font-size: var(--fs-lg);
-  }
-}
-
-// Regular desktops
-@media (width >= 1347px) and (width <= 2047px) {
-  .profile-panel__greeting {
-    font-size: var(--fs-base);
-  }
-
-  .profile-panel__name {
-    font-size: 1.25rem;
-  }
-}
-
-// Small desktops or tablets
-@media (width >= 1040px) and (width <= 1346px) {
-  .profile-panel__greeting {
-    font-size: 0.625rem;
-  }
-
-  .profile-panel__name {
-    font-size: 0.75rem;
-  }
-}
-
-// Small Tablets
-@media (width >= 618px) and (width <= 1040px) {
-  .profile-panel__greeting {
-    font-size: var(--fs-base);
-  }
-
-  .profile-panel__name {
-    font-size: var(--fs-lg);
-  }
-}
-
-// Regular Phones
-@media (width >= 471px) and (width <= 617px) {
-  .profile-panel__greeting {
-    font-size: 0.75rem;
-  }
-
-  .profile-panel__name {
-    font-size: 1.25rem;
-  }
-}
-
-// Small phones
-@media (width <= 470px) {
-  .profile-panel__greeting {
-    font-size: 0.625rem;
-  }
-
-  .profile-panel__name {
-    font-size: 0.75rem;
-  }
-}
-
 .profile-panel__typed {
+  display: inline-grid;
+}
+
+/*
+ * The sizer holds every role stacked in one cell, so the box is always as wide as the
+ * longest one and cannot resize while the title types itself in and out
+ */
+.profile-panel__typed-sizer,
+.profile-panel__typed-text {
+  grid-area: 1 / 1;
+  padding: 0 0.6em;
+}
+
+.profile-panel__typed-sizer {
+  display: grid;
+  visibility: hidden;
+}
+
+.profile-panel__typed-sizer > span {
+  grid-area: 1 / 1;
+}
+
+.profile-panel__typed-text {
   position: relative;
-  display: inline-block;
-  padding: 0 var(--space-5);
+  justify-self: center;
 
   // Bracket animation
   &::before,
@@ -182,8 +142,8 @@
 
 // Resting-state override
 @media (prefers-reduced-motion: reduce) {
-  .profile-panel__typed::before,
-  .profile-panel__typed::after {
+  .profile-panel__typed-text::before,
+  .profile-panel__typed-text::after {
     opacity: 1;
     animation: none;
   }

@@ -1,19 +1,16 @@
 import { httpResource } from '@angular/common/http';
-import {
-  Injector,
-  Service,
-  Signal,
-  computed,
-  inject,
-  untracked,
-} from '@angular/core';
+import { Service, Signal, computed } from '@angular/core';
 import { IconName } from '../../models/icon/icon-name.model';
 
-const ICON_DIRECTORY = 'img/icons';
+const SPRITE_URL = 'img/icons/sprite.svg';
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 @Service()
 export class IconRegistryService {
-  private readonly injector = inject(Injector);
+  private readonly sprite = httpResource.text(() => SPRITE_URL, {
+    parse: parseSprite,
+    defaultValue: null,
+  });
   private readonly icons = new Map<IconName, Signal<SVGSVGElement | null>>();
 
   get(name: IconName): Signal<SVGSVGElement | null> {
@@ -23,24 +20,18 @@ export class IconRegistryService {
       return cached;
     }
 
-    const icon = untracked(() => this.load(name));
+    const icon = computed(() =>
+      this.sprite.hasValue() ? (this.sprite.value()?.get(name) ?? null) : null,
+    );
     this.icons.set(name, icon);
 
     return icon;
   }
-
-  private load(name: IconName): Signal<SVGSVGElement | null> {
-    const svg = httpResource.text(() => `${ICON_DIRECTORY}/${name}.svg`, {
-      injector: this.injector,
-      parse: parseIcon,
-      defaultValue: null,
-    });
-
-    return computed(() => (svg.hasValue() ? svg.value() : null));
-  }
 }
 
-function parseIcon(markup: string): SVGSVGElement | null {
+function parseSprite(
+  markup: string,
+): ReadonlyMap<string, SVGSVGElement> | null {
   const root = new DOMParser().parseFromString(
     markup,
     'image/svg+xml',
@@ -50,9 +41,32 @@ function parseIcon(markup: string): SVGSVGElement | null {
     return null;
   }
 
-  root.setAttribute('width', '100%');
-  root.setAttribute('height', '100%');
-  root.setAttribute('focusable', 'false');
+  const icons = new Map<string, SVGSVGElement>();
 
-  return root;
+  for (const template of Array.from(root.querySelectorAll('symbol'))) {
+    if (template.id) {
+      icons.set(template.id, toStandaloneIcon(template));
+    }
+  }
+
+  return icons;
+}
+
+function toStandaloneIcon(template: Element): SVGSVGElement {
+  const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
+
+  for (const { name, value } of Array.from(template.attributes)) {
+    if (name !== 'id') {
+      svg.setAttribute(name, value);
+    }
+  }
+
+  svg.replaceChildren(
+    ...Array.from(template.childNodes, (node) => node.cloneNode(true)),
+  );
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
+  svg.setAttribute('focusable', 'false');
+
+  return svg;
 }
