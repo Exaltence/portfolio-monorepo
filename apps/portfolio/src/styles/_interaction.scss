@@ -7,10 +7,8 @@
 }
 
 @mixin on-hover-press {
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      @content;
-    }
+  @include on-hover {
+    @content;
   }
 
   &:active {

@@ -113,17 +113,17 @@
   &::after {
     position: absolute;
     top: 0;
-    color: #44993b;
+    color: var(--accent-available);
     animation: profile-panel-bracket var(--motion-duration-pulse)
       var(--motion-ease-linear) infinite;
   }
 
-  &::after {
+  &::before {
     left: 0;
     content: '[';
   }
 
-  &::before {
+  &::after {
     right: 0;
     content: ']';
   }
@@ -223,7 +223,7 @@
 .profile-panel__dot {
   width: 0.625rem;
   height: 0.625rem;
-  background-color: #44993b;
+  background-color: var(--accent-available);
   border-radius: 50%;
 }
 
