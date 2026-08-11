@@ -12,9 +12,12 @@ test('exposes a resolvable CV download link', async ({ page }) => {
   await home.cvLink.click();
   const download = await downloadPromise;
 
-  expect(download.suggestedFilename()).toBe('cv-shaun-vercauteren.pdf');
+  expect(download.suggestedFilename()).toBe('shaun-vercauteren-cv-en.pdf');
 
-  const resolved = new URL('cv-shaun-vercauteren.pdf', page.url()).toString();
+  const resolved = new URL(
+    'shaun-vercauteren-cv-en.pdf',
+    page.url(),
+  ).toString();
   const response = await page.request.get(resolved);
   expect(response.ok()).toBeTruthy();
 });

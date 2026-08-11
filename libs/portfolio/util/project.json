@@ -6,6 +6,13 @@
   "projectType": "library",
   "tags": ["domain:portfolio", "type:util"],
   "targets": {
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "buildTarget": "portfolio:build:development",
+        "tsConfig": "libs/portfolio/util/tsconfig.spec.json"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }

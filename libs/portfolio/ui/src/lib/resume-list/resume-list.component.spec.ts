@@ -8,13 +8,13 @@ const ENTRIES: readonly ResumeEntry[] = [
     organization: 'Renson',
     period: '2019 — Today',
     title: 'Angular Web Developer',
-    description: 'MES application.',
+    descriptions: ['MES application.'],
   },
   {
     organization: 'Realdolmen',
     period: '2018 — 2019',
     title: 'Full-Stack Consultant',
-    description: 'Various projects.',
+    descriptions: ['Various projects.'],
   },
 ];
 

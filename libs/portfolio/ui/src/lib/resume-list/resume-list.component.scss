@@ -38,13 +38,14 @@
 }
 
 .resume-list__title {
-  margin: 0 0 var(--space-2);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-6);
   font-size: var(--fs-base);
   color: var(--mc-text);
 }
 
 .resume-list__desc {
-  margin: 0;
+  margin-top: var(--space-2);
 }
 
 .resume-list__empty {

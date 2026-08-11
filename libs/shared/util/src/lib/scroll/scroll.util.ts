@@ -15,3 +15,7 @@ export function scrollToTop(): void {
 export function scrollToElement(element: Element): void {
   element.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
 }
+
+export function scrollElementToTop(element: Element): void {
+  element.scrollTo({ top: 0, behavior: scrollBehavior() });
+}

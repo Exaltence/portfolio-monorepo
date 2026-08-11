@@ -23,13 +23,13 @@ const FAKE_ABOUT: About = {
       organization: 'Renson',
       period: '2019 — Today',
       title: 'Angular Web Developer',
-      description: 'MES application.',
+      descriptions: ['MES application.'],
     },
     {
       organization: 'Realdolmen',
       period: '2018 — 2019',
       title: 'Full-Stack Consultant',
-      description: 'Various projects.',
+      descriptions: ['Various projects.'],
     },
   ],
   education: [
@@ -37,7 +37,7 @@ const FAKE_ABOUT: About = {
       organization: 'Vives',
       period: '2014 — 2018',
       title: "Associate's degree",
-      description: 'Computer science programming',
+      descriptions: ['Computer science programming'],
     },
   ],
   certificates: [
@@ -45,7 +45,7 @@ const FAKE_ABOUT: About = {
       organization: 'Oracle',
       period: 'January 2019',
       title: 'OCA',
-      description: 'Java 8.',
+      descriptions: ['Java 8.'],
     },
   ],
 };

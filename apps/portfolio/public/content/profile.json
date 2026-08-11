@@ -1,11 +1,16 @@
 {
   "greeting": "Hi There! I am",
   "name": "Shaun Vercauteren",
-  "roles": ["Shaun Vercauteren", "Web Developer", "Front-end Engineer"],
-  "avatarUrl": "img/img-profile.jpg",
+  "roles": [
+    "Shaun Vercauteren",
+    "Front-end Engineer",
+    "Angular Specialist",
+    "Web Developer"
+  ],
+  "avatarUrl": "img/profile-portrait.webp",
   "available": true,
   "availabilityUrl": "https://www.linkedin.com/in/shaun-vercauteren-678221152",
-  "cvUrl": "cv-shaun-vercauteren.pdf",
+  "cvUrl": "shaun-vercauteren-cv-en.pdf",
   "social": [
     {
       "label": "LinkedIn",

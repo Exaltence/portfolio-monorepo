@@ -3,14 +3,19 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import {
   AnimationCallbackEvent,
   Component,
+  ElementRef,
   effect,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import { filter } from 'rxjs';
 import { ProjectModalData } from '@portfolio-monorepo/portfolio/data';
 import { IconComponent } from '@portfolio-monorepo/shared/ui';
-import { motionDurationMs } from '@portfolio-monorepo/shared/util';
+import {
+  motionDurationMs,
+  scrollElementToTop,
+} from '@portfolio-monorepo/shared/util';
 
 const LEAVE_MS = 300;
 // Generous on purpose, matching the carousel's settle net: deadlock guard, not a timing mechanism
@@ -31,6 +36,8 @@ export class ProjectModalComponent {
   protected readonly activeImage = signal(0);
   protected readonly closing = signal(false);
   protected readonly direction = signal<1 | -1>(1);
+
+  private readonly surface = viewChild<ElementRef<HTMLElement>>('surface');
 
   private readonly backdropClicked = toSignal(this.dialogRef.backdropClick);
   private readonly escapePressed = toSignal(
@@ -57,6 +64,7 @@ export class ProjectModalComponent {
     this.direction.set(1);
     this.current.set((this.current() + 1) % this.projects.length);
     this.activeImage.set(0);
+    this.resetScroll();
   }
 
   protected prev(): void {
@@ -64,6 +72,14 @@ export class ProjectModalComponent {
     const count = this.projects.length;
     this.current.set((this.current() - 1 + count) % count);
     this.activeImage.set(0);
+    this.resetScroll();
+  }
+
+  private resetScroll(): void {
+    const surface = this.surface()?.nativeElement;
+    if (surface && surface.scrollTop > 0) {
+      scrollElementToTop(surface);
+    }
   }
 
   protected showImage(index: number): void {

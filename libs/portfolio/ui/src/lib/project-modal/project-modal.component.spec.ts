@@ -86,6 +86,38 @@ describe('ProjectModalComponent', () => {
     expect(byTestId('modal-title').textContent).toContain('Project B');
   });
 
+  it('should scroll the modal back to the top when stepping to another project', async () => {
+    await fixture.whenStable();
+
+    const surface = el().querySelector('.project-modal') as HTMLElement;
+    const scrollToSpy = vi.fn();
+    surface.scrollTo = scrollToSpy;
+    surface.scrollTop = 240;
+
+    byTestId('modal-next').click();
+    await fixture.whenStable();
+
+    expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+
+    byTestId('modal-prev').click();
+    await fixture.whenStable();
+
+    expect(scrollToSpy).toHaveBeenCalledTimes(2);
+  });
+
+  it('should leave the scroll position alone when already at the top', async () => {
+    await fixture.whenStable();
+
+    const surface = el().querySelector('.project-modal') as HTMLElement;
+    const scrollToSpy = vi.fn();
+    surface.scrollTo = scrollToSpy;
+
+    byTestId('modal-next').click();
+    await fixture.whenStable();
+
+    expect(scrollToSpy).not.toHaveBeenCalled();
+  });
+
   it('should switch the active image', async () => {
     await fixture.whenStable();
 

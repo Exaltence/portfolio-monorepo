@@ -3,53 +3,54 @@
     "id": "mes-mii-outdoor",
     "title": "MES-MII Outdoor",
     "category": "Front-end/Full-stack, Web, Angular, Sap MII",
-    "thumbnailUrl": "img/portfolio/coming_soon.png",
-    "images": ["img/portfolio/coming_soon.png"],
+    "thumbnailUrl": "img/portfolio/coming-soon.webp",
+    "images": ["img/portfolio/coming-soon.webp"],
     "descriptions": [
-      "An application used in the manufacturing & production process to track and document the transformation of raw materials to finished goods of a factory.",
-      "The MES provides information on the current conditions of the plant floor. The application works in real time and enables the control of multiple elements of the production process (e.g. inputs, personnel, machines, support services, …)."
+      "A manufacturing execution system that guides and documents the transformation of raw materials into finished products on the Renson Outdoor production site. It replaced paper-driven production with paperless, built on SAP and Industry 4.0 standards, and now runs on around 200 workstations across 60 production lines.",
+      "I was the founding developer on the project and I contributed full-stack while specializing and owning the development and architecture of the front-end. The front-end is an Nx monorepo of 9 Angular applications, 100+ libraries and over 50,000 lines of code using TypeScript, Angular Material and Sass, built on a back-end with SAP MII, Veri95 and Sybase, with SAP NetWeaver and Kepware server technologies underneath.",
+      "The application works in real time and gives the plant floor control over inputs, personnel, machines and support services."
     ]
   },
   {
     "id": "warmste-hackathon",
     "title": "Warmste Hackathon",
     "category": "Full-stack, Web, Angular, Java",
-    "thumbnailUrl": "img/portfolio/warmstehackathon-team.jpg",
-    "images": [
-      "img/portfolio/warmstehackathon-team.jpg",
-      "img/portfolio/warmstehackathon-admin-users.jpg"
-    ],
+    "thumbnailUrl": "img/portfolio/wh-team.webp",
+    "images": ["img/portfolio/wh-team.webp", "img/portfolio/wh-admin.webp"],
     "descriptions": [
-      "A competition between different teams with the goal of developing an innovative idea for a socially relevant theme.",
-      "The application keeps track of the score, takes care of the communication within and between teams, ensures a streamlined flow in providing development tools and coaching where necessary."
+      "A competition platform for teams developing an innovative idea around a socially relevant theme, built at Realdolmen with a small team.",
+      "I contributed full-stack in Angular, TypeScript, Java, Spring Boot, Hibernate and PostgreSQL. I built modular, reusable Angular components and set up the project's linting.",
+      "The application tracks standings, handles communication within and between teams, and streamlines the flow of development tooling and coaching so organisers can step in wherever a team needs support."
     ]
   },
   {
     "id": "matchman",
     "title": "MatchMan",
     "category": "Full-stack, Web, Angular, Java",
-    "thumbnailUrl": "img/portfolio/mm-dashboard.png",
+    "thumbnailUrl": "img/portfolio/mm-dashboard.webp",
     "images": [
-      "img/portfolio/mm-dashboard.png",
-      "img/portfolio/mm-opportunities.png"
+      "img/portfolio/mm-dashboard.webp",
+      "img/portfolio/mm-opportunities.webp"
     ],
     "descriptions": [
-      "An application that takes care of the supervision of customers, schedules, opportunities and technical skills. It matches consultants with customers.",
-      "The application guarantees an optimal staffing in function of the desired technical skills. An extensive search functionality accelerates the entire staffing and scheduling process"
+      "An internal staffing platform that matches consultants to customer projects on technical skills, following up customers, schedules and opportunities in one place.",
+      "I contributed full-stack in Angular, TypeScript, Node.js, Express.js, TypeORM and MySQL. I refactored the customer-creation front-end and built the proposition page with full CRUD and validation.",
+      "Extensive search functionality accelerates the entire staffing and planning process, so resourcing decisions are driven by the technical skills a project actually needs rather than by who happens to be free."
     ]
   },
   {
     "id": "erp-demo",
     "title": "ERP Demo",
     "category": "Full-stack, Mobile, Angular, Progress OpenEdge",
-    "thumbnailUrl": "img/portfolio/erp-demo-dashboard.jpg",
+    "thumbnailUrl": "img/portfolio/erp-demo-dashboard.webp",
     "images": [
-      "img/portfolio/erp-demo-dashboard.jpg",
-      "img/portfolio/erp-demo-order.jpg"
+      "img/portfolio/erp-demo-dashboard.webp",
+      "img/portfolio/erp-demo-order.webp"
     ],
     "descriptions": [
-      "The requirement was made to deliver an ERP demo to monitor the logistics of a warehouse.",
-      "The purpose of the application was to keep an overview of the entire process of orders, orderlines, products, stock and employees. The application had to be able to perform all CRUD operations on these entities."
+      "My graduation project at b-inside: an ERP demo that monitors warehouse logistics, built in Angular with Ionic on a Progress OpenEdge back-end.",
+      "I did the full analysis and design and wrote both front- and back-end.",
+      "The application keeps an overview of orders, order lines, products, stock and employees, with full CRUD operations on every entity and a mobile-first interface for use on the warehouse floor."
     ]
   }
 ]

@@ -25,15 +25,9 @@ test('navigates the carousel and project modal', async ({ page }) => {
   await projects.modalNext.click();
   await expect(projects.modalTitle).toHaveText('Warmste Hackathon');
 
-  await expect(projects.modalMainImage).toHaveAttribute(
-    'src',
-    /warmstehackathon-team/,
-  );
+  await expect(projects.modalMainImage).toHaveAttribute('src', /wh-team/);
   await projects.modalImage(1).click();
-  await expect(projects.modalMainImage).toHaveAttribute(
-    'src',
-    /warmstehackathon-admin-users/,
-  );
+  await expect(projects.modalMainImage).toHaveAttribute('src', /wh-admin/);
 
   await projects.modalClose.click();
   await expect(projects.modalTitle).toHaveCount(0);

@@ -4,6 +4,8 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 
+import { yearsOfExperience } from '@portfolio-monorepo/portfolio/util';
+
 import { About } from '../models/about.model';
 import { AboutStore } from './about.store';
 
@@ -36,7 +38,7 @@ describe('AboutStore', () => {
           organization: 'Renson',
           period: '2019 — Today',
           title: 'Angular Web Developer',
-          description: 'MES application.',
+          descriptions: ['MES application.'],
         },
       ],
       education: [
@@ -44,7 +46,7 @@ describe('AboutStore', () => {
           organization: 'Vives',
           period: '2014 — 2018',
           title: "Associate's degree",
-          description: 'Computer science programming',
+          descriptions: ['Computer science programming'],
         },
       ],
       certificates: [
@@ -52,7 +54,7 @@ describe('AboutStore', () => {
           organization: 'Oracle',
           period: 'January 2019',
           title: 'OCA',
-          description: 'Java 8 features.',
+          descriptions: ['Java 8 features.'],
         },
       ],
     };
@@ -63,6 +65,19 @@ describe('AboutStore', () => {
     expect(store.about.value()?.experience).toHaveLength(1);
     expect(store.about.value()?.education).toHaveLength(1);
     expect(store.about.value()?.certificates).toHaveLength(1);
+  });
+
+  it('should resolve the years-of-experience token in the intro', async () => {
+    const store = TestBed.inject(AboutStore);
+    TestBed.tick();
+
+    httpMock.expectOne('content/about.json').flush({
+      intro: 'A developer with {{yearsOfExperience}} years of experience.',
+    });
+
+    await expect
+      .poll(() => store.about.value()?.intro)
+      .toBe(`A developer with ${yearsOfExperience()} years of experience.`);
   });
 
   it('should surface an error state on failure', async () => {

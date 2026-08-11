@@ -1,4 +1,8 @@
-import { scrollToElement, scrollToTop } from './scroll.util';
+import {
+  scrollElementToTop,
+  scrollToElement,
+  scrollToTop,
+} from './scroll.util';
 
 const stubReducedMotion = (matches: boolean): void => {
   vi.stubGlobal(
@@ -62,6 +66,29 @@ describe('scroll utilities', () => {
         behavior: 'auto',
         block: 'start',
       });
+    });
+  });
+
+  describe('scrollElementToTop', () => {
+    it('should smoothly scroll a given element to its top', () => {
+      const element = document.createElement('div');
+      const scrollToSpy = vi.fn();
+      element.scrollTo = scrollToSpy;
+
+      scrollElementToTop(element);
+
+      expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+    });
+
+    it('should jump a given element to its top when reduced motion is preferred', () => {
+      stubReducedMotion(true);
+      const element = document.createElement('div');
+      const scrollToSpy = vi.fn();
+      element.scrollTo = scrollToSpy;
+
+      scrollElementToTop(element);
+
+      expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: 'auto' });
     });
   });
 });

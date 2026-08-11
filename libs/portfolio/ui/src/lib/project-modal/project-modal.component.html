@@ -1,5 +1,6 @@
 @if (!closing()) {
   <div
+    #surface
     class="project-modal"
     animate.enter="project-modal-enter"
     animate.leave="project-modal-leave"
@@ -64,7 +65,7 @@
 
             <div class="project-modal__desc">
               @for (paragraph of p.descriptions; track $index) {
-                <p>{{ paragraph }}</p>
+                <p class="project-modal__desc-text">{{ paragraph }}</p>
               }
             </div>
           </div>

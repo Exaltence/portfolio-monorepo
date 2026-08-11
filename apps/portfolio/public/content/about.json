@@ -1,7 +1,7 @@
 {
   "subtitle": "Introduction",
   "title": "About Me",
-  "intro": "I'm Shaun, a Front-end Angular Web Developer with 8 years of experience driven by a passion for innovation and accessibility. Currently working at Renson where I implement their frontend solution for their Outdoor MES platform.",
+  "intro": "I'm Shaun, a front-end web developer with {{yearsOfExperience}} years of experience. I started as a Java consultant building internal platforms, then joined Renson as the founding developer of its MES team. There, I played a key role in transforming the production site from paper to paperless and building its front-end into a 9-application Angular monorepo. I like making large codebases survivable, bridging the gap between user and software and making technology accessible to everyone.",
   "skills": [
     {
       "name": "Azure DevOps",
@@ -68,28 +68,41 @@
     {
       "organization": "Renson",
       "period": "2019 — Today",
-      "title": "Angular Web Developer",
-      "description": "An MES application used in the manufacturing & production process to track and document the transformation of raw materials to finished goods of a factory. Created with Angular and SAP MII."
+      "title": "MES Developer | Front-end Specialist",
+      "descriptions": [
+        "Founding developer of Renson's MES team. I built MES-MII Outdoor together with three consultants brought in for the delivery, then took over main ownership when they left and new internal developers joined. The platform took the Renson Outdoor production site from paper to paperless on SAP and Industry 4.0 standards, and now guides and documents manufacturing on around 200 workstations across 60 production lines.",
+        "I own the development and architecture of the front-end platform; an Nx monorepo of 9 Angular applications, 100+ libraries and 50,000+ lines of code. I mentored every developer who joined the project, review and approve the code the team merges, deliver business analysis and take the UI/UX from design to delivery. I also provide server and production support including emergency interventions."
+      ]
     },
     {
       "organization": "Realdolmen",
       "period": "2018 — 2019",
-      "title": "Full-Stack Consultant",
-      "description": "Various projects as a full-stack developer with the Java and Javascript technology stack."
+      "title": "Java Consultant",
+      "descriptions": [
+        "Full-stack consultant on Realdolmen's internal platforms. I contributed full-stack to MatchMan, a staffing platform that matches consultants to customer projects on technical skills, in Angular, TypeScript, Node.js and Express.js.",
+        "With a small team I also built Warmste Hackathon, a competition platform for socially themed innovation challenges, in Angular, Java, Spring Boot and Hibernate.",
+        "Both projects ran in Agile Scrum with pair programming, and I reviewed and merged team code alongside my own."
+      ]
     },
     {
       "organization": "b-inside",
       "period": "2018",
-      "title": "Internship",
-      "description": "An ERP demo to monitor the logistics of a warehouse written in Angular with Ionic and Progress OpenEdge."
+      "title": "Full-stack Developer (Intern)",
+      "descriptions": [
+        "Graduation internship. I built an ERP demo that monitors warehouse logistics: orders, order lines, products, stock and employees.",
+        "Built in Angular with Ionic on a Progress OpenEdge backend, with full CRUD on every entity."
+      ]
     }
   ],
   "education": [
     {
-      "organization": "Vives - Miras University",
+      "organization": "Vives University",
       "period": "2014 — 2018",
       "title": "Associate's degree",
-      "description": "Computer science programming"
+      "descriptions": [
+        "Associate degree in computer science programming, with a focus on full-stack development and computer science fundamentals.",
+        "Graduated with an ERP warehouse logistics monitor built in Angular and Progress OpenEdge during my internship at b-inside."
+      ]
     }
   ],
   "certificates": [
@@ -97,43 +110,57 @@
       "organization": "NestJS",
       "period": "August 2026",
       "title": "Fundamentals, Advanced Concepts, Architecture & Advanced Patterns",
-      "description": "Foundational credential that validates basic core Java skills, object-oriented programming principles, and Java 8 features."
+      "descriptions": [
+        "Three official NestJS courses covering dependency injection, modules and providers, advanced patterns such as dynamic modules and custom decorators, and how to structure large Node.js back-ends that stay maintainable as they grow."
+      ]
     },
     {
       "organization": "Phished",
       "period": "March 2026",
       "title": "Gold Level - Cyber Resilience: Expert",
-      "description": "Foundational credential that validates basic core Java skills, object-oriented programming principles, and Java 8 features."
+      "descriptions": [
+        "Highest tier in Phished's continuous security-awareness programme and training, awarded for consistently recognising and reporting phishing and social-engineering attempts while successfully completing all training modules."
+      ]
     },
     {
       "organization": "Mendix",
       "period": "December 2025",
       "title": "Mendix Rapid Developer",
-      "description": "Foundational credential that validates basic core Java skills, object-oriented programming principles, and Java 8 features."
+      "descriptions": [
+        "Entry-level Mendix credential covering low-code application development: domain models, page building, microflows and the Mendix deployment lifecycle."
+      ]
     },
     {
       "organization": "Angular Architects",
       "period": "October 2025",
       "title": "AI for Developer Productivity",
-      "description": "Foundational credential that validates basic core Java skills, object-oriented programming principles, and Java 8 features."
+      "descriptions": [
+        "Workshop on integrating AI assistants into a professional Angular workflow, covering configuration, prompting, code generation, review, refactoring, common pitfalls and where human oversight remains essential."
+      ]
     },
     {
       "organization": "Angular Architects",
       "period": "December 2024",
       "title": "Modern Angular Architectures",
-      "description": "Foundational credential that validates basic core Java skills, object-oriented programming principles, and Java 8 features."
+      "descriptions": [
+        "Workshop on structuring large Angular applications: standalone components, signals, Nx monorepos and domain driven design (DDD) with library boundaries."
+      ]
     },
     {
       "organization": "Angular Architects",
       "period": "March 2023",
       "title": "Advanced TypeScript Techniques",
-      "description": "Foundational credential that validates basic core Java skills, object-oriented programming principles, and Java 8 features."
+      "descriptions": [
+        "Workshop on advanced TypeScript: generics, conditional and mapped types, inference, and building type-safe APIs for large codebases."
+      ]
     },
     {
       "organization": "Oracle",
       "period": "January 2019",
-      "title": "Oracle Certified Associate, Jave SE 8 Programmer",
-      "description": "Foundational credential that validates basic core Java skills, object-oriented programming principles, and Java 8 features."
+      "title": "Oracle Certified Associate, Java SE 8 Programmer (1Z0-808)",
+      "descriptions": [
+        "Foundational credential validating core Java skills, object-oriented programming principles and Java 8 features."
+      ]
     }
   ]
 }

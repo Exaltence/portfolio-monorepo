@@ -6,7 +6,9 @@
         <span class="resume-list__period">{{ entry.period }}</span>
       </div>
       <h3 class="resume-list__title">{{ entry.title }}</h3>
-      <p class="resume-list__desc">{{ entry.description }}</p>
+      @for (paragraph of entry.descriptions; track $index) {
+        <p class="resume-list__desc">{{ paragraph }}</p>
+      }
     </li>
   } @empty {
     <li class="resume-list__empty" data-testid="resume-empty">
