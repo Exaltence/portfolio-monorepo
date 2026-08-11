@@ -54,12 +54,13 @@
       "prPriority": 11
     },
     {
-      "description": "Testing frameworks — safe to automerge.",
+      "description": "Testing frameworks — safe to automerge. `saxes` is grouped with `jsdom` so their ranges move together; the icon-sprite generator and jsdom both depend on it, and matching ranges keep npm resolving a single copy.",
       "matchPackageNames": [
         "/^vitest/",
         "/^@vitest\\//",
         "/^@playwright\\//",
-        "jsdom"
+        "jsdom",
+        "saxes"
       ],
       "groupName": "testing frameworks",
       "automerge": true,

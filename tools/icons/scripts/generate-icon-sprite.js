@@ -2,7 +2,6 @@
 
 const { existsSync, readdirSync, readFileSync, writeFileSync } = require('fs');
 const { join, basename } = require('path');
-// Not a direct dependency: reused from jsdom's own XML parser
 const { SaxesParser } = require('saxes');
 
 const ICON_DIRECTORY = join(

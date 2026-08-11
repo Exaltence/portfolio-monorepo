@@ -39,13 +39,16 @@ jobs:
         run: npm exec nx run portfolio:icon-sprite:check
 
       - name: Lint
-        run: npm exec nx run portfolio:lint
+        run: npm exec -- nx run-many --target=lint
+
+      - name: Stylelint
+        run: npm exec -- nx run-many --target=stylelint
 
       - name: Unit tests
-        run: npm exec nx run portfolio:test
+        run: npm exec -- nx run-many --target=test
 
       - name: Build
-        run: npm exec nx run portfolio:build:development
+        run: npm exec -- nx run portfolio:build:production
 
       - name: E2E tests
         run: npm exec nx run portfolio-e2e:e2e
