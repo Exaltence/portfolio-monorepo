@@ -1,4 +1,4 @@
-# Portfolio Util
+# Shared Util
 
 Utility functions for the `shared` domain.
 

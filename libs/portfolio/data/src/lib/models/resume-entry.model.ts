@@ -2,5 +2,5 @@ export interface ResumeEntry {
   readonly organization: string;
   readonly period: string;
   readonly title: string;
-  readonly descriptions: string[];
+  readonly descriptions: readonly string[];
 }

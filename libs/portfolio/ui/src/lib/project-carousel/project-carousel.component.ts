@@ -135,7 +135,7 @@ export class ProjectCarouselComponent {
   private readonly viewport = viewChild<ElementRef<HTMLElement>>('viewport');
   private readonly viewportWidth = signal(0);
 
-  protected readonly columns = computed(() => {
+  private readonly columns = computed(() => {
     const width = this.viewportWidth();
     if (width >= 700) {
       return 3;
