@@ -1,14 +1,14 @@
 <button
   type="button"
   class="theme-toggle"
-  [class.light]="theme() === 'light'"
+  [class.light]="isLight()"
   [attr.aria-label]="
-    theme() === 'light' ? 'Switch to dark theme' : 'Switch to light theme'
+    isLight() ? 'Switch to dark theme' : 'Switch to light theme'
   "
   data-testid="theme-toggle"
   (click)="toggled.emit()"
 >
-  @if (theme() === 'light') {
+  @if (isLight()) {
     <app-icon
       class="theme-toggle__icon theme-toggle__icon--sun"
       name="mdi--white-balance-sunny"

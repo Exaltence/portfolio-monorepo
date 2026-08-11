@@ -17,6 +17,10 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Project } from '@portfolio-monorepo/portfolio/data';
+import {
+  shortestWrappedDelta,
+  wrapIndex,
+} from '@portfolio-monorepo/portfolio/util';
 import { IconComponent } from '@portfolio-monorepo/shared/ui';
 import {
   motionDurationMs,
@@ -32,16 +36,6 @@ const SETTLE_FALLBACK_MS = 300;
 const SETTLE_FALLBACK_GRACE_MS = 250;
 
 let nextId = 0;
-
-function wrapIndex(value: number, count: number): number {
-  return ((value % count) + count) % count;
-}
-
-// When both directions are the same length the choice is made explicitly: ties go forward
-export function shortestWrappedDelta(diff: number, count: number): number {
-  const wrapped = wrapIndex(diff, count);
-  return wrapped * 2 > count ? wrapped - count : wrapped;
-}
 
 function isCarouselArrow(event: KeyboardEvent): boolean {
   return event.keyCode === LEFT_ARROW || event.keyCode === RIGHT_ARROW;
