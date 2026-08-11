@@ -18,7 +18,10 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Project } from '@portfolio-monorepo/portfolio/data';
 import { IconComponent } from '@portfolio-monorepo/shared/ui';
-import { motionDurationMs } from '@portfolio-monorepo/shared/util';
+import {
+  motionDurationMs,
+  prefersReducedMotion,
+} from '@portfolio-monorepo/shared/util';
 import { ProjectCardComponent } from '../project-card/project-card.component';
 
 const AUTOPLAY_MS = 3000;
@@ -30,9 +33,13 @@ const SETTLE_FALLBACK_GRACE_MS = 250;
 
 let nextId = 0;
 
+function wrapIndex(value: number, count: number): number {
+  return ((value % count) + count) % count;
+}
+
 // When both directions are the same length the choice is made explicitly: ties go forward
 export function shortestWrappedDelta(diff: number, count: number): number {
-  const wrapped = ((diff % count) + count) % count;
+  const wrapped = wrapIndex(diff, count);
   return wrapped * 2 > count ? wrapped - count : wrapped;
 }
 
@@ -65,8 +72,10 @@ export class ProjectCarouselComponent {
 
   private readonly count = computed(() => this.projects().length);
 
-  private readonly logical = linkedSignal(() => this.count());
-  private readonly render = linkedSignal(() => this.count());
+  private readonly firstRealSlide = computed(() => this.count());
+
+  private readonly logical = linkedSignal(() => this.firstRealSlide());
+  private readonly render = linkedSignal(() => this.firstRealSlide());
   private readonly pending = signal(0);
   private readonly busy = signal(false);
   private readonly instant = signal(false);
@@ -75,7 +84,7 @@ export class ProjectCarouselComponent {
 
   readonly index = computed(() => {
     const count = this.count();
-    return count === 0 ? 0 : ((this.logical() % count) + count) % count;
+    return count === 0 ? 0 : wrapIndex(this.logical(), count);
   });
 
   protected readonly slides = computed<readonly CarouselSlide[]>(() => {
@@ -109,9 +118,7 @@ export class ProjectCarouselComponent {
     () => this.focusOrigin() === 'keyboard',
   );
   private readonly hidden = signal(document.hidden);
-  private readonly reducedMotion = matchMedia(
-    '(prefers-reduced-motion: reduce)',
-  ).matches;
+  private readonly reducedMotion = prefersReducedMotion();
 
   protected readonly userPaused = signal(false);
 
@@ -344,7 +351,7 @@ export class ProjectCarouselComponent {
 
     if (count > 0 && (render < count || render >= count * 2)) {
       this.instant.set(true);
-      this.render.set(count + ((((render - count) % count) + count) % count));
+      this.render.set(count + wrapIndex(render - count, count));
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
           this.instant.set(false);

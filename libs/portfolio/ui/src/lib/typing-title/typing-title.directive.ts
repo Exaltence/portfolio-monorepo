@@ -6,6 +6,7 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { prefersReducedMotion } from '@portfolio-monorepo/shared/util';
 
 const TYPE_SPEED_MS = 100;
 const ERASE_SPEED_MS = 50;
@@ -28,9 +29,7 @@ export class TypingTitleDirective {
   private started = false;
 
   constructor() {
-    const reducedMotion = matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
+    const reducedMotion = prefersReducedMotion();
 
     effect(() => {
       const phrases = this.phrases();
