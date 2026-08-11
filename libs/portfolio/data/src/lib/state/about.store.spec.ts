@@ -88,6 +88,6 @@ describe('AboutStore', () => {
       .expectOne('content/about.json')
       .flush('nope', { status: 500, statusText: 'Server Error' });
 
-    await expect.poll(() => store.hasError()).toBe(true);
+    await expect.poll(() => store.about.error() !== undefined).toBe(true);
   });
 });

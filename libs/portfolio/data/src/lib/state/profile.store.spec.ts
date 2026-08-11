@@ -48,6 +48,6 @@ describe('ProfileStore', () => {
       .expectOne('content/profile.json')
       .flush('nope', { status: 500, statusText: 'Server Error' });
 
-    await expect.poll(() => store.hasError()).toBe(true);
+    await expect.poll(() => store.profile.error() !== undefined).toBe(true);
   });
 });

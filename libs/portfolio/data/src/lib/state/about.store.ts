@@ -1,6 +1,5 @@
-import { computed } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { signalStore, withComputed, withProps } from '@ngrx/signals';
+import { signalStore, withProps } from '@ngrx/signals';
 import { resolveYearsOfExperience } from '@portfolio-monorepo/portfolio/util';
 import { About } from '../models/about.model';
 
@@ -15,9 +14,5 @@ export const AboutStore = signalStore(
     about: httpResource<About>(() => 'content/about.json', {
       parse: parseAbout,
     }),
-  })),
-  withComputed(({ about }) => ({
-    isLoading: computed(() => about.isLoading()),
-    hasError: computed(() => about.error() !== undefined),
   })),
 );
