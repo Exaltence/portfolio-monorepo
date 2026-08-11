@@ -3,9 +3,9 @@ import { test, expect } from '@playwright/test';
 import {
   ProjectsPage,
   gotoReady,
-  recordIsTeleportedStep,
-  recordIsInstantSnap,
   recordTrackMotion,
+  sawInstantSnap,
+  sawTeleportWhileAnimating,
   waitForSettledValue,
 } from '@portfolio-monorepo/test/portfolio-e2e';
 
@@ -56,7 +56,7 @@ test('loops back to the start seamlessly without a reverse animation', async ({
       await settle(projects);
     });
 
-    expect(recordIsTeleportedStep(samples, step)).toBe(false);
+    expect(sawTeleportWhileAnimating(samples, step)).toBe(false);
   }
 
   expect(await projects.activeIndex()).toBe(initialIndex);
@@ -80,8 +80,8 @@ test('slides fluidly through rapid navigation across repeated loop boundaries', 
     await settle(projects);
   });
 
-  expect(recordIsTeleportedStep(samples, step)).toBe(false);
-  expect(recordIsInstantSnap(samples, step, period)).toBe(false);
+  expect(sawTeleportWhileAnimating(samples, step)).toBe(false);
+  expect(sawInstantSnap(samples, step, period)).toBe(false);
   expect(await projects.activeIndex()).toBe(initialIndex);
   expect(await projects.hasCardWithinFrame()).toBe(true);
 });

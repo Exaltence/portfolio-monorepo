@@ -63,41 +63,37 @@ export const recordTrackMotion = async (
   });
 };
 
-export const recordIsTeleportedStep = (
+export const sawTeleportWhileAnimating = (
   samples: readonly TrackSample[],
   step: number,
 ): boolean => {
   const animatedFrames = samples.filter((sample) => sample.animating).length;
   expect(animatedFrames).toBeGreaterThan(0);
 
-  let teleportedWhileAnimatingResult = false;
-  for (let i = 1; i < samples.length; i++) {
+  return samples.some((current, i) => {
+    if (i === 0) return false;
     const previous = samples[i - 1];
-    const current = samples[i];
-    const teleportedWhileAnimating =
+
+    return (
       current.animating &&
       previous.animating &&
-      Math.abs(current.x - previous.x) >= step;
-
-    if (teleportedWhileAnimating) teleportedWhileAnimatingResult = true;
-  }
-  return teleportedWhileAnimatingResult;
+      Math.abs(current.x - previous.x) >= step
+    );
+  });
 };
 
-export const recordIsInstantSnap = (
+export const sawInstantSnap = (
   samples: readonly TrackSample[],
   step: number,
   period: number,
-): boolean => {
-  let isInstantSnapResult = false;
-  for (let i = 1; i < samples.length; i++) {
-    const delta = Math.abs(samples[i].x - samples[i - 1].x);
+): boolean =>
+  samples.some((current, i) => {
+    if (i === 0) return false;
+    const previous = samples[i - 1];
+
+    const delta = Math.abs(current.x - previous.x);
     const periods = Math.round(delta / period);
     const isCleanPeriodJump = Math.abs(delta - periods * period) < step * 0.5;
-    const isInstantSnap = !samples[i].animating && !isCleanPeriodJump;
 
-    if (isInstantSnap) isInstantSnapResult = true;
-  }
-
-  return isInstantSnapResult;
-};
+    return !current.animating && !isCleanPeriodJump;
+  });
