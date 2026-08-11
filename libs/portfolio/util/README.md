@@ -1,6 +1,6 @@
 # Portfolio Util
 
-Utility functions for the `portfolio` domain.
+Framework-agnostic helpers for the `portfolio` domain — resolves the `{{yearsOfExperience}}` content token from a single career-start constant, so the figure is never written down twice.
 
 Public API import path:
 `@portfolio-monorepo/portfolio/util`

@@ -1,6 +1,6 @@
-# Portfolio E2E
+# Test Portfolio E2E
 
-Portfolio-e2e test helper lib for the `test` domain.
+Test support for the `portfolio-e2e` suite — page objects and helpers shared by the Playwright specs in `apps/portfolio-e2e/`. Contains no specs of its own.
 
 Public API import path:
 `@portfolio-monorepo/test/portfolio-e2e`

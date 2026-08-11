@@ -10,7 +10,7 @@ Nx monorepo for a personal portfolio site: Angular 22 (standalone, signals, zone
 
 Highest-priority rules, repeated because they are easy to violate:
 
-- **npm only.** Never `pnpm`/`yarn`/`npx <tool>`. Route tasks through `npm exec nx ...`.
+- **npm only.** Never `pnpm`/`yarn`. Route tasks through `npm exec nx ...` or `npx nx ...`.
 - No code comments or JSDoc unless explicitly requested.
 - No `any`; no constructor injection; no `subscribe()` in components; no `async` pipe; no explicit `changeDetection`.
 - Reuse existing patterns before creating new ones.
@@ -101,7 +101,7 @@ They are declared **twice**, because the two clients read different files and ne
 
 **Keep the two in sync** — the server entries are otherwise identical, so edit both or diff them. Project-scoped servers in `.mcp.json` require approval on first use; run `/mcp` to check connection status.
 
-`angular-cli` and `playwright-test` resolve to the workspace's own devDependencies; `playwright`, `eslint`, and `nx-mcp` (the Nx MCP server referenced in [AGENTS.md](../AGENTS.md)) are fetched on demand via `--yes`. All use `npm exec` rather than `npx`, per the npm-only rule.
+`angular-cli` and `playwright-test` resolve to the workspace's own devDependencies; `playwright`, `eslint`, and `nx-mcp` (the Nx MCP server referenced in [AGENTS.md](../AGENTS.md)) are fetched on demand via `--yes`. All use `npm exec` for consistency.
 
 ## Git workflow
 

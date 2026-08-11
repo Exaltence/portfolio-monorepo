@@ -40,7 +40,7 @@ Portfolio monorepo — digital showcase of work and skills for employers/clients
 | Lint (all)           | `npm exec nx run-many --target=lint`                |
 | Affected only        | `npm exec nx affected --target=<test\|lint\|build>` |
 
-Package manager: **npm only**. Never use pnpm/yarn/npx. Always route through `nx`.
+Package manager: **npm only**. Never use pnpm/yarn. Always route through `nx`.
 
 ## Stack
 
