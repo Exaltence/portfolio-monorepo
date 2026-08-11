@@ -2,16 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":semanticCommits",
-    ":dependencyDashboard",
     ":rebaseStalePrs",
     ":separateMajorReleases",
     ":combinePatchMinorReleases",
     ":ignoreUnstable",
-    ":prImmediately",
-    ":automergeDisabled",
-    ":maintainLockFilesWeekly",
-    ":prConcurrentLimit10"
+    ":maintainLockFilesWeekly"
   ],
   "platformAutomerge": true,
   "rangeStrategy": "bump",
@@ -36,7 +31,6 @@
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions",
       "automerge": true,
-      "platformAutomerge": true,
       "prPriority": 12
     },
     {
@@ -50,7 +44,6 @@
       ],
       "groupName": "linting and formatting",
       "automerge": true,
-      "platformAutomerge": true,
       "prPriority": 11
     },
     {
@@ -64,7 +57,6 @@
       ],
       "groupName": "testing frameworks",
       "automerge": true,
-      "platformAutomerge": true,
       "prPriority": 10
     },
     {
@@ -72,7 +64,6 @@
       "matchPackageNames": ["/^@swc\\//", "/^@swc-node\\//", "tslib"],
       "groupName": "build tooling",
       "automerge": true,
-      "platformAutomerge": true,
       "prPriority": 9
     },
     {
@@ -80,7 +71,6 @@
       "matchPackageNames": ["/^@types\\//"],
       "groupName": "TypeScript type definitions",
       "automerge": true,
-      "platformAutomerge": true,
       "prPriority": 8
     },
     {
@@ -90,7 +80,6 @@
       "groupName": "non-major dependencies",
       "groupSlug": "all-minor-patch",
       "automerge": true,
-      "platformAutomerge": true,
       "prPriority": 7
     },
     {
