@@ -238,4 +238,14 @@ Never include sensitive data (API keys, secrets, credentials) in client-side cod
 
 ## 10. Code Comments and JSDoc
 
-Do not use inline code comments or JSDoc in TypeScript code for this project. Use clear naming, structure, and these guidelines instead. If documentation is needed, use external markdown files.
+Do not use JSDoc. Prefer clear naming and structure over commentary — if a comment explains _what_ the code does, rename something instead. Anything longer than a line or two belongs in an external markdown file.
+
+Comment only where the logic is genuinely complex or hard to follow **and** the reason is not recoverable from the code itself: a workaround for a framework limitation, a deliberate choice that looks wrong, a constraint imposed from outside the file. Keep them to a minimum.
+
+- Explain **why**, never **what**.
+- One line of 100 characters or fewer is the default.
+- A short block of two or three lines is permitted where the _why_ genuinely needs it, and nowhere else.
+- ESLint disable directives are exempt from the length limit — their `--` reason is required and must stay legible.
+- Stylelint disable directives are exempt from the length limit — their `--` reason is required and must stay legible.
+
+A comment that passes this test is load-bearing. Removing one is a change, not a tidy-up.

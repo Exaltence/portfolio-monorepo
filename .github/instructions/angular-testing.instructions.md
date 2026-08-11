@@ -9,7 +9,7 @@ applyTo: '**/*.spec.ts'
 >
 > **Structure:** §1 Forbidden patterns → §2 Decision table → §3–§6 Test patterns by type (service, component, directive, pipe) → §7 DOM & change detection → §8 Mocking → §9 Routing.
 
-> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in any code — this project forbids inline code comments and JSDoc in all code (see `typescript.instructions.md` §10).
+> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in any code — this project allows comments only for genuinely complex logic (see `typescript.instructions.md` §10).
 
 ---
 

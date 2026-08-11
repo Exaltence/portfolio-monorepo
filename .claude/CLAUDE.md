@@ -11,7 +11,7 @@ Nx monorepo for a personal portfolio site: Angular 22 (standalone, signals, zone
 Highest-priority rules, repeated because they are easy to violate:
 
 - **npm only.** Never `pnpm`/`yarn`. Route tasks through `npm exec nx ...` or `npx nx ...`.
-- No code comments or JSDoc unless explicitly requested.
+- No JSDoc. Comment only genuinely complex logic, explaining why not what (see below).
 - No `any`; no constructor injection; no `subscribe()` in components; no `async` pipe; no explicit `changeDetection`.
 - Reuse existing patterns before creating new ones.
 
@@ -70,7 +70,12 @@ them, Firefox generally does not, so it draws an instant RST and e2e fails with
 page loads mean more chances to pick IPv4, but load is not the cause. Don't remove the `host` entry, and
 don't switch it to `0.0.0.0` — that is IPv4-only and just inverts the problem.
 
-**No narrative comments** keep comments to an absolute minimum only when absolutely necessary. Comments should be one line with a maximum of 100 characters explaining the why not what.
+**No narrative comments.** Comment only where the logic is genuinely complex _and_ the reason is not
+recoverable from the code — a framework workaround, a deliberate choice that looks wrong, an outside
+constraint. Keep them to an absolute minimum, explain why and never what. One line of ≤100 characters is
+the default; a two-to-three-line block is permitted where the why genuinely needs it. ESLint disable
+directives are exempt from the length limit. The comments that survive this test are load-bearing —
+removing one is a change, not a tidy-up. Full rule: [typescript.instructions.md](../.github/instructions/typescript.instructions.md) §10.
 
 **Library `test` targets borrow the app's build.** Each lib's `project.json` sets `buildTarget: portfolio:build:development`, so a broken app build breaks lib tests too.
 

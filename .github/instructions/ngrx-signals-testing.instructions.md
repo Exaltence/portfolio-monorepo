@@ -7,7 +7,7 @@ applyTo: '**/*.store.spec.ts'
 
 > **Scope:** Unit testing patterns for NgRx Signal Stores — state, computed, methods, rxMethod, signalMethod, custom features, store mocking, and integration testing. This file does NOT cover: general component/service testing (`angular-testing.instructions.md`), store creation patterns (`ngrx-signals.instructions.md`), or TypeScript typing/formatting (`typescript.instructions.md`).
 
-> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project forbids inline code comments and JSDoc (see `typescript.instructions.md` §10).
+> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project allows comments only for genuinely complex logic (see `typescript.instructions.md` §10).
 
 ---
 

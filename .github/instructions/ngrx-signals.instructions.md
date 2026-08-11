@@ -7,7 +7,7 @@ applyTo: '**/*.store.ts'
 
 > **Scope:** Signal Store creation, state, computed, methods, entities, lifecycle hooks, custom features, and RxJS/signal-method integration. This file does NOT cover: component architecture or DI (`angular.instructions.md`), DDD layering or naming (`architecture.instructions.md`), testing (`ngrx-signals-testing.instructions.md`), or TypeScript typing/formatting (`typescript.instructions.md`).
 
-> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project forbids inline code comments and JSDoc (see `typescript.instructions.md` §10).
+> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project allows comments only for genuinely complex logic (see `typescript.instructions.md` §10).
 
 ---
 

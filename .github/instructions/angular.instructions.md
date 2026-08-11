@@ -9,7 +9,7 @@ applyTo: '**/*.ts, **/*.html, **/*.scss'
 
 > Angular v22: `OnPush` is the implicit default change detection — never set `changeDetection` explicitly (`ChangeDetectionStrategy.Default` "eager" checking is forbidden). Zoneless change detection is the default (`provideZonelessChangeDetection()`); ZoneJS is not installed. Signal Forms (`@angular/forms/signals`) and the `resource()` / `rxResource()` / `httpResource()` APIs are stable. `@Service()` is the preferred decorator for root singletons; `injectAsync()` lazy-loads on-demand services. `provideHttpClient()` is not required in test providers — only use `provideHttpClientTesting()` for HTTP testing.
 
-> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project forbids inline code comments and JSDoc (see `typescript.instructions.md` §10).
+> **Note:** Comments inside code blocks in this file are instructional annotations for context only. Do not reproduce them in generated code — this project allows comments only for genuinely complex logic (see `typescript.instructions.md` §10).
 
 ---
 
