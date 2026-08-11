@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check icon sprite is up to date
+        run: npx nx run portfolio:icon-sprite:check
+
       - name: Build portfolio for GitHub Pages
         run: npx nx run portfolio:build:github-pages
 
