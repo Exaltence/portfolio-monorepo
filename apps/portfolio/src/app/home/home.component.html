@@ -39,6 +39,7 @@
 
   <aside class="home__aside">
     <app-profile-panel-feature
+      class="home__profile"
       animate.enter="u-enter-fade-slide u-enter-delay-4"
     />
   </aside>
@@ -47,7 +48,11 @@
     class="home__footer"
     animate.enter="u-enter-fade-slide u-enter-delay-5"
   >
-    <app-back-to-top class="home__back-to-top" [visible]="scrolled()" />
+    <app-back-to-top
+      class="home__back-to-top"
+      [class.home__back-to-top--split]="scrolled()"
+      [visible]="scrolled()"
+    />
     <p>
       Coded in
       <a

@@ -20,7 +20,7 @@
 
 .profile-panel__top {
   position: relative;
-  width: 70%;
+  width: min(70%, var(--profile-portrait-max, 100%));
   padding: var(--space-8);
 }
 

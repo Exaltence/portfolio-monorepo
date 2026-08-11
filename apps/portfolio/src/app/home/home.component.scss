@@ -13,7 +13,22 @@
 
 @media (width > #{$small-device}) {
   .home {
-    grid-template-columns: 65% 35%;
+    --split: 65%;
+
+    position: relative;
+    grid-template-columns: var(--split) 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .home::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--split);
+    width: 1px;
+    background-color: var(--line);
+    transition: var(--theme-surface-transition);
   }
 }
 
@@ -93,64 +108,54 @@
 .home__aside {
   order: -1;
   padding: var(--space-section) 8%;
-  border-left: 1px solid var(--line);
-  transition: var(--theme-surface-transition);
 }
 
 @media (width > #{$small-device}) {
   .home__aside {
-    position: sticky;
-    top: 0;
     order: 0;
-    align-self: start;
-    height: 100dvh;
+    align-self: stretch;
+  }
+
+  .home__profile {
+    // Portrait's dynamic height, 24rem is exact tipping point at 1920×800, change if profile grows in height
+    --profile-portrait-max: max(12rem, calc(80dvh - 24rem));
+
+    position: sticky;
+    top: var(--space-section);
+    max-height: calc(100dvh - var(--space-section));
     overflow: hidden;
   }
 }
 
 .home__back-to-top {
   position: absolute;
-  right: var(--btt-inset);
+  right: calc(var(--btt-inset) - var(--btt-gap));
   top: 0;
   transform: translateY(-50%);
+  padding: var(--btt-gap);
   cursor: pointer;
   z-index: 10;
   display: flex;
+  background-color: transparent;
+  transition: background-color var(--motion-duration-scene)
+    var(--motion-ease-standard);
+}
+
+.home__back-to-top--split {
+  background-color: var(--bg);
 }
 
 .home__footer {
-  // Geometry back-to-top button, shared with the top rule below
+  // Geometry back-to-top button, shared with the rule it masks
   --btt-inset: 8%;
-  --btt-size: calc(3rem + 2px);
   --btt-gap: 1.5rem;
-  --btt-gap-start: calc(var(--btt-inset) - var(--btt-gap));
-  --btt-gap-end: calc(var(--btt-inset) + var(--btt-size) + var(--btt-gap));
 
   position: relative;
   padding: var(--space-8) 8%;
   line-height: var(--space-8);
   color: var(--text);
-}
-
-// Top rule drawn as two segments so it breaks around the back-to-top button
-.home__footer::before,
-.home__footer::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  height: 1px;
-  background-color: var(--line);
+  border-top: 1px solid var(--line);
   transition: var(--theme-surface-transition);
-}
-
-.home__footer::before {
-  left: 0;
-  right: var(--btt-gap-end);
-}
-
-.home__footer::after {
-  right: 0;
-  width: var(--btt-gap-start);
 }
 
 .home__footer-link {
