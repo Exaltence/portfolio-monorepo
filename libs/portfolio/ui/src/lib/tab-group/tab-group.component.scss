@@ -56,7 +56,7 @@ $stack-below: 434px;
 
   @include on-focus;
 
-  &:not(.active) {
+  &:not(.tab-group__tab--active) {
     @include on-hover-press {
       color: var(--text-strong);
 
@@ -66,13 +66,9 @@ $stack-below: 434px;
     }
   }
 
-  &.active {
+  &--active {
     color: var(--mc-text);
     border-bottom-color: var(--mc);
-  }
-
-  &.active::before {
-    display: none;
   }
 
   // Sliding underline animation on hover
@@ -87,6 +83,11 @@ $stack-below: 434px;
     transition:
       width var(--motion-duration-state) var(--motion-ease-standard),
       var(--theme-surface-transition);
+  }
+
+  // Must follow `&::before`: as a BEM modifier both selectors weigh the same, so order decides
+  &--active::before {
+    display: none;
   }
 }
 

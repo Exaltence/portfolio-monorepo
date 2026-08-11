@@ -25,11 +25,11 @@ describe('ThemeToggleComponent', () => {
     ) as HTMLButtonElement;
   }
 
-  it('should render the sun icon and light class when the theme is light', async () => {
+  it('should render the sun icon and theme-toggle--light class when the theme is light', async () => {
     fixture.componentRef.setInput('theme', 'light');
     await fixture.whenStable();
 
-    expect(button().classList.contains('light')).toBe(true);
+    expect(button().classList.contains('theme-toggle--light')).toBe(true);
     expect(
       (fixture.nativeElement as HTMLElement).querySelector(
         '.theme-toggle__icon--sun',
@@ -42,11 +42,11 @@ describe('ThemeToggleComponent', () => {
     ).toBeNull();
   });
 
-  it('should render the moon icon without the light class when the theme is dark', async () => {
+  it('should render the moon icon without the theme-toggle--light class when the theme is dark', async () => {
     fixture.componentRef.setInput('theme', 'dark');
     await fixture.whenStable();
 
-    expect(button().classList.contains('light')).toBe(false);
+    expect(button().classList.contains('theme-toggle--light')).toBe(false);
     expect(
       (fixture.nativeElement as HTMLElement).querySelector(
         '.theme-toggle__icon--moon',

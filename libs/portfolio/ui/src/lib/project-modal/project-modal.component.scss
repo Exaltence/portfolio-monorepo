@@ -203,7 +203,7 @@
 
   @include on-focus;
 
-  &:not(.active) {
+  &:not(.project-modal__thumb--active) {
     @include on-hover {
       border-color: var(--text-strong);
       scale: var(--hover-grow-scale);
@@ -215,7 +215,7 @@
     }
   }
 
-  &.active {
+  &--active {
     border-color: var(--mc);
   }
 
@@ -265,6 +265,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  &--prev {
+    justify-content: flex-start;
+  }
+
+  &--next {
+    justify-content: flex-end;
+  }
 }
 
 .project-modal__button {
@@ -289,6 +297,14 @@
       margin: 0 var(--space-4);
     }
   }
+
+  &--prev {
+    justify-content: flex-start;
+  }
+
+  &--next {
+    justify-content: flex-end;
+  }
 }
 
 .project-modal__button-icon {
@@ -300,14 +316,6 @@
     color var(--motion-duration-state) var(--motion-ease-standard),
     border-color var(--motion-duration-state) var(--motion-ease-standard),
     margin var(--motion-duration-state) var(--motion-ease-standard);
-}
-
-.prev {
-  justify-content: flex-start;
-}
-
-.next {
-  justify-content: flex-end;
 }
 
 .project-modal__button-icon--next {

@@ -52,7 +52,7 @@
                     type="button"
                     class="project-modal__thumb"
                     [attr.data-testid]="'modal-image-' + j"
-                    [class.active]="activeImage() === j"
+                    [class.project-modal__thumb--active]="activeImage() === j"
                     [attr.aria-pressed]="activeImage() === j"
                     [attr.aria-label]="'Show image ' + (j + 1)"
                     (click)="showImage(j)"
@@ -74,10 +74,12 @@
     </div>
 
     <nav class="project-modal__nav" aria-label="Project navigation">
-      <div class="project-modal__button-wrapper prev">
+      <div
+        class="project-modal__button-wrapper project-modal__button-wrapper--prev"
+      >
         <button
           type="button"
-          class="project-modal__button prev"
+          class="project-modal__button project-modal__button--prev"
           data-testid="modal-prev"
           aria-label="Previous project"
           (click)="prev()"
@@ -89,10 +91,12 @@
           <span class="project-modal__button-text">prev</span>
         </button>
       </div>
-      <div class="project-modal__button-wrapper next">
+      <div
+        class="project-modal__button-wrapper project-modal__button-wrapper--next"
+      >
         <button
           type="button"
-          class="project-modal__button next"
+          class="project-modal__button project-modal__button--next"
           data-testid="modal-next"
           aria-label="Next project"
           (click)="next()"

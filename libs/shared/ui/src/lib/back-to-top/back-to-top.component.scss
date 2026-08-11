@@ -37,7 +37,7 @@
     scale: var(--press-scale);
   }
 
-  &.is-visible {
+  &--visible {
     visibility: visible;
     opacity: 1;
   }

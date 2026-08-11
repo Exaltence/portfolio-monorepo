@@ -40,13 +40,13 @@ describe('BackToTopComponent', () => {
     expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
   });
 
-  it('should expose the is-visible class based on the visible input', async () => {
+  it('should expose the back-to-top--visible class based on the visible input', async () => {
     fixture.componentRef.setInput('visible', true);
     await fixture.whenStable();
-    expect(button().classList.contains('is-visible')).toBe(true);
+    expect(button().classList.contains('back-to-top--visible')).toBe(true);
 
     fixture.componentRef.setInput('visible', false);
     await fixture.whenStable();
-    expect(button().classList.contains('is-visible')).toBe(false);
+    expect(button().classList.contains('back-to-top--visible')).toBe(false);
   });
 });

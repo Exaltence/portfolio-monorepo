@@ -9,7 +9,7 @@
         role="tab"
         [id]="idPrefix + '-tab-' + i"
         [attr.aria-controls]="idPrefix + '-panel'"
-        [class.active]="active() === i"
+        [class.tab-group__tab--active]="active() === i"
         [attr.aria-selected]="active() === i"
         [attr.tabindex]="active() === i ? 0 : -1"
         (click)="select(i)"
