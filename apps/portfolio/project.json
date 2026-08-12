@@ -61,7 +61,7 @@
             }
           ],
           "outputHashing": "all",
-          "baseHref": "/portfolio-monorepo/"
+          "baseHref": "/"
         }
       },
       "defaultConfiguration": "production"
