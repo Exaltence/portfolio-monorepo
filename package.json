@@ -40,7 +40,7 @@
     "@angular/language-service": "22.0.7",
     "@commitlint/cli": "^20.5.3",
     "@commitlint/config-conventional": "^20.5.3",
-    "@eslint/js": "^9.39.4",
+    "@eslint/js": "^9.39.5",
     "@ngrx/eslint-plugin": "^21.1.0",
     "@nx/angular": "23.1.1",
     "@nx/devkit": "23.1.1",
@@ -50,7 +50,7 @@
     "@nx/playwright": "23.1.1",
     "@nx/web": "23.1.1",
     "@nx/workspace": "23.1.1",
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.62.1",
     "@schematics/angular": "22.0.7",
     "@swc-node/register": "1.12.1",
     "@swc/core": "~1.15.33",
@@ -61,16 +61,16 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^1.8.3",
     "jsdom": "^27.4.0",
-    "lefthook": "^2.1.6",
+    "lefthook": "^2.1.10",
     "nx": "23.1.1",
-    "prettier": "~3.8.3",
+    "prettier": "~3.9.6",
     "saxes": "^6.0.0",
-    "stylelint": "^17.11.1",
+    "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",
     "tslib": "^2.8.1",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.59.3",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.10"
   },
   "overrides": {
     "@ngrx/signals": {
