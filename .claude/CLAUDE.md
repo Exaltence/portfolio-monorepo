@@ -53,7 +53,7 @@ Every new export must be added to the lib's `src/index.ts` barrel — deep impor
 
 **Content is static JSON.** Stores read it with `httpResource()` against a relative path — e.g. [projects.store.ts](../libs/portfolio/data/src/lib/state/projects.store.ts) fetches `'content/projects.json'`. Adding a content field means editing both the model in `libs/portfolio/data/src/lib/models/` and the JSON in `apps/portfolio/public/content/`. No leading slash — the app is deployed under a `baseHref`.
 
-**Routing uses hash location** (`withHashLocation()` in [app.config.ts](../apps/portfolio/src/app/app.config.ts)) and the `github-pages` build configuration sets `baseHref: /portfolio-monorepo/`. Both exist for GitHub Pages hosting — don't "fix" them into path-based routing.
+**Routing uses hash location** (`withHashLocation()` in [app.config.ts](../apps/portfolio/src/app/app.config.ts)) because GitHub Pages serves no rewrite rule, so a deep path 404s on reload. The site is a user site at `https://exaltence.github.io/`, so the `github-pages` build configuration sets `baseHref: /` — don't "fix" hash routing into path-based routing without also emitting a `404.html` fallback.
 
 **SCSS is linted separately and enforces BEM.** [stylelint.config.mjs](../stylelint.config.mjs) rejects class names outside `block__element--modifier` kebab-case. `nx run-many --target=lint` will not catch this; run the `stylelint` target. Global partials live in [apps/portfolio/src/styles/](../apps/portfolio/src/styles/) (`_tokens`, `_base`, `_theme`, `_scrollbar`, `_motion`, `_overlay`) and are aggregated by `styles.scss`.
 

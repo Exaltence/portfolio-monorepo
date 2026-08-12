@@ -3,7 +3,7 @@
 The source of [Shaun Vercauteren's](https://github.com/Exaltence) personal portfolio — a zoneless
 Angular 22 single-page site built as an Nx monorepo with a domain-driven library layout.
 
-**Live:** <https://exaltence.github.io/portfolio-monorepo/>
+**Live:** <https://exaltence.github.io/>
 
 There is no backend. All content is served as static JSON from `apps/portfolio/public/content/` and
 read through `httpResource()`, which keeps the site deployable to GitHub Pages while leaving the data
@@ -114,7 +114,7 @@ npx nx release                   # subsequent releases
 
 The portfolio is automatically deployed to GitHub Pages on every push to `main` via the `.github/workflows/deploy-pages.yml` workflow.
 
-Live URL: `https://exaltence.github.io/portfolio-monorepo/`
+Live URL: `https://exaltence.github.io/`
 
 ### One-time repository settings required
 

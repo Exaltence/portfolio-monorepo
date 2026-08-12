@@ -6,7 +6,7 @@ Portfolio monorepo serves as a dynamic, digital showcase of work, skills, and ac
 
 - **Stack**: Nx 23, Angular 22 (standalone, signals, control flow, implicit OnPush, zoneless), NgRx Signal Store 21, Vitest, Playwright
 - **Architecture**: Domain-Driven Design — `feature/`, `ui/`, `data/`, `util/` per domain under `src/libs`
-- **Repo slug**: `Exaltence/portfolio-monorepo`
+- **Repo slug**: `Exaltence/Exaltence.github.io`
 
 Detailed guidance lives in `.github/instructions/` (auto-applied via `applyTo` globs):
 
