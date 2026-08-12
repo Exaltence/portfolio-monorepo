@@ -95,6 +95,15 @@
   padding-right: 8%;
 }
 
+/*
+ * Anchors the second of the two auto margins that spread leftover height on viewports
+ * tall enough to fit the whole page. Both resolve to 0 once the page scrolls.
+ */
+.home__main::after {
+  content: '';
+  margin-top: auto;
+}
+
 .home__section {
   margin-bottom: var(--space-section);
 
@@ -102,6 +111,10 @@
 
   &:first-child {
     margin-top: var(--space-section);
+  }
+
+  & + & {
+    margin-top: auto;
   }
 }
 
@@ -117,13 +130,30 @@
   }
 
   .home__profile {
-    // Portrait's dynamic height, 24rem is exact tipping point at 1920×800, change if profile grows in height
-    --profile-portrait-max: max(12rem, calc(80dvh - 24rem));
+    /*
+     * 76dvh, at 80 the 4:5 portrait eats viewport height 1:1 (0.8 x 1.25 = 1),
+     * freezing the margin against `max-height` at 64px on every screen. Below 80 it scales.
+     */
+    --profile-portrait-max: max(12rem, calc(76dvh - 22rem));
+    // Old portrait's dynamic height, 24rem is exact tipping point at 1920×800, change if profile grows in height
+    // --profile-portrait-max: max(12rem, calc(80dvh - 24rem));
 
     position: sticky;
     top: var(--space-section);
     max-height: calc(100dvh - var(--space-section));
     overflow: hidden;
+  }
+}
+
+// The aside is a column on tall screens, but the profile panel is not tall enough to fill it.
+@media (width > 1040px) and (height >= 2400px),
+  (width > 1040px) and (width <= 3840px) and (height >= 2160px) {
+  .home__aside {
+    display: flex;
+    flex-direction: column;
+  }
+  .home__profile {
+    margin-block: auto;
   }
 }
 

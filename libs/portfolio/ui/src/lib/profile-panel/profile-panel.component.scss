@@ -9,7 +9,6 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  container-type: inline-size;
 
   @include on-hover {
     .profile-panel__border {
@@ -22,6 +21,7 @@
   position: relative;
   width: min(70%, var(--profile-portrait-max, 100%));
   padding: var(--space-8);
+  container-type: inline-size;
 }
 
 .profile-panel__border {
@@ -64,7 +64,7 @@
 
 .profile-panel__greeting {
   margin-bottom: var(--space-2);
-  font-size: clamp(0.625rem, 2.6cqi, var(--fs-base));
+  font-size: clamp(0.625rem, 4.437cqi, var(--fs-base));
   font-weight: 500;
   color: var(--text);
   text-transform: uppercase;
@@ -76,8 +76,8 @@
   margin: 0;
   overflow: hidden;
 
-  // Tracks the panel, not the viewport
-  font-size: clamp(0.75rem, 4.5cqi, var(--fs-lg));
+  // Tracks the portrait box, not the viewport
+  font-size: clamp(0.75rem, 7.679cqi, var(--fs-lg));
   font-weight: 600;
 }
 
@@ -165,8 +165,8 @@
   justify-content: center;
 
   .profile-panel__social-link-icon {
-    width: 4rem;
-    height: 4rem;
+    width: 2.5rem;
+    height: 2.5rem;
     transition:
       color var(--motion-duration-state) var(--motion-ease-standard),
       scale var(--motion-duration-press) var(--motion-ease-standard);
