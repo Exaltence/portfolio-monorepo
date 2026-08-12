@@ -165,8 +165,8 @@
   justify-content: center;
 
   .profile-panel__social-link-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: var(--icon-lg);
+    height: var(--icon-lg);
     transition:
       color var(--motion-duration-state) var(--motion-ease-standard),
       scale var(--motion-duration-press) var(--motion-ease-standard);
@@ -268,8 +268,8 @@
 }
 
 .profile-panel__cv-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
   pointer-events: none;
   transition:
     scale var(--motion-duration-press) var(--motion-ease-standard),

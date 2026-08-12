@@ -54,8 +54,12 @@
   position: absolute;
   top: var(--space-4);
   right: var(--space-4);
-  width: 3rem;
-  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-md);
+  height: var(--control-md);
+  padding: 0;
   line-height: 1;
   color: var(--text-strong);
   cursor: pointer;
@@ -78,6 +82,11 @@
     border-color: var(--mc);
     scale: var(--press-scale-deep);
   }
+}
+
+.project-modal__close-icon {
+  width: var(--icon-md);
+  height: var(--icon-md);
 }
 
 .project-modal__category {
@@ -308,8 +317,8 @@
 }
 
 .project-modal__button-icon {
-  width: 3rem;
-  height: 3rem;
+  width: var(--icon-xl);
+  height: var(--icon-xl);
   color: var(--text);
   border: 1px solid transparent;
   transition:

@@ -83,8 +83,8 @@
 }
 
 .home__menu-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
   margin-left: var(--space-1);
 }
 
@@ -135,6 +135,7 @@
      * freezing the margin against `max-height` at 64px on every screen. Below 80 it scales.
      */
     --profile-portrait-max: max(12rem, calc(76dvh - 22rem));
+
     // Old portrait's dynamic height, 24rem is exact tipping point at 1920×800, change if profile grows in height
     // --profile-portrait-max: max(12rem, calc(80dvh - 24rem));
 
@@ -152,6 +153,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .home__profile {
     margin-block: auto;
   }
