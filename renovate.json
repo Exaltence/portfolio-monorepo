@@ -123,9 +123,10 @@
       "enabled": false
     },
     {
-      "description": "Package versions bumped automatically by `@nx/eslint` and `@nx/angular` migrations (eslint, typescript-eslint, and the ngrx-package-updates migration). Renovate must never propose updates for these, to avoid conflicting with coordinated Nx migrations.",
+      "description": "Package versions bumped automatically by `@nx/eslint` and `@nx/angular` migrations (eslint, typescript-eslint, and the ngrx-package-updates migration). Renovate must never propose updates for these, to avoid conflicting with coordinated Nx migrations. `@eslint/js`'s major version must track `eslint`'s exactly, so it is excluded here rather than left in the auto-merging `linting and formatting` group.",
       "matchPackageNames": [
         "eslint",
+        "@eslint/js",
         "eslint-config-prettier",
         "typescript-eslint",
         "/^@typescript-eslint\\//",
