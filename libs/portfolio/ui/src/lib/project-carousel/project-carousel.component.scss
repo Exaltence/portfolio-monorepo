@@ -17,7 +17,9 @@
 
 .carousel__track {
   display: flex;
-  gap: var(--space-5);
+
+  // Absolute, not `--space-5`: `GAP_PX` in the component must match
+  gap: 20px;
   transition: transform var(--motion-duration-scene) var(--motion-ease-standard);
   will-change: transform;
 
@@ -27,18 +29,18 @@
 }
 
 .carousel__slide {
-  flex: 0 0 calc((100% - 2 * var(--space-5)) / 3);
+  flex: 0 0 calc((100% - 2 * 20px) / 3);
   box-sizing: border-box;
   user-select: none;
 }
 
-@container (max-width: 699px) {
+@container (width < 700px) {
   .carousel__slide {
-    flex-basis: calc((100% - var(--space-5)) / 2);
+    flex-basis: calc((100% - 20px) / 2);
   }
 }
 
-@container (max-width: 459px) {
+@container (width < 460px) {
   .carousel__slide {
     flex-basis: 100%;
   }

@@ -192,9 +192,10 @@ export class ProjectCarouselComponent {
 
       const host = this.viewport()?.nativeElement;
       if (host && typeof ResizeObserver !== 'undefined') {
-        this.viewportWidth.set(host.clientWidth);
-        const observer = new ResizeObserver(() =>
-          this.viewportWidth.set(host.clientWidth),
+        // Fractional on purpose: `clientWidth` rounds, the container queries picking the column count do not
+        this.viewportWidth.set(host.getBoundingClientRect().width);
+        const observer = new ResizeObserver(([entry]) =>
+          this.viewportWidth.set(entry.contentBoxSize[0].inlineSize),
         );
         observer.observe(host);
         this.destroyRef.onDestroy(() => observer.disconnect());
