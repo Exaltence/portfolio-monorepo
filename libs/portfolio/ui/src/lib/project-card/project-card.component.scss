@@ -52,7 +52,6 @@
   transition: color var(--motion-duration-state) var(--motion-ease-standard);
 }
 
-// Corner accent animation on hover
 .project-card__title::before,
 .project-card__title::after {
   content: '';

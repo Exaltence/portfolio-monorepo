@@ -5,10 +5,7 @@ export function prefersReducedMotion(): boolean {
   );
 }
 
-/*
- * Reads a duration token so JS timers stay in step with the CSS that owns them.
- * The production build rewrites `300ms` to `.3s`, so both units are handled.
- */
+// Keeps JS timers in step with the CSS; the production build rewrites `300ms` to `.3s`
 export function motionDurationMs(token: string, fallback: number): number {
   if (typeof getComputedStyle !== 'function') return fallback;
 

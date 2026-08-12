@@ -95,10 +95,7 @@
   padding-right: 8%;
 }
 
-/*
- * Anchors the second of the two auto margins that spread leftover height on viewports
- * tall enough to fit the whole page. Both resolve to 0 once the page scrolls.
- */
+// Anchors the second auto margin spreading leftover height; both resolve to 0 once it scrolls
 .home__main::after {
   content: '';
   margin-top: auto;
@@ -130,13 +127,10 @@
   }
 
   .home__profile {
-    /*
-     * 76dvh, at 80 the 4:5 portrait eats viewport height 1:1 (0.8 x 1.25 = 1),
-     * freezing the margin against `max-height` at 64px on every screen. Below 80 it scales.
-     */
+    // 76dvh: at 80 the 4:5 portrait eats height 1:1 and the margin freezes against `max-height`
     --profile-portrait-max: max(12rem, calc(76dvh - 22rem));
 
-    // Old portrait's dynamic height, 24rem is exact tipping point at 1920×800, change if profile grows in height
+    // Previous portrait's figures, kept because 24rem was the exact tipping point at 1920x800
     // --profile-portrait-max: max(12rem, calc(80dvh - 24rem));
 
     position: sticky;
@@ -178,7 +172,7 @@
 }
 
 .home__footer {
-  // Geometry back-to-top button, shared with the rule it masks
+  // Owned by the footer: the button is positioned from the footer's inset and reads both back
   --btt-inset: 8%;
   --btt-gap: 1.5rem;
 
@@ -194,7 +188,6 @@
   position: relative;
   color: var(--text-strong);
 
-  // Center expanding underline animation on hover
   &::after {
     content: '';
     position: absolute;
@@ -209,10 +202,7 @@
       var(--motion-ease-standard);
   }
 
-  /*
-   * The hover colour cannot be left to the global `a` rule, 
-   * emulated encapsulation appends an attribute selector to component rules.
-   */
+  // Not left to the global `a` rule: emulated encapsulation makes this component rule outweigh it
   @include on-hover-press {
     color: var(--mc-text);
 

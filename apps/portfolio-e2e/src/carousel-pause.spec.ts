@@ -7,10 +7,7 @@ import {
   waitForSettledValue,
 } from '@portfolio-monorepo/test/portfolio-e2e';
 
-/*
- * Deliberately not under reduced motion: these specs measure autoplay, which the
- * carousel gates on `prefers-reduced-motion` at construction.
- */
+// Not under reduced motion: these specs measure autoplay, which the carousel gates on it
 
 const AUTOPLAY_MS = 3000;
 const PARKED = { x: 5, y: 5 };
@@ -47,12 +44,14 @@ test.describe('the explicit pause control', () => {
       'Pause automatic rotation',
     );
 
+    // Dispatched, not clicked: a real click moves the pointer in and arms the hover pause
     await projects.rotation.dispatchEvent('click');
     await expect(projects.rotation).toHaveAttribute(
       'aria-label',
       'Resume automatic rotation',
     );
 
+    // A real wait, not a poll: only elapsed time can prove the track did not move
     const held = await projects.activeIndex();
     await new Promise((resolve) => setTimeout(resolve, AUTOPLAY_MS * 2 + 500));
     expect(await projects.activeIndex()).toBe(held);

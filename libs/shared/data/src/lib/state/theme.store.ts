@@ -24,6 +24,7 @@ export const ThemeStore = signalStore(
   withMethods((store, doc = inject(DOCUMENT)) => {
     let transitionTimeout: ReturnType<typeof setTimeout> | undefined;
 
+    // On only while the swap plays; left on it would animate every later colour change
     const apply = (theme: Theme): void => {
       const root = doc.documentElement;
       clearTimeout(transitionTimeout);

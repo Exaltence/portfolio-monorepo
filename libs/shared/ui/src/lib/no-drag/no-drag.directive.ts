@@ -1,9 +1,6 @@
 import { Directive } from '@angular/core';
 
-/*
- * Native link dragging captures the pointer, `pointerup`, `pointerleave` and
- * `click` never arrive and every hover and `:active` state left open latches on across the page
- */
+// Native link dragging captures the pointer, so `pointerup` never arrives and hover latches on
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector -- unprefixed on purpose; an opt-in attribute can be forgotten on a new anchor.
   selector: 'a[href], a[routerLink]',

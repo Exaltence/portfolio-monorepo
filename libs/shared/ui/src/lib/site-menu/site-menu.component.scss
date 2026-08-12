@@ -118,7 +118,6 @@
   display: inline-block;
 }
 
-// Sliding underline animation on hover
 .site-menu__text::after {
   content: '';
   position: absolute;
@@ -202,7 +201,7 @@
   }
 }
 
-// `--stagger-index` is bound per item in the template, the timing stays here so reduced motion can zero it centrally
+// `--stagger-index` is bound per item; the timing stays here so reduced motion can zero it once
 .site-menu-link-enter {
   animation: site-menu-link-enter var(--motion-duration-scene)
     var(--motion-ease-standard) both;

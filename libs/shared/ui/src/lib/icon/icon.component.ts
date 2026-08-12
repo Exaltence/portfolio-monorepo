@@ -30,6 +30,7 @@ export class IconComponent {
   constructor() {
     effect(() => {
       const svg = this.svg();
+      // The registry shares one element per icon, and a node can only live in one place
       this.host.nativeElement.replaceChildren(
         ...(svg ? [svg.cloneNode(true)] : []),
       );

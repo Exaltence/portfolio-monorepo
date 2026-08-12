@@ -12,7 +12,7 @@
   list-style: none;
 }
 
-// Tracks the list's own width
+// A container query, not a media query: the list sits in a tab panel narrower than the viewport
 @container (width <= 34rem) {
   .skill-list {
     grid-template-columns: repeat(3, 1fr);

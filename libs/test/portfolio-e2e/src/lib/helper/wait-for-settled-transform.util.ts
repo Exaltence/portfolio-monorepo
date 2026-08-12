@@ -1,5 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
+// Two equal reads, because a single one can still catch a frame of an in-flight animation
 export const waitForSettledValue = async (
   read: () => Promise<string>,
 ): Promise<string> => {
@@ -27,6 +28,7 @@ export interface TrackSample {
   readonly animating: boolean;
 }
 
+// Sampled in-page per frame: the defect lives in frames Playwright cannot see from outside
 export const recordTrackMotion = async (
   page: Page,
   run: () => Promise<void>,
@@ -63,6 +65,7 @@ export const recordTrackMotion = async (
   });
 };
 
+// Catches the snap back running while the transition is still on, flying a whole slide at once
 export const sawTeleportWhileAnimating = (
   samples: readonly TrackSample[],
   step: number,
@@ -82,6 +85,7 @@ export const sawTeleportWhileAnimating = (
   });
 };
 
+// The mirror case: with the transition off, only the teleport jumps, by whole list periods
 export const sawInstantSnap = (
   samples: readonly TrackSample[],
   step: number,

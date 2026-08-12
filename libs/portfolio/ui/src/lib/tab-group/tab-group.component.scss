@@ -36,7 +36,7 @@ $stack-below: 434px;
     color var(--motion-duration-state) var(--motion-ease-standard),
     border-color var(--motion-duration-state) var(--motion-ease-standard);
 
-  // Separator line between tabs on larger screens
+  // The separator is absolute and takes no space; the matching margin is what reserves room
   @media (width >= #{$stack-below}) {
     &:not(:last-child)::after {
       position: absolute;
@@ -71,7 +71,6 @@ $stack-below: 434px;
     border-bottom-color: var(--mc);
   }
 
-  // Sliding underline animation on hover
   &::before {
     content: '';
     position: absolute;

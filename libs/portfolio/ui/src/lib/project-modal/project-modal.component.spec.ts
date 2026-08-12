@@ -226,7 +226,7 @@ describe('ProjectModalComponent', () => {
       animationComplete,
     } as AnimationCallbackEvent);
 
-    // 300ms is the default scene duration
+    // One scene duration only; the fallback is armed well past it, so nothing has fired yet
     vi.advanceTimersByTime(300);
     expect(animationComplete).not.toHaveBeenCalled();
 

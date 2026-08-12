@@ -48,12 +48,7 @@ test('holds the scroll position while tabbing past the end of the menu', async (
   }
 });
 
-/*
- * Clicking the panel's own padding used to drop focus to `<body>`, which took
- * the trap and the Escape handler with it — Tab reached the page behind and the
- * menu could no longer be dismissed from the keyboard. Every other spec here
- * clicks a control, so none of them touch this.
- */
+// Clicking the panel's padding used to drop focus to `<body>`, losing the trap and Escape
 test('survives a click on dead space inside the panel', async ({ page }) => {
   const menu = new MenuPage(page);
   await menu.goto();

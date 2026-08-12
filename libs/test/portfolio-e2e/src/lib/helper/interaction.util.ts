@@ -1,10 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import { requireBoundingBox } from './wait-for-settled-transform.util';
 
-/*
- * Two accents on purpose. `--mc` is chrome — borders, focus rings, icon-only controls
- * `--mc-text` is the only one allowed to colour text.
- */
+// Two accents on purpose: `--mc` is chrome, `--mc-text` is the only one allowed on text
 export const ACCENT_COLOR = 'rgb(152, 119, 80)';
 export const ACCENT_TEXT_COLOR = 'rgb(173, 138, 94)';
 
@@ -54,6 +51,7 @@ export const holdPointer = async (
   await page.mouse.down();
 };
 
+// Moved off the element first: releasing on it would complete a click and open the target
 export const releaseWithoutClick = async (page: Page): Promise<void> => {
   await page.mouse.move(1, 1);
   await page.mouse.up();

@@ -1,3 +1,4 @@
+// Gated so touch never matches: it resolves `:hover` on tap and latches it until the next tap
 @mixin on-hover {
   @media (hover: hover) and (pointer: fine) {
     &:hover {

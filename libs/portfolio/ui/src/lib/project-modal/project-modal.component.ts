@@ -18,7 +18,7 @@ import {
 } from '@portfolio-monorepo/shared/util';
 
 const LEAVE_MS = 300;
-// Generous on purpose, matching the carousel's settle net: deadlock guard, not a timing mechanism
+// Deadlock guard like the carousel's settle net: a lost `animationend` would strand the dialog
 const LEAVE_FALLBACK_GRACE_MS = 250;
 
 @Component({
@@ -34,7 +34,9 @@ export class ProjectModalComponent {
   protected readonly projects = this.data.projects;
   protected readonly current = signal(this.data.index);
   protected readonly activeImage = signal(0);
+  // Removes the surface from the template, which is what fires the leave animation
   protected readonly closing = signal(false);
+  // Fed to the stylesheet so the content slides out towards the side it is being replaced from
   protected readonly direction = signal<1 | -1>(1);
 
   private readonly surface = viewChild<ElementRef<HTMLElement>>('surface');
@@ -47,6 +49,7 @@ export class ProjectModalComponent {
   );
 
   constructor() {
+    // CDK's own backdrop and Escape close skips the leave animation; route both through `close()`
     this.dialogRef.disableClose = true;
     effect(() => {
       if (this.backdropClicked()) {
@@ -75,6 +78,7 @@ export class ProjectModalComponent {
     this.resetScroll();
   }
 
+  // The surface is reused across projects, so the next one would open at the previous scroll
   private resetScroll(): void {
     const surface = this.surface()?.nativeElement;
     if (surface && surface.scrollTop > 0) {
@@ -90,10 +94,11 @@ export class ProjectModalComponent {
     this.closing.set(true);
   }
 
-  // Deferred so the fade/scale-down leave animation can play before CDK tears down the dialog
+  // Holds the removal open so the fade/scale-down can play before CDK tears the dialog down
   protected onLeave(event: AnimationCallbackEvent): void {
     const element = event.target as HTMLElement;
     const duration = motionDurationMs('--motion-duration-scene', LEAVE_MS);
+    // The event and the fallback race, and whichever loses would otherwise close a second time
     let finished = false;
 
     const finish = (): void => {
@@ -105,11 +110,10 @@ export class ProjectModalComponent {
       element.removeEventListener('animationend', handleAnimationEnd);
       event.animationComplete();
 
-      // CDK-dialog api limitation workaround Angular v22, no existing overlay lifecycle hook to wait for the backdrop fade-out animation to complete before closing the dialog
+      // CDK dialog (Angular v22) has no hook for animating the backdrop out, so it is done by hand
       document
         .querySelector('.project-modal-backdrop')
         ?.classList.add('closing');
-      // Sync close with animation duration
       setTimeout(() => this.dialogRef.close(), duration);
     };
 

@@ -108,6 +108,7 @@
 }
 
 .project-modal__image {
+  // One shared grid cell so the outgoing and incoming images overlap and cross-fade
   grid-area: 1 / 1;
   display: block;
   width: 100%;
@@ -152,10 +153,12 @@
 }
 
 .project-modal__content {
+  // Stacked in one cell like the images, so prev/next cross-fades without a height jump
   grid-area: 1 / 1;
   min-width: 0;
 }
 
+// `--slide-dir` is set per navigation so the outgoing panel travels the same way as the incoming
 @keyframes project-modal-content-enter {
   from {
     opacity: 0;
@@ -186,6 +189,7 @@
 }
 
 .project-modal-content-leave {
+  // The outgoing panel still overlaps the incoming one, so it must not swallow clicks
   pointer-events: none;
   animation: project-modal-content-leave var(--motion-duration-scene)
     var(--motion-ease-standard) both;
@@ -250,11 +254,13 @@
   align-items: center;
   gap: 0;
   border-top: 1px solid var(--line);
+
+  // Negative margins cancel the surface's padding so the bar spans the full width
   margin: var(--space-8) calc(-1 * var(--space-10)) calc(-1 * var(--space-10));
   transition: var(--theme-surface-transition);
 }
 
-// Sliding text with border icon animation on hover
+// Divider between prev and next; the half-pixel pull-back centres a 1px line on the 50% mark
 .project-modal__nav::after {
   content: '';
   position: absolute;
@@ -316,6 +322,7 @@
   }
 }
 
+// Animating the icon's margin is what slides the adjacent label; the label has no animation
 .project-modal__button-icon {
   width: var(--icon-xl);
   height: var(--icon-xl);

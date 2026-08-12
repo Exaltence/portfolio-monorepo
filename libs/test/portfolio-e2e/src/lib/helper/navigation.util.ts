@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-// Navigates and waits for the page to be genuinely interactive before handing back
+// The navigation is inside the retry because a cold dev server can drop the very first request
 export const gotoReady = async (
   page: Page,
   path = '/',

@@ -23,6 +23,7 @@
   transition: transform var(--motion-duration-scene) var(--motion-ease-standard);
   will-change: transform;
 
+  // Applied for the single frame the component teleports the track back into the middle copy
   &--instant {
     transition: none;
   }
@@ -34,6 +35,7 @@
   user-select: none;
 }
 
+// The component recomputes these widths and thresholds to size its step and column count
 @container (width < 700px) {
   .carousel__slide {
     flex-basis: calc((100% - 20px) / 2);

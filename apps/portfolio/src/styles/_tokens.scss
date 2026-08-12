@@ -48,10 +48,7 @@
   --press-scale-deep: 0.88;
 }
 
-/*
- * `--motion-duration-pulse` is deliberately not zeroed: a 0.01ms `infinite`
- * animation would spin the compositor forever
- */
+// `--motion-duration-pulse` is not zeroed: a 0.01ms `infinite` animation spins the compositor
 @media (prefers-reduced-motion: reduce) {
   :root {
     /* stylelint-disable declaration-property-value-disallowed-list */

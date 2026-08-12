@@ -4,6 +4,7 @@
   transition: opacity var(--motion-duration-scene) var(--motion-ease-linear);
 }
 
+// `closing` is put on by the modal component, which owns the timing: CDK offers no hook for it
 .cdk-overlay-backdrop.project-modal-backdrop.closing {
   opacity: 0;
 }

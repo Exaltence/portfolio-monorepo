@@ -29,14 +29,15 @@ import {
 import { ProjectCardComponent } from '../project-card/project-card.component';
 
 const AUTOPLAY_MS = 3000;
+// Must match the track's `gap` in the stylesheet; the step maths cannot read it back from layout
 const GAP_PX = 20;
+// Deadlock net, not a timing mechanism: a lost `transitionend` would strand `busy` forever
 const SETTLE_FALLBACK_MS = 300;
-// Deadlock net, not a timing mechanism
-
 const SETTLE_FALLBACK_GRACE_MS = 250;
 
 let nextId = 0;
 
+// `keyCode` rather than `key` because that is what CDK's `FocusKeyManager` matches on
 function isCarouselArrow(event: KeyboardEvent): boolean {
   return event.keyCode === LEFT_ARROW || event.keyCode === RIGHT_ARROW;
 }
@@ -66,12 +67,16 @@ export class ProjectCarouselComponent {
 
   private readonly count = computed(() => this.projects().length);
 
+  // The track holds three copies of the list, so the real slides start one full copy in
   private readonly firstRealSlide = computed(() => this.count());
 
+  // `logical` counts moves and drives the index, `render` is the track; both re-seed on a new list
   private readonly logical = linkedSignal(() => this.firstRealSlide());
   private readonly render = linkedSignal(() => this.firstRealSlide());
+  // Moves requested mid-transition queue here instead of fighting the one already in flight
   private readonly pending = signal(0);
   private readonly busy = signal(false);
+  // Kills the CSS transition for the frame the snap-back happens in, so it is invisible
   private readonly instant = signal(false);
   private settleFallback: ReturnType<typeof setTimeout> | undefined;
   private netSettled = false;
@@ -87,6 +92,7 @@ export class ProjectCarouselComponent {
     if (count === 0) {
       return [];
     }
+    // Tripled so there is a full copy of runway each side; the track never reveals an edge
     return Array.from({ length: count * 3 }, (_, i) => {
       const project = items[i % count];
       const clone = i < count || i >= count * 2;
@@ -94,7 +100,7 @@ export class ProjectCarouselComponent {
         key: `${i}-${project.id}`,
         project,
         clone,
-        // Only the real slide is announced
+        // Clones are hidden from assistive tech, so only the middle copy carries a position
         label: clone ? null : `${i - count + 1} of ${count}`,
       };
     });
@@ -127,7 +133,7 @@ export class ProjectCarouselComponent {
       this.count() > 1,
   );
 
-  // Remove pause button under reduced motion
+  // Nothing rotates under reduced motion, so the pause button would have nothing to pause
   protected readonly rotates = computed(
     () => !this.reducedMotion && this.count() > 1,
   );
@@ -136,6 +142,7 @@ export class ProjectCarouselComponent {
   private readonly viewport = viewChild<ElementRef<HTMLElement>>('viewport');
   private readonly viewportWidth = signal(0);
 
+  // These thresholds mirror the `@container` queries in the stylesheet and must move with them
   private readonly columns = computed(() => {
     const width = this.viewportWidth();
     if (width >= 700) {
@@ -144,6 +151,7 @@ export class ProjectCarouselComponent {
     return width >= 460 ? 2 : 1;
   });
 
+  // Re-derives the width the stylesheet's `flex-basis` produces; a slide plus a gap is one move
   private readonly step = computed(() => {
     const width = this.viewportWidth();
     const count = this.count();
@@ -164,6 +172,7 @@ export class ProjectCarouselComponent {
 
   constructor() {
     effect((onCleanup) => {
+      // Read for its dependency alone: bumping it restarts the interval with a full delay
       this.autoplayNonce();
       if (!this.canAutoplay()) {
         return;
@@ -172,7 +181,7 @@ export class ProjectCarouselComponent {
       onCleanup(() => clearInterval(id));
     });
 
-    // `pointerleave` fix for a pointer that was over the carousel when an overlay covers it
+    // An overlay under the pointer swallows `pointerleave`, leaving the hover pause stuck on
     effect((onCleanup) => {
       if (!this.paused()) {
         return;
@@ -182,9 +191,10 @@ export class ProjectCarouselComponent {
 
     afterNextRender(() => {
       const count = this.count();
+      // Only the middle copy is focusable; the clones are hidden duplicates of these same cards
       const homeCards = this.cards().slice(count, count * 2);
 
-      // Vertical ArrowUp/ArrowDown off explicitly
+      // Vertical arrows are off so they still scroll the page rather than moving the track
       this.keyManager = new FocusKeyManager<ProjectCardComponent>(homeCards)
         .withHorizontalOrientation('ltr')
         .withVerticalOrientation(false)
@@ -192,7 +202,7 @@ export class ProjectCarouselComponent {
 
       const host = this.viewport()?.nativeElement;
       if (host && typeof ResizeObserver !== 'undefined') {
-        // Fractional on purpose: `clientWidth` rounds, the container queries picking the column count do not
+        // Fractional on purpose: `clientWidth` rounds, and the drift shows after a lap
         this.viewportWidth.set(host.getBoundingClientRect().width);
         const observer = new ResizeObserver(([entry]) =>
           this.viewportWidth.set(entry.contentBoxSize[0].inlineSize),
@@ -223,10 +233,7 @@ export class ProjectCarouselComponent {
     this.userPaused.update((paused) => !paused);
   }
 
-  /*
-   * `slideIndex` is the index of the slide that was clicked, which may be a clone.
-   * The `project` is the original project associated with that slide
-   */
+  // A click can land on a clone the key manager does not track; re-point it and take focus back
   protected onSelect(project: Project, slideIndex: number): void {
     const count = this.count();
     if (count > 0 && (slideIndex < count || slideIndex >= count * 2)) {
@@ -256,7 +263,7 @@ export class ProjectCarouselComponent {
     if (event.propertyName !== 'transform') {
       return;
     }
-    // Late event from a netted move; `busy` is already true again for the next one, so it cannot gate this
+    // Late event from a move the net already closed; `busy` is true again so it cannot gate this
     if (this.netSettled) {
       this.netSettled = false;
       return;
@@ -272,7 +279,7 @@ export class ProjectCarouselComponent {
 
     const before = manager.activeItemIndex;
 
-    // Prevent the first arrow from moving the track if no card is active, but still let it move the focus into the slides
+    // The first arrow only moves focus in; letting it through would skip a project as well
     if ((before == null || before < 0) && isCarouselArrow(event)) {
       manager.setActiveItem(this.index());
       event.preventDefault();
@@ -286,7 +293,7 @@ export class ProjectCarouselComponent {
     }
   }
 
-  // Calculates the shortest wrapped delta between the current index and the target index avoiding clones and moves the carousel accordingly
+  // Focus wraps, so take the short way round; stepping one at a time keeps every move queued
   private goTo(target: number): void {
     const count = this.count();
     if (count < 2) {
@@ -307,6 +314,7 @@ export class ProjectCarouselComponent {
     this.pump();
   }
 
+  // One move in flight at a time, so a held arrow queues instead of restarting the transition
   private pump(): void {
     if (this.busy() || this.pending() === 0) {
       return;
@@ -318,7 +326,7 @@ export class ProjectCarouselComponent {
     this.armSettleFallback();
   }
 
-  // Under reduced motion turns the `transitionend` deadlock into a dropped frame, otherwise arms a net to catch a dropped event
+  // Reduced motion zeroes the transition and a backgrounded tab drops the event; this ends the move
   private armSettleFallback(): void {
     clearTimeout(this.settleFallback);
     const duration = motionDurationMs(
@@ -327,7 +335,7 @@ export class ProjectCarouselComponent {
     );
     this.settleFallback = setTimeout(
       () => {
-        // Usually late rather than lost, so flag the event still to come as belonging to a finished move
+        // Usually late rather than lost, so mark the event still to come as already handled
         this.netSettled = true;
         this.settle();
       },
@@ -335,7 +343,7 @@ export class ProjectCarouselComponent {
     );
   }
 
-  // Single end-of-move path to normalize `render` and clear `busy` (prevents drift on dropped events)
+  // The only path that clears `busy`, so a dropped event cannot strand `render` outside the middle
   private settle(): void {
     if (!this.busy()) {
       return;
@@ -344,11 +352,13 @@ export class ProjectCarouselComponent {
     const count = this.count();
     const render = this.render();
 
+    // Drifted into a clone: teleport to the identical middle slide and buy another copy of runway
     if (count > 0 && (render < count || render >= count * 2)) {
       this.instant.set(true);
       this.render.set(count + wrapIndex(render - count, count));
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
+          // Two frames: the first paints the jump untransitioned, the second re-enables safely
           this.instant.set(false);
           this.release();
         }),

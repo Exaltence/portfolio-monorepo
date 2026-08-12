@@ -85,10 +85,7 @@
   display: inline-grid;
 }
 
-/*
- * The sizer holds every role stacked in one cell, so the box is always as wide as the
- * longest one and cannot resize while the title types itself in and out
- */
+// The sizer stacks every role in one cell so the box cannot resize while the title types
 .profile-panel__typed-sizer,
 .profile-panel__typed-text {
   grid-area: 1 / 1;
@@ -108,7 +105,7 @@
   position: relative;
   justify-self: center;
 
-  // Bracket animation
+  // Pseudo-elements because the typing directive overwrites this element's `textContent` each tick
   &::before,
   &::after {
     position: absolute;
@@ -140,7 +137,6 @@
   }
 }
 
-// Resting-state override
 @media (prefers-reduced-motion: reduce) {
   .profile-panel__typed-text::before,
   .profile-panel__typed-text::after {
@@ -196,7 +192,6 @@
     position: relative;
   }
 
-  // Center expanding underline animation on hover
   span:last-child::after {
     content: '';
     position: absolute;

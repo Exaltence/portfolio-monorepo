@@ -1,9 +1,6 @@
 import { prefersReducedMotion } from '../motion/motion.util';
 
-/*
- * Checked per call rather than cached: `scroll-behavior: auto` in a media query
- * cannot override the `behavior` option, so the guard has to live here.
- */
+// Checked per call: `scroll-behavior` in a media query cannot override the `behavior` option
 function scrollBehavior(): ScrollBehavior {
   return prefersReducedMotion() ? 'auto' : 'smooth';
 }

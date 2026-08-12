@@ -85,10 +85,8 @@ export class ProjectsPage {
     );
   }
 
-  /*
-   * Index into `cloneCards`, Which slides are clones depends on where the track has
-   * settled, so this has to be measured rather than assumed.
-   */
+  // Which clone is on screen depends on where the track settled, so it has to be measured
+
   async visibleCloneIndex(): Promise<number> {
     return this.viewport.evaluate((viewportEl) => {
       const frame = viewportEl.getBoundingClientRect();

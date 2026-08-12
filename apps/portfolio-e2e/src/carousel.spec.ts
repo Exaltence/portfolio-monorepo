@@ -9,6 +9,7 @@ import {
   waitForSettledValue,
 } from '@portfolio-monorepo/test/portfolio-e2e';
 
+// Loaded under reduce, then switched back: the carousel reads the preference only at construction
 test.use({
   contextOptions: {
     reducedMotion: 'reduce',
@@ -74,6 +75,7 @@ test('slides fluidly through rapid navigation across repeated loop boundaries', 
   const period = count * step;
 
   const samples = await recordTrackMotion(page, async () => {
+    // Dispatched, not clicked: a real click waits for actionability and defeats the pile-up
     for (let i = 0; i < count * 2; i++) {
       await projects.next.dispatchEvent('click');
     }

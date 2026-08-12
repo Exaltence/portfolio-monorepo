@@ -32,7 +32,7 @@ export class TabGroupComponent {
     this.activeChange.emit(index);
   }
 
-  // Assistive technology users can navigate the tablist with keyboard
+  // Arrow, Home and End handling is required of a tablist by the ARIA authoring practices
   protected onKeydown(event: KeyboardEvent): void {
     const last = this.tabGroup().length - 1;
     if (last < 0) {

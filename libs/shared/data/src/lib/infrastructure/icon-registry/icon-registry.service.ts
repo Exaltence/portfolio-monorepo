@@ -13,6 +13,7 @@ export class IconRegistryService {
   });
   private readonly icons = new Map<IconName, Signal<SVGSVGElement | null>>();
 
+  // Cached so repeated calls return the same signal instead of one that re-renders every cycle
   get(name: IconName): Signal<SVGSVGElement | null> {
     const cached = this.icons.get(name);
 

@@ -29,6 +29,7 @@ const PROJECTS: readonly Project[] = [
   makeProject('d'),
 ];
 
+// jsdom ships no IntersectionObserver, and `NgOptimizedImage` inside the cards reaches for one
 class MockIntersectionObserver {
   readonly observe = vi.fn();
   readonly unobserve = vi.fn();
@@ -39,6 +40,7 @@ class MockIntersectionObserver {
   readonly thresholds: readonly number[] = [];
 }
 
+// jsdom has no PointerEvent constructor, so the fields the component reads are grafted on by hand
 function firePointerEvent(
   target: EventTarget,
   type: string,
@@ -76,6 +78,7 @@ describe('ProjectCarouselComponent', () => {
     vi.restoreAllMocks();
   });
 
+  // How the non-autoplay tests switch autoplay off; the move queue itself is unaffected
   function setReducedMotion(matches: boolean): void {
     window.matchMedia = vi
       .fn()
@@ -180,12 +183,7 @@ describe('ProjectCarouselComponent', () => {
     expect(carousel.index()).toBe(0);
   });
 
-  /*
-   * A late `transitionend` belongs to the move the net already finished, not to
-   * the one now running. Acting on it would clear the running move's own net
-   * and release `busy` mid-animation, leaving that move with no way to recover
-   * if its event is dropped too.
-   */
+  // Acting on a late event would clear the running move's net and release `busy` mid-animation
   it('should not let a late transitionend cut the following move short', async () => {
     vi.useFakeTimers();
     setReducedMotion(true);
