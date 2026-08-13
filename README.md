@@ -115,12 +115,3 @@ npx nx release                   # subsequent releases
 The portfolio is automatically deployed to GitHub Pages on every push to `main` via the `.github/workflows/deploy-pages.yml` workflow.
 
 Live URL: `https://exaltence.github.io/`
-
-### One-time repository settings required
-
-Before the workflow can deploy successfully, configure the repository once:
-
-1. Go to **Settings > Pages** in the GitHub repository.
-2. Under **Build and deployment > Source**, select **GitHub Actions**.
-
-This setting is not automated and must be applied manually by a repository admin before the first deployment.
