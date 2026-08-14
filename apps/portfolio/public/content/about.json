@@ -1,7 +1,7 @@
 {
   "subtitle": "Introduction",
   "title": "About Me",
-  "intro": "I'm Shaun, a front-end web developer with {{yearsOfExperience}} years of experience. I started as a Java consultant building internal platforms, then joined Renson as the founding developer of its MES team. There, I played a key role in transforming the production site from paper to paperless and building its front-end into a 9-application Angular monorepo. I like making large codebases survivable, bridging the gap between user and software and making technology accessible to everyone.",
+  "intro": "I'm Shaun, a front-end web developer with {{yearsOfExperience}} years of experience. I started as a Java consultant building internal platforms, then joined Renson as the founding developer of its MES team. There, I played a key role in transforming the production site from paper to paperless and building its front-end into a 9-application Angular monorepo. I like making large codebases survivable, bridging the gap between user and software, and making technology accessible to everyone.",
   "skills": [
     {
       "name": "Azure DevOps",
